@@ -13,4 +13,7 @@
         your device. This means we are not sending any of 
         your data to an external storage.  </string>
     <string name="have_fun">Have fun while learning</string>
+    <string name="name_text_hint">In order to customize your expirience, let’s know your name.</string>
+    <string name="text_hint">eg. Sam Esidem</string>
+    <string name="continue_text">Continue</string>
 </resources>
