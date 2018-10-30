@@ -7,4 +7,10 @@
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
+    <string name="data_warning">This application is by no means collecting
+        your sensitive data like password, location ect. 
+        All information inputed in this application are stored localy in 
+        your device. This means we are not sending any of 
+        your data to an external storage.  </string>
+    <string name="have_fun">Have fun while learning</string>
 </resources>
