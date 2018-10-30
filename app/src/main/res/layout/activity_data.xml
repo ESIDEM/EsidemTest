@@ -35,6 +35,7 @@
         android:layout_alignParentEnd="true"
         android:background="@color/colorPrimary"
         android:text="Next"
+        android:onClick="startMainActivity"
         android:textSize="20sp"
         android:textColor="@color/white"
         android:layout_alignParentRight="true" />
