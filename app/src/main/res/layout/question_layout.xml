@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:fillViewport="true">
+
+<RelativeLayout
+
+android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/question_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Who Developed this App ?"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="@dimen/activity_vertical_margin"
+        android:textSize="20sp"
+        android:layout_marginStart="@dimen/activity_vertical_margin"
+        android:layout_marginRight="@dimen/activity_vertical_margin" />
+
+    <TextView
+        android:id="@+id/option_1"
+        android:layout_width="280dp"
+        android:layout_height="60dp"
+        android:text="Sam Esidem"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/question_text_view"
+        android:background="@drawable/question_text_background"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/option_2"
+        android:layout_width="280dp"
+        android:layout_height="60dp"
+        android:text="Emem Jonah"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/option_1"
+        android:background="@drawable/question_text_background"
+        android:textSize="20sp"/>
+    <TextView
+        android:id="@+id/option_3"
+        android:layout_width="280dp"
+        android:layout_height="60dp"
+        android:text="Abasiama Akai"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/option_2"
+        android:background="@drawable/question_text_background"
+        android:textSize="20sp"/>
+    <TextView
+        android:id="@+id/option_4"
+        android:layout_width="280dp"
+        android:layout_height="60dp"
+        android:text="Mmeyene Akai"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/option_3"
+        android:background="@drawable/question_text_background"
+        android:textSize="20sp"/>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@+id/buttom_view"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp">
+    <TextView
+        android:id="@+id/question_timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="20"
+        android:textSize="50sp"
+        android:textColor="@color/colorAccent"
+         />
+        <Button
+            android:id="@+id/next_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_style"
+            android:text="Next"
+            android:textSize="20sp"
+            android:textColor="@color/white"/>
+    </FrameLayout>
+    <View
+        android:id="@+id/buttom_view"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@color/colorPrimary"/>
+
+</RelativeLayout>
+</ScrollView>
