@@ -31,9 +31,9 @@
         android:layout_height="wrap_content"
         android:text="@string/continue_text"
         android:textColor="@color/white"
-        android:textSize="15sp"
+        android:textSize="20sp"
         android:layout_marginTop="40dp"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/button_style"
         android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>
