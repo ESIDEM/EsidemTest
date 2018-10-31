@@ -16,4 +16,8 @@
     <string name="name_text_hint">In order to customize your expirience, let’s know your name.</string>
     <string name="text_hint">eg. Sam Esidem</string>
     <string name="continue_text">Continue</string>
+    <string name="title_activity_question">QuestionActivity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
