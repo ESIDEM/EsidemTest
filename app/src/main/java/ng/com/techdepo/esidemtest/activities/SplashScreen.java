@@ -1,4 +1,4 @@
-package ng.com.techdepo.esidemtest;
+package ng.com.techdepo.esidemtest.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
+
+import ng.com.techdepo.esidemtest.R;
 
 public class SplashScreen extends AppCompatActivity {
 

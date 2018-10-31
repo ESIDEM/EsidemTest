@@ -1,4 +1,4 @@
-package ng.com.techdepo.esidemtest;
+package ng.com.techdepo.esidemtest.activities;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -15,6 +15,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import ng.com.techdepo.esidemtest.R;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

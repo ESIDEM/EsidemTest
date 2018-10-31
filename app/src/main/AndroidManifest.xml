@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
 
@@ -22,7 +22,7 @@
             <!-- </intent-filter> -->
         </activity>
         <activity
-            android:name=".SplashScreen"
+            android:name=".activities.SplashScreen"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,15 +30,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DataActivity" />
+        <activity android:name=".activities.DataActivity" />
         <activity
-            android:name=".QuestionActivity"
+            android:name=".activities.QuestionActivity"
             android:label="@string/title_activity_question"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="ng.com.techdepo.esidemtest.MainActivity" />
+                android:value="ng.com.techdepo.esidemtest.activities.MainActivity" />
         </activity>
     </application>
 

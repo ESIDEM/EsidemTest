@@ -1,6 +1,5 @@
-package ng.com.techdepo.esidemtest;
+package ng.com.techdepo.esidemtest.activities;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,7 +9,8 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+
+import ng.com.techdepo.esidemtest.R;
 
 public class DataActivity extends AppCompatActivity {
 
