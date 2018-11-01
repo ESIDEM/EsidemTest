@@ -4,6 +4,7 @@ package ng.com.techdepo.esidemtest.fragments;
 import android.app.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -24,6 +25,8 @@ import ng.com.techdepo.esidemtest.utils.QuestionBackground;
  * A simple {@link Fragment} subclass.
  */
 public class QuestionFragment extends Fragment implements View.OnClickListener {
+
+    public static String TEST_TYPE = "test_type";
 
     TextView option1;
     TextView option2;
@@ -64,7 +67,8 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
         questionTimer = (TextView) rootView.findViewById(R.id.question_timer);
         netxButton = (Button) rootView.findViewById(R.id.next_button);
         netxButton.setVisibility(View.GONE);
-
+        Intent intent = getActivity().getIntent();
+        Toast.makeText(getActivity(),intent.getStringExtra(TEST_TYPE),Toast.LENGTH_SHORT).show();
         option1.setOnClickListener(this);
         option2.setOnClickListener(this);
         option3.setOnClickListener(this);
@@ -90,6 +94,18 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
             Toast.makeText(v.getContext(),"Option 4",Toast.LENGTH_LONG).show();
         }
 
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        countDownTimer.cancel();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        countDownTimer.cancel();
     }
 
     @Override

@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import ng.com.techdepo.esidemtest.R;
+import ng.com.techdepo.esidemtest.fragments.QuestionFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -115,8 +116,17 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    public void openQuestionActivity(View view) {
+    public void timeTrial(View view) {
+        Intent intent = new Intent(this,QuestionActivity.class);
+        intent.putExtra(QuestionFragment.TEST_TYPE,"time");
 
-        startActivity(new Intent(this,QuestionActivity.class));
+        startActivity(intent);
+    }
+
+    public void classicTest(View view) {
+        Intent intent = new Intent(this,QuestionActivity.class);
+        intent.putExtra(QuestionFragment.TEST_TYPE,"class");
+
+        startActivity(intent);
     }
 }
