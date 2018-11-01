@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import android.os.CountDownTimer;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +17,23 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 import ng.com.techdepo.esidemtest.R;
+import ng.com.techdepo.esidemtest.api.ApiInterface;
+import ng.com.techdepo.esidemtest.constants.Constants;
+import ng.com.techdepo.esidemtest.models.Question;
+import ng.com.techdepo.esidemtest.models.QuestionResponse;
 import ng.com.techdepo.esidemtest.utils.CounterColorUtil;
+import ng.com.techdepo.esidemtest.utils.NetworkUtil;
 import ng.com.techdepo.esidemtest.utils.QuestionBackground;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 /**
@@ -33,11 +48,17 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
     TextView option3;
     TextView option4;
     TextView questionTimer;
+    TextView quentionTextView;
     Button netxButton;
+    Boolean isTestRunning = true;
     private long timeCountInMilliSeconds = 20000;
     SharedPreferences prefs = null;
     String subject;
     private CountDownTimer countDownTimer;
+    int selected;
+    Question question;
+
+    private ArrayList<Question> questionList = new ArrayList<>();
 
     private enum TimerStatus {
         STARTED,
@@ -51,6 +72,11 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+         }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,6 +90,7 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
         option2 = (TextView) rootView.findViewById(R.id.option_2);
         option3 = (TextView) rootView.findViewById(R.id.option_3);
         option4 = (TextView) rootView.findViewById(R.id.option_4);
+        quentionTextView = (TextView) rootView.findViewById(R.id.question_text_view);
         questionTimer = (TextView) rootView.findViewById(R.id.question_timer);
         netxButton = (Button) rootView.findViewById(R.id.next_button);
         netxButton.setVisibility(View.GONE);
@@ -72,7 +99,12 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
         option2.setOnClickListener(this);
         option3.setOnClickListener(this);
         option4.setOnClickListener(this);
+        netxButton.setOnClickListener(this);
         showTimer(intent.getStringExtra(TEST_TYPE));
+
+        if(NetworkUtil.isNetworkAvailable(getActivity())){
+            getQuestions(subject);
+        }
 
         return  rootView;
 
@@ -81,16 +113,31 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
 
-
+        disAbleView();
         int id = v.getId();
+        selected = v.getId();
         if(id ==R.id.option_1){
             option1.setBackground(QuestionBackground.getSelectedQuetionBackground(getActivity()));
+            stopTimer();
+            showViews();
+            checkAnswer(question);
         }else if(id ==R.id.option_2){
-            Toast.makeText(v.getContext(),"Option 2",Toast.LENGTH_LONG).show();
+            option2.setBackground(QuestionBackground.getSelectedQuetionBackground(getActivity()));
+            stopTimer();
+            showViews();
+            checkAnswer(question);
         }else if (id ==R.id.option_3){
-            Toast.makeText(v.getContext(),"Option 3",Toast.LENGTH_LONG).show();
+            option3.setBackground(QuestionBackground.getSelectedQuetionBackground(getActivity()));
+            stopTimer();
+            showViews();
+            checkAnswer(question);
         }else if(id ==R.id.option_4) {
-            Toast.makeText(v.getContext(),"Option 4",Toast.LENGTH_LONG).show();
+            option4.setBackground(QuestionBackground.getSelectedQuetionBackground(getActivity()));
+            stopTimer();
+            showViews();
+            checkAnswer(question);
+        }else if(id==R.id.next_button){
+            nextButton();
         }
 
     }
@@ -140,8 +187,11 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
 
                 // changing the timer status to stopped
                 timerStatus = TimerStatus.STOPPED;
-                questionTimer.setVisibility(View.GONE);
-                netxButton.setVisibility(View.VISIBLE);
+                isTestRunning = false;
+                disAbleView();
+                selected = 0;
+                showViews();
+                checkAnswer(question);
 
             }
 
@@ -161,6 +211,137 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
 
         if(timerStatus==TimerStatus.STARTED){
             countDownTimer.cancel();
+            isTestRunning =false;
         }
+    }
+
+    private void getQuestions(String subject){
+
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create()).build();
+
+        ApiInterface apiInterface = retrofit.create(ApiInterface.class);
+
+         apiInterface.getQuestions(subject).enqueue(new Callback<QuestionResponse>() {
+            @Override
+            public void onResponse(Call<QuestionResponse> call, Response<QuestionResponse> response) {
+                if(response.isSuccessful()){
+
+                    QuestionResponse questionResponse = response.body();
+                   questionList.addAll(questionResponse.getData());
+                    selectRandom(questionList);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<QuestionResponse> call, Throwable t) {
+                Toast.makeText(getActivity(),t.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void selectRandom(List<Question> questionList){
+        Random randomizer = new Random();
+        question = questionList.get(randomizer.nextInt(questionList.size()));
+
+        quentionTextView.setText(question.getQuestion());
+        option1.setText(question.getOptions().getOptionA());
+        option2.setText(question.getOptions().getOptionB());
+        option3.setText(question.getOptions().getOptionC());
+        option4.setText(question.getOptions().getOptionD());
+
+         }
+
+    public void nextButton(){
+        enAbleView();
+        selectRandom(questionList);
+        isTestRunning = true;
+        startCountDownTimer();
+        showViews();
+        reSetViewColor();
+    }
+
+    private void showViews(){
+
+        if(isTestRunning){
+
+            netxButton.setVisibility(View.GONE);
+            questionTimer.setVisibility(View.VISIBLE);
+        }else {
+            netxButton.setVisibility(View.VISIBLE);
+            questionTimer.setVisibility(View.GONE);
+        }
+    }
+
+    private void checkAnswer(Question question){
+        if (selected==0){
+
+            if (question.getAnswer().equals("a")){
+                option1.setBackground(QuestionBackground.getCorrectQuetionBackground(getActivity()));
+            }else if (question.getAnswer().equals("b")){
+                option2.setBackground(QuestionBackground.getCorrectQuetionBackground(getActivity()));
+            }else if (question.getAnswer().equals("c")){
+                option3.setBackground(QuestionBackground.getCorrectQuetionBackground(getActivity()));
+            }else if (question.getAnswer().equals("d")){
+                option4.setBackground(QuestionBackground.getCorrectQuetionBackground(getActivity()));
+            }
+        }else {
+
+            TextView selectedTextView = (TextView) getActivity().findViewById(selected);
+            if (question.getAnswer().equals("a")) {
+                option1.setBackground(QuestionBackground.getCorrectQuetionBackground(getActivity()));
+                if (selectedTextView.getId() != option1.getId()) {
+                    selectedTextView.setBackground(QuestionBackground.getWrongQuetionBackground(getActivity()));
+                } else {
+                    selectedTextView.setBackground(QuestionBackground.getCorrectQuetionBackground(getActivity()));
+                }
+
+
+            } else if (question.getAnswer().equals("b")) {
+                option2.setBackground(QuestionBackground.getCorrectQuetionBackground(getActivity()));
+                if (selectedTextView.getId() != option2.getId()) {
+                    selectedTextView.setBackground(QuestionBackground.getWrongQuetionBackground(getActivity()));
+                } else {
+                    selectedTextView.setBackground(QuestionBackground.getCorrectQuetionBackground(getActivity()));
+                }
+            } else if (question.getAnswer().equals("c")) {
+                option3.setBackground(QuestionBackground.getCorrectQuetionBackground(getActivity()));
+                if (selectedTextView.getId() != option3.getId()) {
+                    selectedTextView.setBackground(QuestionBackground.getWrongQuetionBackground(getActivity()));
+                } else {
+                    selectedTextView.setBackground(QuestionBackground.getCorrectQuetionBackground(getActivity()));
+                }
+            } else if (question.getAnswer().equals("d")) {
+                option4.setBackground(QuestionBackground.getCorrectQuetionBackground(getActivity()));
+                if (selectedTextView.getId() != option4.getId()) {
+                    selectedTextView.setBackground(QuestionBackground.getWrongQuetionBackground(getActivity()));
+                } else {
+                    selectedTextView.setBackground(QuestionBackground.getCorrectQuetionBackground(getActivity()));
+                }
+            }
+        }
+
+    }
+
+    private void disAbleView(){
+        option1.setClickable(false);
+        option2.setClickable(false);
+        option3.setClickable(false);
+        option4.setClickable(false);
+    }
+
+    private void enAbleView(){
+        option1.setClickable(true);
+        option2.setClickable(true);
+        option3.setClickable(true);
+        option4.setClickable(true);
+    }
+
+    private void reSetViewColor(){
+
+        option1.setBackground(QuestionBackground.getNormalQuetionBackground(getActivity()));
+        option2.setBackground(QuestionBackground.getNormalQuetionBackground(getActivity()));
+        option3.setBackground(QuestionBackground.getNormalQuetionBackground(getActivity()));
+        option4.setBackground(QuestionBackground.getNormalQuetionBackground(getActivity()));
     }
 }

@@ -30,4 +30,11 @@ public class QuestionBackground {
         Drawable drawable = ResourcesCompat.getDrawable(res, R.drawable.question_answer_correct_background, null);
         return drawable;
     }
+
+    public static Drawable getNormalQuetionBackground(Context context){
+
+        Resources res = context.getResources();
+        Drawable drawable = ResourcesCompat.getDrawable(res, R.drawable.question_text_background, null);
+        return drawable;
+    }
 }
