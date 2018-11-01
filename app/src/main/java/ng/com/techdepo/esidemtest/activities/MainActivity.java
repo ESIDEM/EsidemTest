@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity
 
     public void classicTest(View view) {
         Intent intent = new Intent(this,QuestionActivity.class);
-        intent.putExtra(QuestionFragment.TEST_TYPE,"class");
+        intent.putExtra(QuestionFragment.TEST_TYPE,"classic");
 
         startActivity(intent);
     }

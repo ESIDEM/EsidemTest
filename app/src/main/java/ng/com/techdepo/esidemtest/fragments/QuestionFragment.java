@@ -68,13 +68,12 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
         netxButton = (Button) rootView.findViewById(R.id.next_button);
         netxButton.setVisibility(View.GONE);
         Intent intent = getActivity().getIntent();
-        Toast.makeText(getActivity(),intent.getStringExtra(TEST_TYPE),Toast.LENGTH_SHORT).show();
         option1.setOnClickListener(this);
         option2.setOnClickListener(this);
         option3.setOnClickListener(this);
         option4.setOnClickListener(this);
+        showTimer(intent.getStringExtra(TEST_TYPE));
 
-        startCountDownTimer();
         return  rootView;
 
     }
@@ -99,13 +98,13 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onPause() {
         super.onPause();
-        countDownTimer.cancel();
+        stopTimer();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        countDownTimer.cancel();
+        stopTimer();
     }
 
     @Override
@@ -125,6 +124,7 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
     }
 
     private void startCountDownTimer() {
+        timerStatus = TimerStatus.STARTED;
 
         countDownTimer = new CountDownTimer(timeCountInMilliSeconds, 1000) {
             @Override
@@ -147,5 +147,20 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
 
         }.start();
         countDownTimer.start();
+    }
+
+    private void showTimer(String type){
+     if(type.equals("time")){
+         startCountDownTimer();
+     }else if(type.equals("classic")){
+         questionTimer.setVisibility(View.GONE);
+     }
+    }
+
+    private void stopTimer(){
+
+        if(timerStatus==TimerStatus.STARTED){
+            countDownTimer.cancel();
+        }
     }
 }
