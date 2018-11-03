@@ -1,6 +1,7 @@
 package ng.com.techdepo.esidemtest.fragments;
 
 
+import android.app.Dialog;
 import android.app.Fragment;
 
 import android.content.Context;
@@ -9,11 +10,14 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +26,7 @@ import java.util.List;
 import java.util.Random;
 
 import ng.com.techdepo.esidemtest.R;
+import ng.com.techdepo.esidemtest.activities.MainActivity;
 import ng.com.techdepo.esidemtest.api.ApiInterface;
 import ng.com.techdepo.esidemtest.constants.Constants;
 import ng.com.techdepo.esidemtest.models.Question;
@@ -50,6 +55,7 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
     TextView questionTimer;
     TextView quentionTextView;
     Button netxButton;
+    TextView questionYear;
     Boolean isTestRunning = true;
     private long timeCountInMilliSeconds = 20000;
     SharedPreferences prefs = null;
@@ -57,6 +63,9 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
     private CountDownTimer countDownTimer;
     int selected;
     Question question;
+    private ProgressBar progressBarCircle;
+    int numberOfQuestions = 0;
+    int correctAnswers = 0;
 
     private ArrayList<Question> questionList = new ArrayList<>();
 
@@ -90,9 +99,12 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
         option2 = (TextView) rootView.findViewById(R.id.option_2);
         option3 = (TextView) rootView.findViewById(R.id.option_3);
         option4 = (TextView) rootView.findViewById(R.id.option_4);
+        questionYear = (TextView) rootView.findViewById(R.id.question_year);
         quentionTextView = (TextView) rootView.findViewById(R.id.question_text_view);
         questionTimer = (TextView) rootView.findViewById(R.id.question_timer);
         netxButton = (Button) rootView.findViewById(R.id.next_button);
+        progressBarCircle = (ProgressBar) rootView.findViewById(R.id.progressBarCircle);
+        progressBarCircle.setMax(10);
         netxButton.setVisibility(View.GONE);
         Intent intent = getActivity().getIntent();
         option1.setOnClickListener(this);
@@ -120,22 +132,22 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
             option1.setBackground(QuestionBackground.getSelectedQuetionBackground(getActivity()));
             stopTimer();
             showViews();
-            checkAnswer(question);
+            deLay();
         }else if(id ==R.id.option_2){
             option2.setBackground(QuestionBackground.getSelectedQuetionBackground(getActivity()));
             stopTimer();
             showViews();
-            checkAnswer(question);
+            deLay();
         }else if (id ==R.id.option_3){
             option3.setBackground(QuestionBackground.getSelectedQuetionBackground(getActivity()));
             stopTimer();
             showViews();
-            checkAnswer(question);
+            deLay();
         }else if(id ==R.id.option_4) {
             option4.setBackground(QuestionBackground.getSelectedQuetionBackground(getActivity()));
             stopTimer();
             showViews();
-            checkAnswer(question);
+            deLay();
         }else if(id==R.id.next_button){
             nextButton();
         }
@@ -243,12 +255,13 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
     private void selectRandom(List<Question> questionList){
         Random randomizer = new Random();
         question = questionList.get(randomizer.nextInt(questionList.size()));
-
+        questionYear.setText(question.getExamtype().toUpperCase() + " "+question.getExamyear());
         quentionTextView.setText(question.getQuestion());
         option1.setText(question.getOptions().getOptionA());
         option2.setText(question.getOptions().getOptionB());
         option3.setText(question.getOptions().getOptionC());
         option4.setText(question.getOptions().getOptionD());
+
 
          }
 
@@ -274,6 +287,7 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
     }
 
     private void checkAnswer(Question question){
+        numberOfQuestions++;
         if (selected==0){
 
             if (question.getAnswer().equals("a")){
@@ -289,27 +303,30 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
 
             TextView selectedTextView = (TextView) getActivity().findViewById(selected);
             if (question.getAnswer().equals("a")) {
-                option1.setBackground(QuestionBackground.getCorrectQuetionBackground(getActivity()));
+                 option1.setBackground(QuestionBackground.getCorrectQuetionBackground(getActivity()));
                 if (selectedTextView.getId() != option1.getId()) {
                     selectedTextView.setBackground(QuestionBackground.getWrongQuetionBackground(getActivity()));
                 } else {
                     selectedTextView.setBackground(QuestionBackground.getCorrectQuetionBackground(getActivity()));
+                    correctAnswers++;
                 }
 
 
             } else if (question.getAnswer().equals("b")) {
-                option2.setBackground(QuestionBackground.getCorrectQuetionBackground(getActivity()));
+                  option2.setBackground(QuestionBackground.getCorrectQuetionBackground(getActivity()));
                 if (selectedTextView.getId() != option2.getId()) {
                     selectedTextView.setBackground(QuestionBackground.getWrongQuetionBackground(getActivity()));
                 } else {
                     selectedTextView.setBackground(QuestionBackground.getCorrectQuetionBackground(getActivity()));
+                    correctAnswers++;
                 }
             } else if (question.getAnswer().equals("c")) {
-                option3.setBackground(QuestionBackground.getCorrectQuetionBackground(getActivity()));
+                    option3.setBackground(QuestionBackground.getCorrectQuetionBackground(getActivity()));
                 if (selectedTextView.getId() != option3.getId()) {
                     selectedTextView.setBackground(QuestionBackground.getWrongQuetionBackground(getActivity()));
                 } else {
                     selectedTextView.setBackground(QuestionBackground.getCorrectQuetionBackground(getActivity()));
+                    correctAnswers++;
                 }
             } else if (question.getAnswer().equals("d")) {
                 option4.setBackground(QuestionBackground.getCorrectQuetionBackground(getActivity()));
@@ -317,6 +334,7 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
                     selectedTextView.setBackground(QuestionBackground.getWrongQuetionBackground(getActivity()));
                 } else {
                     selectedTextView.setBackground(QuestionBackground.getCorrectQuetionBackground(getActivity()));
+                    correctAnswers++;
                 }
             }
         }
@@ -343,5 +361,60 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
         option2.setBackground(QuestionBackground.getNormalQuetionBackground(getActivity()));
         option3.setBackground(QuestionBackground.getNormalQuetionBackground(getActivity()));
         option4.setBackground(QuestionBackground.getNormalQuetionBackground(getActivity()));
+    }
+
+    private void deLay(){
+
+        new Handler().postDelayed (new Runnable() {
+            @Override
+            public void run() {
+
+
+                checkAnswer(question);
+
+
+            }
+        }, 1000);
+    }
+
+    public void showDialog(){
+        final Dialog dialog = new Dialog(getActivity());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.result_dialogue);
+        TextView correctAnswerText=(TextView)dialog.findViewById(R.id.score_textView);
+        correctAnswerText.setText(correctAnswers+"/10");
+        Button reTakeButton = (Button) dialog.findViewById(R.id.re_take_button);
+        progressBarCircle.setProgress(correctAnswers);
+        reTakeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                correctAnswers=0;
+                dialog.dismiss();
+
+
+
+            }
+        });
+
+        Button homeButton = (Button) dialog.findViewById(R.id.home_button);
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                correctAnswers=0;
+                startActivity(new Intent(getActivity(),MainActivity.class));
+            }
+        });
+
+        dialog.show();
+
+    }
+
+    private void checkNumberOfQuestions(){
+        if (numberOfQuestions==10){
+            isTestRunning = false;
+            showDialog();
+        }
     }
 }
