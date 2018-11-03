@@ -103,8 +103,6 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
         quentionTextView = (TextView) rootView.findViewById(R.id.question_text_view);
         questionTimer = (TextView) rootView.findViewById(R.id.question_timer);
         netxButton = (Button) rootView.findViewById(R.id.next_button);
-        progressBarCircle = (ProgressBar) rootView.findViewById(R.id.progressBarCircle);
-        progressBarCircle.setMax(10);
         netxButton.setVisibility(View.GONE);
         Intent intent = getActivity().getIntent();
         option1.setOnClickListener(this);
@@ -171,6 +169,7 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
         super.onResume();
         subject = prefs.getString("subject","chemistry");
         setTimeValue(subject);
+
     }
 
     private void setTimeValue(String subject){
@@ -204,6 +203,7 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
                 selected = 0;
                 showViews();
                 checkAnswer(question);
+                checkNumberOfQuestions();
 
             }
 
@@ -287,7 +287,7 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
     }
 
     private void checkAnswer(Question question){
-        numberOfQuestions++;
+
         if (selected==0){
 
             if (question.getAnswer().equals("a")){
@@ -308,7 +308,7 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
                     selectedTextView.setBackground(QuestionBackground.getWrongQuetionBackground(getActivity()));
                 } else {
                     selectedTextView.setBackground(QuestionBackground.getCorrectQuetionBackground(getActivity()));
-                    correctAnswers++;
+                    correctAnswers=correctAnswers+1;
                 }
 
 
@@ -318,7 +318,7 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
                     selectedTextView.setBackground(QuestionBackground.getWrongQuetionBackground(getActivity()));
                 } else {
                     selectedTextView.setBackground(QuestionBackground.getCorrectQuetionBackground(getActivity()));
-                    correctAnswers++;
+                    correctAnswers=correctAnswers+1;
                 }
             } else if (question.getAnswer().equals("c")) {
                     option3.setBackground(QuestionBackground.getCorrectQuetionBackground(getActivity()));
@@ -326,7 +326,7 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
                     selectedTextView.setBackground(QuestionBackground.getWrongQuetionBackground(getActivity()));
                 } else {
                     selectedTextView.setBackground(QuestionBackground.getCorrectQuetionBackground(getActivity()));
-                    correctAnswers++;
+                    correctAnswers=correctAnswers+1;
                 }
             } else if (question.getAnswer().equals("d")) {
                 option4.setBackground(QuestionBackground.getCorrectQuetionBackground(getActivity()));
@@ -334,10 +334,13 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
                     selectedTextView.setBackground(QuestionBackground.getWrongQuetionBackground(getActivity()));
                 } else {
                     selectedTextView.setBackground(QuestionBackground.getCorrectQuetionBackground(getActivity()));
-                    correctAnswers++;
+                    correctAnswers=correctAnswers+1;
                 }
             }
         }
+
+        numberOfQuestions = numberOfQuestions+1;
+        checkNumberOfQuestions();
 
     }
 
@@ -378,10 +381,15 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
     }
 
     public void showDialog(){
+        reSetViewColor();
+        countDownTimer.cancel();
+
         final Dialog dialog = new Dialog(getActivity());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
         dialog.setContentView(R.layout.result_dialogue);
+        progressBarCircle = (ProgressBar) dialog.findViewById(R.id.progressBarCircle);
+        progressBarCircle.setMax(10);
         TextView correctAnswerText=(TextView)dialog.findViewById(R.id.score_textView);
         correctAnswerText.setText(correctAnswers+"/10");
         Button reTakeButton = (Button) dialog.findViewById(R.id.re_take_button);
@@ -389,8 +397,13 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
         reTakeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                correctAnswers=0;
+
                 dialog.dismiss();
+                isTestRunning=true;
+                selectRandom(questionList);
+                correctAnswers = 0;
+                numberOfQuestions = 0;
+
 
 
 
@@ -402,7 +415,7 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                correctAnswers=0;
+
                 startActivity(new Intent(getActivity(),MainActivity.class));
             }
         });
@@ -412,7 +425,7 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
     }
 
     private void checkNumberOfQuestions(){
-        if (numberOfQuestions==10){
+        if (numberOfQuestions==5){
             isTestRunning = false;
             showDialog();
         }
