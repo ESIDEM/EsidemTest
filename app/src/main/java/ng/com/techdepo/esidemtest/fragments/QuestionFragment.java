@@ -271,7 +271,7 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
         isTestRunning = true;
         startCountDownTimer();
         showViews();
-        reSetViewColor();
+        QuestionBackground.reSetQuetionBackground(getActivity(),option1,option2,option3,option4);
     }
 
     private void showViews(){
@@ -358,15 +358,7 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
         option4.setClickable(true);
     }
 
-    private void reSetViewColor(){
-
-        option1.setBackground(QuestionBackground.getNormalQuetionBackground(getActivity()));
-        option2.setBackground(QuestionBackground.getNormalQuetionBackground(getActivity()));
-        option3.setBackground(QuestionBackground.getNormalQuetionBackground(getActivity()));
-        option4.setBackground(QuestionBackground.getNormalQuetionBackground(getActivity()));
-    }
-
-    private void deLay(){
+     private void deLay(){
 
         new Handler().postDelayed (new Runnable() {
             @Override
@@ -381,7 +373,7 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
     }
 
     public void showDialog(){
-        reSetViewColor();
+        QuestionBackground.reSetQuetionBackground(getActivity(),option1,option2,option3,option4);
         countDownTimer.cancel();
 
         final Dialog dialog = new Dialog(getActivity());
