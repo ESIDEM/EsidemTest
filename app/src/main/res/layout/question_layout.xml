@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="question"
+            type="ng.com.techdepo.esidemtest.models.Question"/>
+    </data>
 <ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+    
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:fillViewport="true">
@@ -14,7 +21,7 @@ android:layout_width="match_parent"
         android:id="@+id/question_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Who Developed this App ?"
+        android:text='@{question.question,default="Who developed this App ?"}'
         android:gravity="center"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
@@ -27,7 +34,7 @@ android:layout_width="match_parent"
         android:id="@+id/option_1"
         android:layout_width="280dp"
         android:layout_height="60dp"
-        android:text="Sam Esidem"
+        android:text='@{question.options.optionA,default="Emem Jonah"}'
         android:gravity="center"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
@@ -39,7 +46,7 @@ android:layout_width="match_parent"
         android:id="@+id/option_2"
         android:layout_width="280dp"
         android:layout_height="60dp"
-        android:text="Emem Jonah"
+        android:text='@{question.options.optionB,default="Sam Esidem"}'
         android:gravity="center"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
@@ -50,7 +57,7 @@ android:layout_width="match_parent"
         android:id="@+id/option_3"
         android:layout_width="280dp"
         android:layout_height="60dp"
-        android:text="Abasiama Akai"
+        android:text='@{question.options.optionC,default="Abasiama Akai"}'
         android:gravity="center"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
@@ -61,7 +68,7 @@ android:layout_width="match_parent"
         android:id="@+id/option_4"
         android:layout_width="280dp"
         android:layout_height="60dp"
-        android:text="Mmeyene Akai"
+        android:text='@{question.options.optionD,default="Mmeyene Akai"}'
         android:gravity="center"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
@@ -99,7 +106,7 @@ android:layout_width="match_parent"
         android:id="@+id/question_year"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="WASSCE 2005"
+        android:text='@{question.examtype.toUpperCase() +" "+ question.examyear,default="WASSCE 2005"}'
         android:layout_above="@+id/buttom_view"
         android:layout_alignParentLeft="true"
         android:layout_marginStart="@dimen/activity_vertical_margin"
@@ -115,3 +122,4 @@ android:layout_width="match_parent"
 
 </RelativeLayout>
 </ScrollView>
+</layout>

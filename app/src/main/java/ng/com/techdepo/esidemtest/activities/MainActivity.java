@@ -14,9 +14,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.LinearLayout;
+
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import ng.com.techdepo.esidemtest.R;
 import ng.com.techdepo.esidemtest.fragments.QuestionFragment;
@@ -27,14 +27,16 @@ public class MainActivity extends AppCompatActivity
     TextView nameText;
     View timeTrialLayout;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+       setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         prefs = getSharedPreferences("ng.com.techdepo.esidemtest", MODE_PRIVATE);
-       // timeTrialLayout = (LinearLayout) findViewById(R.id.time_trial_layout);
+         // timeTrialLayout = (LinearLayout) findViewById(R.id.time_trial_layout);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -7,6 +7,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 
 import android.os.CountDownTimer;
@@ -29,6 +30,7 @@ import ng.com.techdepo.esidemtest.R;
 import ng.com.techdepo.esidemtest.activities.MainActivity;
 import ng.com.techdepo.esidemtest.api.ApiInterface;
 import ng.com.techdepo.esidemtest.constants.Constants;
+import ng.com.techdepo.esidemtest.databinding.QuestionLayoutBinding;
 import ng.com.techdepo.esidemtest.models.Question;
 import ng.com.techdepo.esidemtest.models.QuestionResponse;
 import ng.com.techdepo.esidemtest.utils.CounterColorUtil;
@@ -66,6 +68,7 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
     private ProgressBar progressBarCircle;
     int numberOfQuestions = 0;
     int correctAnswers = 0;
+    QuestionLayoutBinding questionLayoutBinding;
 
     private ArrayList<Question> questionList = new ArrayList<>();
 
@@ -91,18 +94,15 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.question_layout, container, false);
+        questionLayoutBinding = DataBindingUtil.inflate(inflater,R.layout.question_layout, container, false);
+       // View rootView = inflater.inflate(R.layout.question_layout, container, false);
+        View view = questionLayoutBinding.getRoot();
         prefs = this.getActivity().getSharedPreferences("ng.com.techdepo.esidemtest", Context.MODE_APPEND);
         subject = prefs.getString("subject","chemistry");
         setTimeValue(subject);
-        option1 = (TextView) rootView.findViewById(R.id.option_1);
-        option2 = (TextView) rootView.findViewById(R.id.option_2);
-        option3 = (TextView) rootView.findViewById(R.id.option_3);
-        option4 = (TextView) rootView.findViewById(R.id.option_4);
-        questionYear = (TextView) rootView.findViewById(R.id.question_year);
-        quentionTextView = (TextView) rootView.findViewById(R.id.question_text_view);
-        questionTimer = (TextView) rootView.findViewById(R.id.question_timer);
-        netxButton = (Button) rootView.findViewById(R.id.next_button);
+         bindViews();
+
+        netxButton = (Button) view.findViewById(R.id.next_button);
         netxButton.setVisibility(View.GONE);
         Intent intent = getActivity().getIntent();
         option1.setOnClickListener(this);
@@ -116,7 +116,7 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
             getQuestions(subject);
         }
 
-        return  rootView;
+      return  view;
 
     }
 
@@ -188,7 +188,7 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onTick(long millisUntilFinished) {
                 CounterColorUtil.setTimerColor(millisUntilFinished,questionTimer,getActivity());
-            questionTimer.setText(String.valueOf(millisUntilFinished/1000));
+                questionTimer.setText(String.valueOf(millisUntilFinished/1000));
 
             }
 
@@ -255,15 +255,8 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
     private void selectRandom(List<Question> questionList){
         Random randomizer = new Random();
         question = questionList.get(randomizer.nextInt(questionList.size()));
-        questionYear.setText(question.getExamtype().toUpperCase() + " "+question.getExamyear());
-        quentionTextView.setText(question.getQuestion());
-        option1.setText(question.getOptions().getOptionA());
-        option2.setText(question.getOptions().getOptionB());
-        option3.setText(question.getOptions().getOptionC());
-        option4.setText(question.getOptions().getOptionD());
-
-
-         }
+        questionLayoutBinding.setQuestion(question);
+          }
 
     public void nextButton(){
         enAbleView();
@@ -422,4 +415,12 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
             showDialog();
         }
     }
+
+    private void bindViews(){
+        option1 = questionLayoutBinding.option1;
+        option2 = questionLayoutBinding.option2;
+        option3 = questionLayoutBinding.option3;
+        option4 = questionLayoutBinding.option4;
+        questionTimer = questionLayoutBinding.questionTimer;
+            }
 }
