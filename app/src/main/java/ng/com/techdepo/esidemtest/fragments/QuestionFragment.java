@@ -46,7 +46,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class QuestionFragment extends Fragment implements View.OnClickListener {
+public class QuestionFragment extends Fragment  {
 
     public static String TEST_TYPE = "test_type";
 
@@ -105,52 +105,19 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
         netxButton = (Button) view.findViewById(R.id.next_button);
         netxButton.setVisibility(View.GONE);
         Intent intent = getActivity().getIntent();
-        option1.setOnClickListener(this);
-        option2.setOnClickListener(this);
-        option3.setOnClickListener(this);
-        option4.setOnClickListener(this);
-        netxButton.setOnClickListener(this);
         showTimer(intent.getStringExtra(TEST_TYPE));
 
         if(NetworkUtil.isNetworkAvailable(getActivity())){
             getQuestions(subject);
         }
 
+        ClickHandler clickHandler = new ClickHandler();
+        questionLayoutBinding.setOnclick(clickHandler);
+
       return  view;
 
     }
 
-    @Override
-    public void onClick(View v) {
-
-        disAbleView();
-        int id = v.getId();
-        selected = v.getId();
-        if(id ==R.id.option_1){
-            option1.setBackground(QuestionBackground.getSelectedQuetionBackground(getActivity()));
-            stopTimer();
-            showViews();
-            deLay();
-        }else if(id ==R.id.option_2){
-            option2.setBackground(QuestionBackground.getSelectedQuetionBackground(getActivity()));
-            stopTimer();
-            showViews();
-            deLay();
-        }else if (id ==R.id.option_3){
-            option3.setBackground(QuestionBackground.getSelectedQuetionBackground(getActivity()));
-            stopTimer();
-            showViews();
-            deLay();
-        }else if(id ==R.id.option_4) {
-            option4.setBackground(QuestionBackground.getSelectedQuetionBackground(getActivity()));
-            stopTimer();
-            showViews();
-            deLay();
-        }else if(id==R.id.next_button){
-            nextButton();
-        }
-
-    }
 
     @Override
     public void onPause() {
@@ -422,5 +389,38 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
         option3 = questionLayoutBinding.option3;
         option4 = questionLayoutBinding.option4;
         questionTimer = questionLayoutBinding.questionTimer;
+            }
+
+            public class ClickHandler{
+        public void onClick(View view){
+            disAbleView();
+            int id = view.getId();
+            selected = view.getId();
+            if(id ==R.id.option_1){
+                option1.setBackground(QuestionBackground.getSelectedQuetionBackground(getActivity()));
+                stopTimer();
+                showViews();
+                deLay();
+            }else if(id ==R.id.option_2){
+                option2.setBackground(QuestionBackground.getSelectedQuetionBackground(getActivity()));
+                stopTimer();
+                showViews();
+                deLay();
+            }else if (id ==R.id.option_3){
+                option3.setBackground(QuestionBackground.getSelectedQuetionBackground(getActivity()));
+                stopTimer();
+                showViews();
+                deLay();
+            }else if(id ==R.id.option_4) {
+                option4.setBackground(QuestionBackground.getSelectedQuetionBackground(getActivity()));
+                stopTimer();
+                showViews();
+                deLay();
+            }else if(id==R.id.next_button){
+                nextButton();
+            }
+
+        }
+
             }
 }
