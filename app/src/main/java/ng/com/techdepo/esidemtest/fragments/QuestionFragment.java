@@ -4,6 +4,8 @@ package ng.com.techdepo.esidemtest.fragments;
 import android.app.Dialog;
 
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -38,6 +40,7 @@ import ng.com.techdepo.esidemtest.models.QuestionResponse;
 import ng.com.techdepo.esidemtest.utils.CounterColorUtil;
 import ng.com.techdepo.esidemtest.utils.NetworkUtil;
 import ng.com.techdepo.esidemtest.utils.QuestionBackground;
+import ng.com.techdepo.esidemtest.view_model.QuestionsViewModel;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -109,7 +112,8 @@ public class QuestionFragment extends Fragment {
         showTimer(intent.getStringExtra(TEST_TYPE));
 
         if (NetworkUtil.isNetworkAvailable(getActivity())) {
-            getQuestions(subject);
+           // getQuestions(subject);
+            fetchQuestions();
         }
 
         ClickHandler clickHandler = new ClickHandler();
@@ -195,31 +199,41 @@ public class QuestionFragment extends Fragment {
         }
     }
 
-    private void getQuestions(String subject) {
+//    private void getQuestions(String subject) {
+//
+//        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.BASE_URL)
+//                .addConverterFactory(GsonConverterFactory.create()).build();
+//
+//        ApiInterface apiInterface = retrofit.create(ApiInterface.class);
+//
+//        apiInterface.getQuestions(subject).enqueue(new Callback<QuestionResponse>() {
+//            @Override
+//            public void onResponse(Call<QuestionResponse> call, Response<QuestionResponse> response) {
+//                if (response.isSuccessful()) {
+//
+//                    QuestionResponse questionResponse = response.body();
+//                    questionList.addAll(questionResponse.getData());
+//                    selectRandom(questionList);
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<QuestionResponse> call, Throwable t) {
+//                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create()).build();
-
-        ApiInterface apiInterface = retrofit.create(ApiInterface.class);
-
-        apiInterface.getQuestions(subject).enqueue(new Callback<QuestionResponse>() {
+    private void fetchQuestions(){
+        QuestionsViewModel questionsViewModel = ViewModelProviders.of(this).get(QuestionsViewModel.class);
+        questionsViewModel.getQuestions().observe(this, new Observer<QuestionResponse>() {
             @Override
-            public void onResponse(Call<QuestionResponse> call, Response<QuestionResponse> response) {
-                if (response.isSuccessful()) {
-
-                    QuestionResponse questionResponse = response.body();
-                    questionList.addAll(questionResponse.getData());
-                    selectRandom(questionList);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<QuestionResponse> call, Throwable t) {
-                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            public void onChanged(@Nullable QuestionResponse questionResponse) {
+                questionList.addAll(questionResponse.getData());
+                selectRandom(questionList);
             }
         });
     }
-
     private void selectRandom(List<Question> questionList) {
         Random randomizer = new Random();
         question = questionList.get(randomizer.nextInt(questionList.size()));
