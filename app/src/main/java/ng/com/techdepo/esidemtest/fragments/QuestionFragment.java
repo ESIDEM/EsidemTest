@@ -2,7 +2,7 @@ package ng.com.techdepo.esidemtest.fragments;
 
 
 import android.app.Dialog;
-import android.app.Fragment;
+
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -97,6 +98,7 @@ public class QuestionFragment extends Fragment {
         // Inflate the layout for this fragment
         questionLayoutBinding = DataBindingUtil.inflate(inflater, R.layout.question_layout, container, false);
         // View rootView = inflater.inflate(R.layout.question_layout, container, false);
+        getActivity().setTitle("Time Trial");
         View view = questionLayoutBinding.getRoot();
         prefs = this.getActivity().getSharedPreferences("ng.com.techdepo.esidemtest", Context.MODE_APPEND);
         subject = prefs.getString("subject", "chemistry");
