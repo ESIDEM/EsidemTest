@@ -21,7 +21,6 @@ public class QuestionsViewModel extends AndroidViewModel {
         appDatabase = AppDatabase.getInstance(this.getApplication());
         appRepository = new AppRepository(getApplication());
         appRepository.getQuestionsFromAPI();
-      // quetions = appDatabase.databaseDAO().getAllQuestions();
         quetions = appRepository.getQuestionsFromDb();
     }
 

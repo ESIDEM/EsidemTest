@@ -1,9 +1,12 @@
 package ng.com.techdepo.esidemtest.activities;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,11 +18,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import android.widget.TextView;
+import android.widget.Toast;
 
+
+import java.util.List;
 
 import ng.com.techdepo.esidemtest.R;
+import ng.com.techdepo.esidemtest.database.QuestionEntity;
 import ng.com.techdepo.esidemtest.databinding.ActivityMainBinding;
 import ng.com.techdepo.esidemtest.fragments.QuestionFragment;
+import ng.com.techdepo.esidemtest.utils.QuestionConverter;
+import ng.com.techdepo.esidemtest.view_model.QuestionsViewModel;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -45,6 +54,8 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         activityMainBinding.navView.setNavigationItemSelectedListener(this);
+        fetchQuestions();
+
 
 
 
@@ -64,6 +75,16 @@ public class MainActivity extends AppCompatActivity
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+
+    private void fetchQuestions(){
+        QuestionsViewModel questionsViewModel = ViewModelProviders.of(this).get(QuestionsViewModel.class);
+        questionsViewModel.getQuestions().observe(this, new Observer<List<QuestionEntity>>() {
+            @Override
+            public void onChanged(@Nullable List<QuestionEntity> questionEntities) {
+
+            }
+        });
     }
 
     @Override

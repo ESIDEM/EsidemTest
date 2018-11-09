@@ -26,7 +26,10 @@ public interface DatabaseDAO {
     void delete(QuestionEntity questionEntity);
 
     @Query("SELECT * FROM questions WHERE id = :questionId")
-    LiveData<QuestionEntity> getQuestionWithId(int questionId);
+    LiveData<List<QuestionEntity>> getQuestionWithId(int questionId);
+
+    @Query("SELECT * FROM questions WHERE id = :questionId")
+    List<QuestionEntity> readQuestionWithId(int questionId);
 
     @Query("DELETE FROM questions WHERE id = :questionId")
     void deleteById(int questionId);

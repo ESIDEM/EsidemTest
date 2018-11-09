@@ -40,6 +40,7 @@ import ng.com.techdepo.esidemtest.models.QuestionResponse;
 import ng.com.techdepo.esidemtest.utils.CounterColorUtil;
 import ng.com.techdepo.esidemtest.utils.NetworkUtil;
 import ng.com.techdepo.esidemtest.utils.QuestionBackground;
+import ng.com.techdepo.esidemtest.utils.QuestionConverter;
 import ng.com.techdepo.esidemtest.view_model.QuestionsViewModel;
 
 
@@ -103,7 +104,7 @@ public class QuestionFragment extends Fragment {
         subject = prefs.getString("subject", "chemistry");
         setTimeValue(subject);
         bindViews();
-
+        questionList.clear();
         Intent intent = getActivity().getIntent();
         showTimer(intent.getStringExtra(TEST_TYPE));
 
@@ -195,49 +196,19 @@ public class QuestionFragment extends Fragment {
         }
     }
 
-//    private void getQuestions(String subject) {
-//
-//        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.BASE_URL)
-//                .addConverterFactory(GsonConverterFactory.create()).build();
-//
-//        ApiInterface apiInterface = retrofit.create(ApiInterface.class);
-//
-//        apiInterface.getQuestions(subject).enqueue(new Callback<QuestionResponse>() {
-//            @Override
-//            public void onResponse(Call<QuestionResponse> call, Response<QuestionResponse> response) {
-//                if (response.isSuccessful()) {
-//
-//                    QuestionResponse questionResponse = response.body();
-//                    questionList.addAll(questionResponse.getData());
-//                    selectRandom(questionList);
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<QuestionResponse> call, Throwable t) {
-//                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//    }
 
     private void fetchQuestions(){
         QuestionsViewModel questionsViewModel = ViewModelProviders.of(this).get(QuestionsViewModel.class);
         questionsViewModel.getQuestions().observe(this, new Observer<List<QuestionEntity>>() {
             @Override
             public void onChanged(@Nullable List<QuestionEntity> questionEntities) {
+                questionList.clear();
                 for (QuestionEntity questionEntity: questionEntities){
-                    Options options = new Options(questionEntity.getOptionDb().getOptionA(),
-                            questionEntity.getOptionDb().getOptionB(),questionEntity.getOptionDb().getOptionC(),
-                            questionEntity.getOptionDb().getOptionD());
-                    Question question = new Question(questionEntity.getId(),questionEntity.getQuestion(),
-                           options,questionEntity.getAnswer(),
-                            questionEntity.getExamtype(),questionEntity.getExamyear());
-                    questionList.add(question);
+
+                    questionList.add(QuestionConverter.converEntityToQuestion(questionEntity));
                 }
 
-               Toast.makeText(getActivity(),String.valueOf(questionList.size()),Toast.LENGTH_SHORT).show();
-
-               // selectRandom(questionList);
+                selectRandom(questionList);
             }
         });
     }

@@ -10,10 +10,10 @@ import java.util.concurrent.Executor;
 import ng.com.techdepo.esidemtest.api.ApiInterface;
 import ng.com.techdepo.esidemtest.api.ApiService;
 import ng.com.techdepo.esidemtest.database.AppDatabase;
-import ng.com.techdepo.esidemtest.database.OptionDb;
 import ng.com.techdepo.esidemtest.database.QuestionEntity;
 import ng.com.techdepo.esidemtest.models.Question;
 import ng.com.techdepo.esidemtest.models.QuestionResponse;
+import ng.com.techdepo.esidemtest.utils.QuestionConverter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -49,17 +49,11 @@ public class AppRepository {
                 if (response.isSuccessful()) {
                     QuestionResponse questionResponse = response.body();
                     for (Question question: questionResponse.getData()){
-                        OptionDb optionDb =new OptionDb(question.getOptions().getOptionA(),
-                                question.getOptions().getOptionB(), question.getOptions().getOptionC(),
-                                question.getOptions().getOptionD());
-
-                        QuestionEntity questionEntity = new QuestionEntity(question.getId(),
-                                question.getQuestion(),optionDb,question.getAnswer(),
-                                question.getExamtype(),question.getExamyear());
-                        inSertItem(questionEntity);
 
 
-                    }
+                                inSertItem(QuestionConverter.convertQuestionToEntity(question));
+                            }
+
 
                 }
             }
@@ -78,6 +72,7 @@ public class AppRepository {
 
             private static class BackGroundInsert extends AsyncTask<QuestionEntity,Void,Void>{
         private AppDatabase db;
+
 
                 public BackGroundInsert(AppDatabase db) {
                     this.db = db;
