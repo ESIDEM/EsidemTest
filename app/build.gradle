@@ -28,6 +28,7 @@ dependencies {
     implementation "com.android.support:design:$rootProject.surpportLibraryVersion"
     implementation "com.android.support:support-v4:$rootProject.surpportLibraryVersion"
     implementation "com.android.support.constraint:constraint-layout:$rootProject.constraintLayoutVersion"
+    implementation "com.android.support:cardview-v7:$rootProject.surpportLibraryVersion"
     implementation "com.google.code.gson:$rootProject.googleGsonVersio"
     implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofitConverterVersion"

@@ -7,6 +7,7 @@ import android.app.Dialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
@@ -16,6 +17,7 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +25,6 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,13 +35,11 @@ import ng.com.techdepo.esidemtest.activities.MainActivity;
 import ng.com.techdepo.esidemtest.database.QuestionEntity;
 import ng.com.techdepo.esidemtest.databinding.QuestionLayoutBinding;
 import ng.com.techdepo.esidemtest.databinding.ResultDialogueBinding;
-import ng.com.techdepo.esidemtest.models.Options;
 import ng.com.techdepo.esidemtest.models.Question;
-import ng.com.techdepo.esidemtest.models.QuestionResponse;
 import ng.com.techdepo.esidemtest.utils.CounterColorUtil;
-import ng.com.techdepo.esidemtest.utils.NetworkUtil;
 import ng.com.techdepo.esidemtest.utils.QuestionBackground;
 import ng.com.techdepo.esidemtest.utils.QuestionConverter;
+import ng.com.techdepo.esidemtest.utils.SharedPreferenceUtil;
 import ng.com.techdepo.esidemtest.view_model.QuestionsViewModel;
 
 
@@ -62,8 +61,6 @@ public class QuestionFragment extends Fragment {
     TextView questionYear;
     Boolean isTestRunning = true;
     private long timeCountInMilliSeconds = 20000;
-    SharedPreferences prefs = null;
-    String subject;
     private CountDownTimer countDownTimer;
     int selected;
     Question question;
@@ -72,7 +69,7 @@ public class QuestionFragment extends Fragment {
     int correctAnswers = 0;
     QuestionLayoutBinding questionLayoutBinding;
     ResultDialogueBinding resultDialogueBinding;
-    private ArrayList<Question> questionList = new ArrayList<>();
+    public  ArrayList<Question> questionList = new ArrayList<>();
 
     private enum TimerStatus {
         STARTED,
@@ -89,8 +86,9 @@ public class QuestionFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-    }
+            dialog();
+            fetchQuestions();
+            }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -100,19 +98,9 @@ public class QuestionFragment extends Fragment {
         // View rootView = inflater.inflate(R.layout.question_layout, container, false);
         getActivity().setTitle("Time Trial");
         View view = questionLayoutBinding.getRoot();
-        prefs = this.getActivity().getSharedPreferences("ng.com.techdepo.esidemtest", Context.MODE_APPEND);
-        subject = prefs.getString("subject", "chemistry");
-        setTimeValue(subject);
+        setTimeValue(SharedPreferenceUtil.subject(getActivity()));
         bindViews();
-        questionList.clear();
         Intent intent = getActivity().getIntent();
-        showTimer(intent.getStringExtra(TEST_TYPE));
-
-        if (NetworkUtil.isNetworkAvailable(getActivity())) {
-           // getQuestions(subject);
-            fetchQuestions();
-        }
-
         ClickHandler clickHandler = new ClickHandler();
         questionLayoutBinding.setOnclick(clickHandler);
 
@@ -120,6 +108,11 @@ public class QuestionFragment extends Fragment {
 
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        stopTimer();
+    }
 
     @Override
     public void onPause() {
@@ -136,8 +129,9 @@ public class QuestionFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        subject = prefs.getString("subject", "chemistry");
-        setTimeValue(subject);
+
+        setTimeValue(SharedPreferenceUtil.subject(getActivity()));
+
 
     }
 
@@ -180,13 +174,6 @@ public class QuestionFragment extends Fragment {
         countDownTimer.start();
     }
 
-    private void showTimer(String type) {
-        if (type.equals("time")) {
-            startCountDownTimer();
-        } else if (type.equals("classic")) {
-            questionTimer.setVisibility(View.GONE);
-        }
-    }
 
     private void stopTimer() {
 
@@ -208,21 +195,24 @@ public class QuestionFragment extends Fragment {
                     questionList.add(QuestionConverter.converEntityToQuestion(questionEntity));
                 }
 
-                selectRandom(questionList);
+
             }
         });
+
+
     }
     private void selectRandom(List<Question> questionList) {
         Random randomizer = new Random();
         question = questionList.get(randomizer.nextInt(questionList.size()));
         questionLayoutBinding.setQuestion(question);
+        startCountDownTimer();
     }
 
     public void nextButton() {
         enAbleView();
         selectRandom(questionList);
         isTestRunning = true;
-        startCountDownTimer();
+
         showViews();
         QuestionBackground.reSetQuetionBackground(getActivity(), option1, option2, option3, option4);
     }
@@ -326,19 +316,21 @@ public class QuestionFragment extends Fragment {
         }, 1000);
     }
 
+
     public void showDialog() {
         QuestionBackground.reSetQuetionBackground(getActivity(), option1, option2, option3, option4);
         countDownTimer.cancel();
-
+        netxButton.setVisibility(View.GONE);
+        isTestRunning =false;
         final Dialog dialog = new Dialog(getActivity());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
         resultDialogueBinding = DataBindingUtil.inflate(LayoutInflater.from(getActivity()), R.layout.result_dialogue, null, false);
         dialog.setContentView(resultDialogueBinding.getRoot());
         progressBarCircle = resultDialogueBinding.progressBarCircle;
-        progressBarCircle.setMax(10);
+        progressBarCircle.setMax(SharedPreferenceUtil.numberOfQuestion(getActivity()));
         TextView correctAnswerText = resultDialogueBinding.scoreTextView;
-        correctAnswerText.setText(correctAnswers + "/10");
+        correctAnswerText.setText(correctAnswers + "/"+SharedPreferenceUtil.numberOfQuestion(getActivity()));
         Button reTakeButton = resultDialogueBinding.reTakeButton;
         progressBarCircle.setProgress(correctAnswers);
         reTakeButton.setOnClickListener(new View.OnClickListener() {
@@ -350,6 +342,9 @@ public class QuestionFragment extends Fragment {
                 selectRandom(questionList);
                 correctAnswers = 0;
                 numberOfQuestions = 0;
+                startCountDownTimer();
+                questionTimer.setVisibility(View.VISIBLE);
+                enAbleView();
 
 
             }
@@ -370,7 +365,7 @@ public class QuestionFragment extends Fragment {
     }
 
     private void checkNumberOfQuestions() {
-        if (numberOfQuestions == 5) {
+        if (numberOfQuestions == SharedPreferenceUtil.numberOfQuestion(getActivity())) {
             isTestRunning = false;
             showDialog();
         }
@@ -417,6 +412,34 @@ public class QuestionFragment extends Fragment {
 
         }
 
+
+    }
+
+    void dialog(){
+
+        final String[] items = {"5", "10", "15","20"};
+
+        AlertDialog.Builder dialogue = new AlertDialog.Builder(getActivity());
+        //alt_bld.setIcon(R.drawable.icon);
+
+         dialogue.setTitle(R.string.number_of_question_dialogue_title);
+
+        dialogue.setSingleChoiceItems(items, -1, new DialogInterface
+                .OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+
+                SharedPreferences prefs = getActivity().getSharedPreferences("ng.com.techdepo.esidemtest", Context.MODE_APPEND);
+                 prefs.edit().putInt("number_of_question", Integer.parseInt(items[item])).apply();
+            }
+        }).setPositiveButton("Continue", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                selectRandom(questionList);
+            }
+        });
+        AlertDialog alert = dialogue.create();
+        alert.show();
 
     }
 }

@@ -10,32 +10,30 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import android.widget.TextView;
-import android.widget.Toast;
 
-
+import java.util.ArrayList;
 import java.util.List;
 
 import ng.com.techdepo.esidemtest.R;
 import ng.com.techdepo.esidemtest.database.QuestionEntity;
 import ng.com.techdepo.esidemtest.databinding.ActivityMainBinding;
 import ng.com.techdepo.esidemtest.fragments.QuestionFragment;
+import ng.com.techdepo.esidemtest.models.Question;
 import ng.com.techdepo.esidemtest.utils.QuestionConverter;
+import ng.com.techdepo.esidemtest.utils.SharedPreferenceUtil;
 import ng.com.techdepo.esidemtest.view_model.QuestionsViewModel;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     SharedPreferences prefs = null;
-    View timeTrialLayout;
-    ActivityMainBinding activityMainBinding;
-
+     ActivityMainBinding activityMainBinding;
+    private ArrayList<Question> questionList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +80,14 @@ public class MainActivity extends AppCompatActivity
         questionsViewModel.getQuestions().observe(this, new Observer<List<QuestionEntity>>() {
             @Override
             public void onChanged(@Nullable List<QuestionEntity> questionEntities) {
+                questionList.clear();
+                for (QuestionEntity questionEntity: questionEntities){
+
+                    questionList.add(QuestionConverter.converEntityToQuestion(questionEntity));
+                }
+
+                activityMainBinding.appBar.contentMain.numberOfQuestion.setText(String.valueOf(questionList.size())+" "+
+                        SharedPreferenceUtil.subject(getApplicationContext()).substring(0,1).toUpperCase()+ SharedPreferenceUtil.subject(getApplicationContext()).substring(1)+" "+getString(R.string.questions_available));
 
             }
         });

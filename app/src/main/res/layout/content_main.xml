@@ -23,7 +23,7 @@
                 android:layout_marginBottom="@dimen/activity_vertical_margin"
                 android:layout_marginTop="20dp"
                 android:gravity="center"
-                android:text="Welcome Same"
+                android:text="Welcome Sam"
                 android:textSize="20sp" />
 
             <LinearLayout
@@ -104,6 +104,23 @@
                     android:textColor="@color/white"
                     android:textSize="30sp" />
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/number_of_question"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/buttom_view"
+                android:layout_centerHorizontal="true"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:text="40 Chemistry Questions available"/>
+
+            <View
+                android:id="@+id/buttom_view"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/colorPrimary" />
 
         </RelativeLayout>
     </ScrollView>
