@@ -31,21 +31,17 @@ import java.util.Random;
 
 import ng.com.techdepo.esidemtest.R;
 import ng.com.techdepo.esidemtest.activities.MainActivity;
-import ng.com.techdepo.esidemtest.api.ApiInterface;
-import ng.com.techdepo.esidemtest.constants.Constants;
+import ng.com.techdepo.esidemtest.database.QuestionEntity;
 import ng.com.techdepo.esidemtest.databinding.QuestionLayoutBinding;
 import ng.com.techdepo.esidemtest.databinding.ResultDialogueBinding;
+import ng.com.techdepo.esidemtest.models.Options;
 import ng.com.techdepo.esidemtest.models.Question;
 import ng.com.techdepo.esidemtest.models.QuestionResponse;
 import ng.com.techdepo.esidemtest.utils.CounterColorUtil;
 import ng.com.techdepo.esidemtest.utils.NetworkUtil;
 import ng.com.techdepo.esidemtest.utils.QuestionBackground;
 import ng.com.techdepo.esidemtest.view_model.QuestionsViewModel;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+
 
 
 /**
@@ -226,11 +222,22 @@ public class QuestionFragment extends Fragment {
 
     private void fetchQuestions(){
         QuestionsViewModel questionsViewModel = ViewModelProviders.of(this).get(QuestionsViewModel.class);
-        questionsViewModel.getQuestions().observe(this, new Observer<QuestionResponse>() {
+        questionsViewModel.getQuestions().observe(this, new Observer<List<QuestionEntity>>() {
             @Override
-            public void onChanged(@Nullable QuestionResponse questionResponse) {
-                questionList.addAll(questionResponse.getData());
-                selectRandom(questionList);
+            public void onChanged(@Nullable List<QuestionEntity> questionEntities) {
+                for (QuestionEntity questionEntity: questionEntities){
+                    Options options = new Options(questionEntity.getOptionDb().getOptionA(),
+                            questionEntity.getOptionDb().getOptionB(),questionEntity.getOptionDb().getOptionC(),
+                            questionEntity.getOptionDb().getOptionD());
+                    Question question = new Question(questionEntity.getId(),questionEntity.getQuestion(),
+                           options,questionEntity.getAnswer(),
+                            questionEntity.getExamtype(),questionEntity.getExamyear());
+                    questionList.add(question);
+                }
+
+               Toast.makeText(getActivity(),String.valueOf(questionList.size()),Toast.LENGTH_SHORT).show();
+
+               // selectRandom(questionList);
             }
         });
     }

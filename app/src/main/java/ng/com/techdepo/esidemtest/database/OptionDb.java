@@ -1,24 +1,17 @@
-package ng.com.techdepo.esidemtest.models;
+package ng.com.techdepo.esidemtest.database;
 
-import com.google.gson.annotations.SerializedName;
+public class OptionDb {
 
-import java.io.Serializable;
-
-public class Options implements Serializable {
-
-    @SerializedName("a")
     String optionA;
-    @SerializedName("b")
     String optionB;
-    @SerializedName("c")
     String optionC;
-    @SerializedName("d")
     String optionD;
 
-    public Options() {
+
+    public OptionDb() {
     }
 
-    public Options(String optionA, String optionB, String optionC, String optionD) {
+    public OptionDb(String optionA, String optionB, String optionC, String optionD) {
         this.optionA = optionA;
         this.optionB = optionB;
         this.optionC = optionC;

@@ -25,6 +25,18 @@ public class Question implements Serializable {
     @SerializedName("examyear")
     String examyear;
 
+    public Question(int id, String question, Options options, String answer, String examtype, String examyear) {
+        this.id = id;
+        this.question = question;
+        this.options = options;
+        this.answer = answer;
+        this.examtype = examtype;
+        this.examyear = examyear;
+    }
+
+    public Question() {
+    }
+
     public int getId() {
         return id;
     }

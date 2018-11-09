@@ -1,10 +1,10 @@
 package ng.com.techdepo.esidemtest.database;
 
+import android.arch.persistence.room.Embedded;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
-
-import ng.com.techdepo.esidemtest.models.Options;
+;
 
 @Entity(tableName = "questions")
 public class QuestionEntity {
@@ -13,7 +13,8 @@ public class QuestionEntity {
     @PrimaryKey @NonNull
     int questionId;
     String question;
-    Options options;
+    @Embedded
+    OptionDb optionDb;
     String section;
     String image;
     String answer;
@@ -21,16 +22,22 @@ public class QuestionEntity {
     String examtype;
     String examyear;
 
-    public QuestionEntity(int questionId, String question, Options options, String answer, String examtype, String examyear) {
+    public QuestionEntity(@NonNull int questionId, String question, OptionDb optionDb, String answer, String examtype, String examyear) {
         this.questionId = questionId;
         this.question = question;
-        this.options = options;
+        this.optionDb = optionDb;
         this.answer = answer;
         this.examtype = examtype;
         this.examyear = examyear;
     }
 
+    public OptionDb getOptionDb() {
+        return optionDb;
+    }
 
+    public void setOptionDb(OptionDb optionDb) {
+        this.optionDb = optionDb;
+    }
 
     public int getId() {
         return id;
@@ -40,11 +47,12 @@ public class QuestionEntity {
         this.id = id;
     }
 
+    @NonNull
     public int getQuestionId() {
         return questionId;
     }
 
-    public void setQuestionId(int questionId) {
+    public void setQuestionId(@NonNull int questionId) {
         this.questionId = questionId;
     }
 
@@ -56,13 +64,7 @@ public class QuestionEntity {
         this.question = question;
     }
 
-    public Options getOptions() {
-        return options;
-    }
 
-    public void setOptions(Options options) {
-        this.options = options;
-    }
 
     public String getSection() {
         return section;
