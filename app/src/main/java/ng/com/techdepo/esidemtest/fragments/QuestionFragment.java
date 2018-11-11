@@ -25,6 +25,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +48,7 @@ import ng.com.techdepo.esidemtest.view_model.QuestionsViewModel;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class QuestionFragment extends Fragment {
+public class QuestionFragment extends Fragment{
 
     public static String TEST_TYPE = "test_type";
 
@@ -70,6 +71,7 @@ public class QuestionFragment extends Fragment {
     QuestionLayoutBinding questionLayoutBinding;
     ResultDialogueBinding resultDialogueBinding;
     public  ArrayList<Question> questionList = new ArrayList<>();
+
 
     private enum TimerStatus {
         STARTED,
@@ -108,32 +110,28 @@ public class QuestionFragment extends Fragment {
 
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        stopTimer();
-    }
 
     @Override
     public void onPause() {
         super.onPause();
-        stopTimer();
+        countDownTimer.cancel();
     }
+
 
     @Override
     public void onStop() {
         super.onStop();
-        stopTimer();
+        countDownTimer.cancel();
+
     }
 
     @Override
     public void onResume() {
         super.onResume();
-
         setTimeValue(SharedPreferenceUtil.subject(getActivity()));
 
-
     }
+
 
     private void setTimeValue(String subject) {
 
@@ -202,10 +200,18 @@ public class QuestionFragment extends Fragment {
 
     }
     private void selectRandom(List<Question> questionList) {
-        Random randomizer = new Random();
-        question = questionList.get(randomizer.nextInt(questionList.size()));
-        questionLayoutBinding.setQuestion(question);
-        startCountDownTimer();
+        if (questionList.size()!=0) {
+            Random randomizer = new Random();
+            question = questionList.get(randomizer.nextInt(questionList.size()));
+            questionLayoutBinding.setQuestion(question);
+            startCountDownTimer();
+            questionList.remove(question);
+        }else {
+
+            Toast.makeText(getActivity(),"No questions available",Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(getActivity(),MainActivity.class));
+        }
+
     }
 
     public void nextButton() {
@@ -293,6 +299,7 @@ public class QuestionFragment extends Fragment {
         option2.setClickable(false);
         option3.setClickable(false);
         option4.setClickable(false);
+
     }
 
     private void enAbleView() {
@@ -310,6 +317,7 @@ public class QuestionFragment extends Fragment {
 
 
                 checkAnswer(question);
+                showViews();
 
 
             }
@@ -345,6 +353,9 @@ public class QuestionFragment extends Fragment {
                 startCountDownTimer();
                 questionTimer.setVisibility(View.VISIBLE);
                 enAbleView();
+                timerStatus = TimerStatus.STARTED;
+                showViews();
+
 
 
             }
@@ -357,6 +368,7 @@ public class QuestionFragment extends Fragment {
                 dialog.dismiss();
 
                 startActivity(new Intent(getActivity(), MainActivity.class));
+                getActivity().finish();
             }
         });
 
@@ -367,7 +379,9 @@ public class QuestionFragment extends Fragment {
     private void checkNumberOfQuestions() {
         if (numberOfQuestions == SharedPreferenceUtil.numberOfQuestion(getActivity())) {
             isTestRunning = false;
-            showDialog();
+            dialog();
+            startCountDownTimer();
+            netxButton.setVisibility(View.GONE);
         }
     }
 
@@ -389,23 +403,27 @@ public class QuestionFragment extends Fragment {
             if (id == R.id.option_1) {
                 option1.setBackground(QuestionBackground.getSelectedQuetionBackground(getActivity()));
                 stopTimer();
-                showViews();
+
                 deLay();
+              //  showViews();
             } else if (id == R.id.option_2) {
                 option2.setBackground(QuestionBackground.getSelectedQuetionBackground(getActivity()));
                 stopTimer();
-                showViews();
+
                 deLay();
+               // showViews();
             } else if (id == R.id.option_3) {
                 option3.setBackground(QuestionBackground.getSelectedQuetionBackground(getActivity()));
                 stopTimer();
-                showViews();
+
                 deLay();
+               // showViews();
             } else if (id == R.id.option_4) {
                 option4.setBackground(QuestionBackground.getSelectedQuetionBackground(getActivity()));
                 stopTimer();
-                showViews();
+
                 deLay();
+              //  showViews();
             } else if (id == R.id.next_button) {
                 nextButton();
             }
@@ -423,7 +441,7 @@ public class QuestionFragment extends Fragment {
         //alt_bld.setIcon(R.drawable.icon);
 
          dialogue.setTitle(R.string.number_of_question_dialogue_title);
-
+         dialogue.setCancelable(false);
         dialogue.setSingleChoiceItems(items, -1, new DialogInterface
                 .OnClickListener() {
             public void onClick(DialogInterface dialog, int item) {

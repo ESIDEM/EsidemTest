@@ -15,14 +15,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-
-
 import java.util.ArrayList;
 import java.util.List;
 
 import ng.com.techdepo.esidemtest.R;
 import ng.com.techdepo.esidemtest.database.QuestionEntity;
 import ng.com.techdepo.esidemtest.databinding.ActivityMainBinding;
+
+import ng.com.techdepo.esidemtest.databinding.NavHeaderMainBinding;
 import ng.com.techdepo.esidemtest.fragments.QuestionFragment;
 import ng.com.techdepo.esidemtest.models.Question;
 import ng.com.techdepo.esidemtest.utils.QuestionConverter;
@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity
      ActivityMainBinding activityMainBinding;
     private ArrayList<Question> questionList = new ArrayList<>();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,8 +43,6 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = activityMainBinding.appBar.toolbar;
         setSupportActionBar(toolbar);
         prefs = getSharedPreferences("ng.com.techdepo.esidemtest", MODE_PRIVATE);
-        // timeTrialLayout = (LinearLayout) findViewById(R.id.time_trial_layout);
-
         activityMainBinding.appBar.contentMain.nameTextView.setText("Welcome " + prefs.getString("user_name", "Sam Esidem"));
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -52,6 +51,9 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         activityMainBinding.navView.setNavigationItemSelectedListener(this);
+        View header = activityMainBinding.navView.getHeaderView(0);
+        NavHeaderMainBinding navHeaderMainBinding = NavHeaderMainBinding.bind(header);
+        navHeaderMainBinding.nameText.setText(prefs.getString("user_name", "Sam Esidem"));
         fetchQuestions();
 
 
@@ -114,20 +116,39 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        if (id == R.id.nav_english) {
+            SharedPreferenceUtil.setSubject(this,"english");
+        } else if (id == R.id.nav_mathematics) {
+            SharedPreferenceUtil.setSubject(this,"mathematics");
+        } else if (id == R.id.nav_chemistry) {
+            SharedPreferenceUtil.setSubject(this,"chemistry");
+        } else if (id == R.id.nav_physics) {
+            SharedPreferenceUtil.setSubject(this,"physics");
+        } else if (id == R.id.nav_biology) {
+            SharedPreferenceUtil.setSubject(this,"biology");
+        } else if (id == R.id.nav_economics) {
+            SharedPreferenceUtil.setSubject(this,"economics");
+        }else if (id == R.id.nav_accounting) {
+            SharedPreferenceUtil.setSubject(this,"accounting");
+        }else if (id == R.id.nav_government) {
+            SharedPreferenceUtil.setSubject(this,"government");
+        }else if (id == R.id.nav_current_affair) {
+            SharedPreferenceUtil.setSubject(this,"currentaffairs");
+        }else if (id == R.id.nav_commerce) {
+            SharedPreferenceUtil.setSubject(this, "commerce");
+        }else if (id == R.id.nav_c_r_k) {
+            SharedPreferenceUtil.setSubject(this, "crk");
+        }else if (id == R.id.nav_history) {
+            SharedPreferenceUtil.setSubject(this, "history");
+        }else if (id == R.id.nav_geography) {
+            SharedPreferenceUtil.setSubject(this, "geography");
+        }else if (id == R.id.nav_Literature_in_eng) {
+            SharedPreferenceUtil.setSubject(this, "englishlit");
+        }else if (id == R.id.nav_insurance) {
+            SharedPreferenceUtil.setSubject(this, "insurance");
+        }else if (id == R.id.nav_civil_edu) {
+            SharedPreferenceUtil.setSubject(this, "civiledu");
         }
-
 
         activityMainBinding.drawerLayout.closeDrawer(GravityCompat.START);
         return true;

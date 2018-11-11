@@ -18,4 +18,11 @@ public class SharedPreferenceUtil {
 
         return numberOfQuestion;
     }
+
+    public static void setSubject(Context context,String subject){
+        SharedPreferences prefs = context.getSharedPreferences("ng.com.techdepo.esidemtest", Context.MODE_APPEND);
+        prefs.edit().putString("subject", subject).apply();
+
+           }
+
 }

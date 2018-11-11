@@ -5,21 +5,70 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:id="@+id/nav_english"
+            android:icon="@drawable/english_icon"
+            android:title="English Language"
+            android:checked="true"/>
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:id="@+id/nav_mathematics"
+            android:icon="@drawable/math_icom"
+            android:title="Mathematics" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:id="@+id/nav_chemistry"
+            android:icon="@drawable/chemistry_icon"
+            android:title="Chemistry" />
         <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:id="@+id/nav_physics"
+            android:icon="@drawable/physics"
+            android:title="Physics" />
+        <item
+            android:id="@+id/nav_biology"
+            android:icon="@drawable/biology_icom"
+            android:title="Biology" />
+        <item
+            android:id="@+id/nav_economics"
+            android:icon="@drawable/economics_icon"
+            android:title="Economics" />
+        <item
+            android:id="@+id/nav_accounting"
+            android:icon="@drawable/accounting_icon"
+            android:title="Accounting" />
+        <item
+            android:id="@+id/nav_government"
+            android:icon="@drawable/government"
+            android:title="Government" />
+        <item
+            android:id="@+id/nav_current_affair"
+            android:icon="@drawable/current_affair"
+            android:title="Current Affairs" />
+        <item
+            android:id="@+id/nav_commerce"
+            android:icon="@drawable/commerce_icon"
+            android:title="Commerce" />
+        <item
+            android:id="@+id/nav_geography"
+            android:icon="@drawable/geography"
+            android:title="Geography" />
+        <item
+            android:id="@+id/nav_history"
+            android:icon="@drawable/history"
+            android:title="History" />
+        <item
+            android:id="@+id/nav_insurance"
+            android:icon="@drawable/insurance"
+            android:title="Insurance" />
+        <item
+            android:id="@+id/nav_civil_edu"
+            android:icon="@drawable/edu"
+            android:title="Civil Education" />
+        <item
+            android:id="@+id/nav_c_r_k"
+            android:icon="@drawable/c_r_k"
+            android:title="C R K" />
+        <item
+            android:id="@+id/nav_Literature_in_eng"
+            android:icon="@drawable/lit"
+            android:title="Literature in English" />
     </group>
 
     <item android:title="Communicate">
