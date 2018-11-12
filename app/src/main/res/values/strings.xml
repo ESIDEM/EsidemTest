@@ -40,5 +40,6 @@
     <string name="is_now_your_preferred_subject">is now your preferred Subject</string>
     <string name="no_internet">Please make sure your device is connected to the internet</string>
     <string name="no_question_available">No questions available</string>
+    <string name="classic_test">Classic Test</string>
 
 </resources>

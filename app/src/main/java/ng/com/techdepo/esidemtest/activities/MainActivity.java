@@ -217,14 +217,14 @@ public class MainActivity extends AppCompatActivity
 
     public void timeTrial(View view) {
         Intent intent = new Intent(this, QuestionActivity.class);
-       // intent.putExtra(QuestionFragment.TEST_TYPE, "time");
+        intent.putExtra(QuestionActivity.TEST_TYPE, "time");
 
         startActivity(intent);
     }
 
     public void classicTest(View view) {
         Intent intent = new Intent(this, QuestionActivity.class);
-       // intent.putExtra(QuestionFragment.TEST_TYPE, "classic");
+        intent.putExtra(QuestionActivity.TEST_TYPE, "classic");
 
         startActivity(intent);
     }

@@ -42,6 +42,7 @@ import ng.com.techdepo.esidemtest.utils.CounterColorUtil;
 import ng.com.techdepo.esidemtest.utils.QuestionBackground;
 import ng.com.techdepo.esidemtest.utils.QuestionConverter;
 import ng.com.techdepo.esidemtest.utils.SharedPreferenceUtil;
+import ng.com.techdepo.esidemtest.utils.TextViewVisibilityUtil;
 import ng.com.techdepo.esidemtest.view_model.QuestionsViewModel;
 
 
@@ -103,7 +104,7 @@ public class QuestionFragment extends Fragment{
         View view = questionLayoutBinding.getRoot();
         setTimeValue(SharedPreferenceUtil.subject(getActivity()));
         bindViews();
-        Intent intent = getActivity().getIntent();
+
         ClickHandler clickHandler = new ClickHandler();
         questionLayoutBinding.setOnclick(clickHandler);
 
@@ -161,7 +162,7 @@ public class QuestionFragment extends Fragment{
                 // changing the timer status to stopped
                 timerStatus = TimerStatus.STOPPED;
                 isTestRunning = false;
-                disAbleView();
+                TextViewVisibilityUtil.disAbleView(option1,option2,option3,option4);
                 selected = 0;
                 showViews();
                 checkAnswer(question);
@@ -217,7 +218,7 @@ public class QuestionFragment extends Fragment{
     }
 
     public void nextButton() {
-        enAbleView();
+        TextViewVisibilityUtil.enAbleView(option1,option2,option3,option4);
         selectRandom(questionList);
         isTestRunning = true;
 
@@ -296,20 +297,7 @@ public class QuestionFragment extends Fragment{
 
     }
 
-    private void disAbleView() {
-        option1.setClickable(false);
-        option2.setClickable(false);
-        option3.setClickable(false);
-        option4.setClickable(false);
 
-    }
-
-    private void enAbleView() {
-        option1.setClickable(true);
-        option2.setClickable(true);
-        option3.setClickable(true);
-        option4.setClickable(true);
-    }
 
     private void deLay() {
 
@@ -353,7 +341,7 @@ public class QuestionFragment extends Fragment{
                 correctAnswers = 0;
                 numberOfQuestions = 0;
                 questionTimer.setVisibility(View.VISIBLE);
-                enAbleView();
+                TextViewVisibilityUtil.enAbleView(option1,option2,option3,option4);
                 timerStatus = TimerStatus.STARTED;
                 showViews();
 
@@ -407,7 +395,7 @@ public class QuestionFragment extends Fragment{
 
     public class ClickHandler {
         public void onClick(View view) {
-            disAbleView();
+            TextViewVisibilityUtil.disAbleView(option1,option2,option3,option4);
             int id = view.getId();
             selected = view.getId();
             if (id == R.id.option_1) {
