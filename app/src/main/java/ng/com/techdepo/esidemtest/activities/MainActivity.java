@@ -19,12 +19,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ng.com.techdepo.esidemtest.R;
+import ng.com.techdepo.esidemtest.database.AppDatabase;
 import ng.com.techdepo.esidemtest.database.QuestionEntity;
 import ng.com.techdepo.esidemtest.databinding.ActivityMainBinding;
 
 import ng.com.techdepo.esidemtest.databinding.NavHeaderMainBinding;
 import ng.com.techdepo.esidemtest.fragments.QuestionFragment;
 import ng.com.techdepo.esidemtest.models.Question;
+import ng.com.techdepo.esidemtest.utils.DeleteFromDb;
 import ng.com.techdepo.esidemtest.utils.QuestionConverter;
 import ng.com.techdepo.esidemtest.utils.SharedPreferenceUtil;
 import ng.com.techdepo.esidemtest.view_model.QuestionsViewModel;
@@ -34,6 +36,8 @@ public class MainActivity extends AppCompatActivity
     SharedPreferences prefs = null;
      ActivityMainBinding activityMainBinding;
     private ArrayList<Question> questionList = new ArrayList<>();
+    AppDatabase appDatabase;
+    QuestionsViewModel questionsViewModel;
 
 
     @Override
@@ -49,7 +53,8 @@ public class MainActivity extends AppCompatActivity
                 this, activityMainBinding.drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         activityMainBinding.drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-
+        appDatabase = AppDatabase.getInstance(this);
+        questionsViewModel = ViewModelProviders.of(this).get(QuestionsViewModel.class);
         activityMainBinding.navView.setNavigationItemSelectedListener(this);
         View header = activityMainBinding.navView.getHeaderView(0);
         NavHeaderMainBinding navHeaderMainBinding = NavHeaderMainBinding.bind(header);
@@ -78,7 +83,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void fetchQuestions(){
-        QuestionsViewModel questionsViewModel = ViewModelProviders.of(this).get(QuestionsViewModel.class);
         questionsViewModel.getQuestions().observe(this, new Observer<List<QuestionEntity>>() {
             @Override
             public void onChanged(@Nullable List<QuestionEntity> questionEntities) {
@@ -93,6 +97,10 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
+    }
+
+    private void refreshQuestions(){
+
     }
 
     @Override
@@ -118,36 +126,68 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_english) {
             SharedPreferenceUtil.setSubject(this,"english");
+            DeleteFromDb.deleteAllMovies(appDatabase);
+            fetchQuestions();
         } else if (id == R.id.nav_mathematics) {
             SharedPreferenceUtil.setSubject(this,"mathematics");
+            DeleteFromDb.deleteAllMovies(appDatabase);
+            fetchQuestions();
         } else if (id == R.id.nav_chemistry) {
             SharedPreferenceUtil.setSubject(this,"chemistry");
+            DeleteFromDb.deleteAllMovies(appDatabase);
+            fetchQuestions();
         } else if (id == R.id.nav_physics) {
             SharedPreferenceUtil.setSubject(this,"physics");
+            DeleteFromDb.deleteAllMovies(appDatabase);
+            fetchQuestions();
         } else if (id == R.id.nav_biology) {
             SharedPreferenceUtil.setSubject(this,"biology");
+            DeleteFromDb.deleteAllMovies(appDatabase);
+            fetchQuestions();
         } else if (id == R.id.nav_economics) {
             SharedPreferenceUtil.setSubject(this,"economics");
+            DeleteFromDb.deleteAllMovies(appDatabase);
+            fetchQuestions();
         }else if (id == R.id.nav_accounting) {
             SharedPreferenceUtil.setSubject(this,"accounting");
+            DeleteFromDb.deleteAllMovies(appDatabase);
+            fetchQuestions();
         }else if (id == R.id.nav_government) {
             SharedPreferenceUtil.setSubject(this,"government");
+            DeleteFromDb.deleteAllMovies(appDatabase);
+            fetchQuestions();
         }else if (id == R.id.nav_current_affair) {
             SharedPreferenceUtil.setSubject(this,"currentaffairs");
+            DeleteFromDb.deleteAllMovies(appDatabase);
+            fetchQuestions();
         }else if (id == R.id.nav_commerce) {
             SharedPreferenceUtil.setSubject(this, "commerce");
+            DeleteFromDb.deleteAllMovies(appDatabase);
+            fetchQuestions();
         }else if (id == R.id.nav_c_r_k) {
             SharedPreferenceUtil.setSubject(this, "crk");
+            DeleteFromDb.deleteAllMovies(appDatabase);
+            fetchQuestions();
         }else if (id == R.id.nav_history) {
             SharedPreferenceUtil.setSubject(this, "history");
+            DeleteFromDb.deleteAllMovies(appDatabase);
+            fetchQuestions();
         }else if (id == R.id.nav_geography) {
             SharedPreferenceUtil.setSubject(this, "geography");
+            DeleteFromDb.deleteAllMovies(appDatabase);
+            fetchQuestions();
         }else if (id == R.id.nav_Literature_in_eng) {
             SharedPreferenceUtil.setSubject(this, "englishlit");
+            DeleteFromDb.deleteAllMovies(appDatabase);
+            fetchQuestions();
         }else if (id == R.id.nav_insurance) {
             SharedPreferenceUtil.setSubject(this, "insurance");
+            DeleteFromDb.deleteAllMovies(appDatabase);
+            fetchQuestions();
         }else if (id == R.id.nav_civil_edu) {
             SharedPreferenceUtil.setSubject(this, "civiledu");
+            DeleteFromDb.deleteAllMovies(appDatabase);
+            fetchQuestions();
         }
 
         activityMainBinding.drawerLayout.closeDrawer(GravityCompat.START);

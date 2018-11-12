@@ -350,7 +350,7 @@ public class QuestionFragment extends Fragment{
                 selectRandom(questionList);
                 correctAnswers = 0;
                 numberOfQuestions = 0;
-                startCountDownTimer();
+               // startCountDownTimer();
                 questionTimer.setVisibility(View.VISIBLE);
                 enAbleView();
                 timerStatus = TimerStatus.STARTED;
@@ -379,9 +379,8 @@ public class QuestionFragment extends Fragment{
     private void checkNumberOfQuestions() {
         if (numberOfQuestions == SharedPreferenceUtil.numberOfQuestion(getActivity())) {
             isTestRunning = false;
-            dialog();
-            startCountDownTimer();
-            netxButton.setVisibility(View.GONE);
+            showDialog();
+
         }
     }
 
