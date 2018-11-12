@@ -8,7 +8,7 @@
             android:id="@+id/nav_english"
             android:icon="@drawable/english_icon"
             android:title="English Language"
-            android:checked="true"/>
+            />
         <item
             android:id="@+id/nav_mathematics"
             android:icon="@drawable/math_icom"

@@ -18,6 +18,7 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,8 +57,9 @@ public class QuestionFragment extends Fragment{
     TextView option2;
     TextView option3;
     TextView option4;
+    TextView sectionText;
     TextView questionTimer;
-    TextView quentionTextView;
+    TextView questionTextView;
     Button netxButton;
     TextView questionYear;
     Boolean isTestRunning = true;
@@ -204,11 +206,12 @@ public class QuestionFragment extends Fragment{
             Random randomizer = new Random();
             question = questionList.get(randomizer.nextInt(questionList.size()));
             questionLayoutBinding.setQuestion(question);
+            questionTextView.setText(Html.fromHtml(question.getQuestion()));
             startCountDownTimer();
             questionList.remove(question);
         }else {
 
-            Toast.makeText(getActivity(),"No questions available",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), R.string.no_question_available,Toast.LENGTH_SHORT).show();
             startActivity(new Intent(getActivity(),MainActivity.class));
         }
 
@@ -350,7 +353,6 @@ public class QuestionFragment extends Fragment{
                 selectRandom(questionList);
                 correctAnswers = 0;
                 numberOfQuestions = 0;
-               // startCountDownTimer();
                 questionTimer.setVisibility(View.VISIBLE);
                 enAbleView();
                 timerStatus = TimerStatus.STARTED;
@@ -389,9 +391,16 @@ public class QuestionFragment extends Fragment{
         option2 = questionLayoutBinding.option2;
         option3 = questionLayoutBinding.option3;
         option4 = questionLayoutBinding.option4;
+       questionTextView = questionLayoutBinding.questionTextView;
+        sectionText = questionLayoutBinding.sectionTextView;
         questionTimer = questionLayoutBinding.questionTimer;
         netxButton = questionLayoutBinding.nextButton;
         netxButton.setVisibility(View.GONE);
+        if (!SharedPreferenceUtil.subject(getActivity()).equals("english")){
+            sectionText.setVisibility(View.GONE);
+        }else {
+            sectionText.setVisibility(View.VISIBLE);
+        }
     }
 
     public class ClickHandler {
@@ -448,7 +457,7 @@ public class QuestionFragment extends Fragment{
                 SharedPreferences prefs = getActivity().getSharedPreferences("ng.com.techdepo.esidemtest", Context.MODE_APPEND);
                  prefs.edit().putInt("number_of_question", Integer.parseInt(items[item])).apply();
             }
-        }).setPositiveButton("Continue", new DialogInterface.OnClickListener() {
+        }).setPositiveButton(R.string.continue_, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();

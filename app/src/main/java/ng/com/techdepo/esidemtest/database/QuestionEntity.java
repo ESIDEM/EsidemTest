@@ -2,6 +2,7 @@ package ng.com.techdepo.esidemtest.database;
 
 import android.arch.persistence.room.Embedded;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 ;
@@ -22,10 +23,22 @@ public class QuestionEntity {
     String examtype;
     String examyear;
 
+    @Ignore
     public QuestionEntity(@NonNull int questionId, String question, OptionDb optionDb, String answer, String examtype, String examyear) {
         this.questionId = questionId;
         this.question = question;
         this.optionDb = optionDb;
+        this.answer = answer;
+        this.examtype = examtype;
+        this.examyear = examyear;
+
+    }
+
+    public QuestionEntity(@NonNull int questionId, String question, OptionDb optionDb, String section, String answer, String examtype, String examyear) {
+        this.questionId = questionId;
+        this.question = question;
+        this.optionDb = optionDb;
+        this.section = section;
         this.answer = answer;
         this.examtype = examtype;
         this.examyear = examyear;

@@ -14,7 +14,7 @@ public class QuestionConverter {
                 question.getOptions().getOptionD());
 
         QuestionEntity questionEntity = new QuestionEntity(question.getId(),
-                question.getQuestion(),optionDb,question.getAnswer(),
+                question.getQuestion(),optionDb, question.getSection(),question.getAnswer(),
                 question.getExamtype(),question.getExamyear());
 
         return questionEntity;
@@ -26,7 +26,7 @@ public class QuestionConverter {
         Options options = new Options(questionEntity.getOptionDb().getOptionA(),
                 questionEntity.getOptionDb().getOptionB(),questionEntity.getOptionDb().getOptionC(),
                 questionEntity.getOptionDb().getOptionD());
-        Question question = new Question(questionEntity.getId(),questionEntity.getQuestion(),
+        Question question = new Question(questionEntity.getId(),questionEntity.getQuestion(),questionEntity.getSection(),
                 options,questionEntity.getAnswer(),
                 questionEntity.getExamtype(),questionEntity.getExamyear());
 

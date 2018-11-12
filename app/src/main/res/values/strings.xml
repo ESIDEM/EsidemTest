@@ -18,9 +18,27 @@
     <string name="continue_text">Continue</string>
     <string name="title_activity_question">QuestionActivity</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="questions_available">Questions available</string>
     <string name="number_of_question_dialogue_title">Select number of questions per turn</string>
+    <string name="continue_">Continue</string>
+    <string name="english_lang">English Language</string>
+    <string name="math">Mathematics</string>
+    <string name="chemistry">Chemistry</string>
+    <string name="physics">Physics</string>
+    <string name="economics">Economics</string>
+    <string name="commerce">Commerce</string>
+    <string name="lit_in_english">Literature in English</string>
+    <string name="accounting">Accounting</string>
+    <string name="current_affairs">Current Affairs</string>
+    <string name="c_r_k">C R K</string>
+    <string name="biology">Biology</string>
+    <string name="geography">Geography</string>
+    <string name="government">Government</string>
+    <string name="history">History</string>
+    <string name="insurance">Insurance</string>
+    <string name="civil_edu">Civil Education</string>
+    <string name="is_now_your_preferred_subject">is now your preferred Subject</string>
+    <string name="no_internet">Please make sure your device is connected to the internet</string>
+    <string name="no_question_available">No questions available</string>
 
 </resources>

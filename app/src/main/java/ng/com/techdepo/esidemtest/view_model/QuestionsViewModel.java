@@ -27,4 +27,8 @@ public class QuestionsViewModel extends AndroidViewModel {
 public LiveData<List<QuestionEntity>> getQuestions(){
         return  quetions;
 }
+
+public void getNewQuestions(){
+        appRepository.getQuestionsFromAPI();
+}
 }
