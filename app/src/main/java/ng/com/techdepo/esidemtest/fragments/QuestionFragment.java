@@ -51,7 +51,6 @@ import ng.com.techdepo.esidemtest.view_model.QuestionsViewModel;
  */
 public class QuestionFragment extends Fragment{
 
-    public static String TEST_TYPE = "test_type";
 
     TextView option1;
     TextView option2;
@@ -401,6 +400,9 @@ public class QuestionFragment extends Fragment{
         }else {
             sectionText.setVisibility(View.VISIBLE);
         }
+
+        questionLayoutBinding.subjectTextView.setText(SharedPreferenceUtil.subject(getActivity()).substring(0, 1).toUpperCase() +
+                SharedPreferenceUtil.subject(getActivity()).substring(1));
     }
 
     public class ClickHandler {

@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = activityMainBinding.appBar.toolbar;
         setSupportActionBar(toolbar);
         prefs = getSharedPreferences("ng.com.techdepo.esidemtest", MODE_PRIVATE);
-        activityMainBinding.appBar.contentMain.nameTextView.setText("Welcome " + prefs.getString("user_name", "Sam Esidem"));
+        activityMainBinding.appBar.contentMain.nameTextView.setText("Welcome" + prefs.getString("user_name", "Sam Esidem"));
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, activityMainBinding.drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -217,14 +217,14 @@ public class MainActivity extends AppCompatActivity
 
     public void timeTrial(View view) {
         Intent intent = new Intent(this, QuestionActivity.class);
-        intent.putExtra(QuestionFragment.TEST_TYPE, "time");
+       // intent.putExtra(QuestionFragment.TEST_TYPE, "time");
 
         startActivity(intent);
     }
 
     public void classicTest(View view) {
         Intent intent = new Intent(this, QuestionActivity.class);
-        intent.putExtra(QuestionFragment.TEST_TYPE, "classic");
+       // intent.putExtra(QuestionFragment.TEST_TYPE, "classic");
 
         startActivity(intent);
     }
