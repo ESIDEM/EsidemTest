@@ -133,19 +133,6 @@
                 app:autoSizeStepGranularity="2sp" />
 
 
-            <TextView
-                android:id="@+id/question_numbers"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="20"
-                android:layout_above="@+id/buttom_view"
-                android:layout_marginStart="16dp"
-                android:layout_toEndOf="@+id/question_year"
-                android:textColor="@color/colorAccent"
-                android:layout_centerHorizontal="true"
-                android:textSize="30sp"
-                android:layout_toRightOf="@+id/question_year"
-                android:layout_marginLeft="16dp" />
 
             <Button
                 android:id="@+id/next_button"
@@ -181,10 +168,25 @@
                 android:id="@+id/buttom_view"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:orientation="vertical"
+                android:orientation="horizontal"
+                android:gravity="center"
                 android:layout_centerHorizontal="true"
                 android:layout_alignParentBottom="true"
-                android:background="@color/colorPrimary">
+                android:background="@color/colorAccent">
+
+                <TextView
+                    android:id="@+id/question_numbers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="20"
+                    android:gravity="center"
+                    android:layout_marginStart="16dp"
+                    android:textColor="@color/white"
+                    android:layout_marginEnd="6dp"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="10dp" />
+
                 <TextView
                     android:id="@+id/subject_text_view"
                     android:layout_width="wrap_content"

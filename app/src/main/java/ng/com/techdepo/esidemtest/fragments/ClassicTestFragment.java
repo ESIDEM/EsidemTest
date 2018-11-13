@@ -60,8 +60,7 @@ public class ClassicTestFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        fetchQuestions();
+         fetchQuestions();
     }
 
     @Override
@@ -70,8 +69,8 @@ public class ClassicTestFragment extends Fragment {
         // Inflate the layout for this fragment
         fragmentClassicTestBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_classic_test, container, false);
        View view = fragmentClassicTestBinding.getRoot();
-
-       ClickHandler clickHandler = new ClickHandler();
+        getActivity().setTitle("Classic Test");
+        ClickHandler clickHandler = new ClickHandler();
        fragmentClassicTestBinding.setOnclick(clickHandler);
         bindViews();
 
@@ -227,7 +226,7 @@ public class ClassicTestFragment extends Fragment {
         }
 
         fragmentClassicTestBinding.subjectTextView.setText(SharedPreferenceUtil.subject(getActivity()).substring(0, 1).toUpperCase() +
-                SharedPreferenceUtil.subject(getActivity()).substring(1));
+                SharedPreferenceUtil.subject(getActivity()).substring(1)+" Question(s)");
     }
 
 
