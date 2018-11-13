@@ -185,8 +185,8 @@ public class QuestionFragment extends Fragment{
 
 
     private void fetchQuestions(){
-        QuestionsViewModel questionsViewModel = ViewModelProviders.of(this).get(QuestionsViewModel.class);
-        questionsViewModel.getQuestions().observe(this, new Observer<List<QuestionEntity>>() {
+        QuestionsViewModel questionsViewModel = ViewModelProviders.of(getActivity()).get(QuestionsViewModel.class);
+        questionsViewModel.getQuestions().observe(getActivity(), new Observer<List<QuestionEntity>>() {
             @Override
             public void onChanged(@Nullable List<QuestionEntity> questionEntities) {
                 questionList.clear();
@@ -201,7 +201,8 @@ public class QuestionFragment extends Fragment{
 
 
     }
-    private void selectRandom(List<Question> questionList) {
+
+       private void selectRandom(List<Question> questionList) {
         if (questionList.size()!=0) {
             Random randomizer = new Random();
             question = questionList.get(randomizer.nextInt(questionList.size()));
@@ -213,6 +214,7 @@ public class QuestionFragment extends Fragment{
 
             Toast.makeText(getActivity(), R.string.no_question_available,Toast.LENGTH_SHORT).show();
             startActivity(new Intent(getActivity(),MainActivity.class));
+            getActivity().finish();
         }
 
     }

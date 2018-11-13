@@ -5,19 +5,15 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
-import ng.com.techdepo.esidemtest.activities.MainActivity;
-import ng.com.techdepo.esidemtest.database.QuestionEntity;
-import ng.com.techdepo.esidemtest.databinding.FragmentQuestionBinding;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,18 +21,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import ng.com.techdepo.esidemtest.activities.MainActivity;
+import ng.com.techdepo.esidemtest.database.QuestionEntity;
+import ng.com.techdepo.esidemtest.databinding.FragmentClassicTestBinding;
 import ng.com.techdepo.esidemtest.R;
 import ng.com.techdepo.esidemtest.models.Question;
 import ng.com.techdepo.esidemtest.utils.QuestionBackground;
 import ng.com.techdepo.esidemtest.utils.QuestionConverter;
 import ng.com.techdepo.esidemtest.utils.SharedPreferenceUtil;
 import ng.com.techdepo.esidemtest.utils.TextViewVisibilityUtil;
+import ng.com.techdepo.esidemtest.utils.ToastMaker;
 import ng.com.techdepo.esidemtest.view_model.QuestionsViewModel;
 
 /**
- * A placeholder fragment containing a simple view.
+ * A simple {@link Fragment} subclass.
  */
-public class QuestionActivityFragment extends Fragment {
+public class ClassicTestFragment extends Fragment {
 
     TextView option1;
     TextView option2;
@@ -48,15 +48,13 @@ public class QuestionActivityFragment extends Fragment {
     Button netxButton;
     TextView questionYear;
     Boolean isTestRunning = true;
-    FragmentQuestionBinding fragmentQuestionBinding;
-
     int selected;
     Question question;
+    FragmentClassicTestBinding fragmentClassicTestBinding;
+    public ArrayList<Question> questionList = new ArrayList<>();
 
-     public  ArrayList<Question> questionList = new ArrayList<>();
-
-
-    public QuestionActivityFragment() {
+    public ClassicTestFragment() {
+        // Required empty public constructor
     }
 
     @Override
@@ -69,28 +67,33 @@ public class QuestionActivityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        fragmentQuestionBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_question, container, false);
-        getActivity().setTitle(getString(R.string.classic_test));
-        View view = fragmentQuestionBinding.getRoot();
-        ClickHandler clickHandler = new ClickHandler();
-        fragmentQuestionBinding.setOnclick(clickHandler);
+        // Inflate the layout for this fragment
+        fragmentClassicTestBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_classic_test, container, false);
+       View view = fragmentClassicTestBinding.getRoot();
+
+       ClickHandler clickHandler = new ClickHandler();
+       fragmentClassicTestBinding.setOnclick(clickHandler);
         bindViews();
-        return view;
+
+       return  view;
     }
 
     private void fetchQuestions(){
-        QuestionsViewModel questionsViewModel = ViewModelProviders.of(this).get(QuestionsViewModel.class);
-        questionsViewModel.getQuestions().observe(this, new Observer<List<QuestionEntity>>() {
+        QuestionsViewModel questionsViewModel = ViewModelProviders.of(getActivity()).get(QuestionsViewModel.class);
+        questionsViewModel.getQuestions().observe(getActivity(), new Observer<List<QuestionEntity>>() {
             @Override
             public void onChanged(@Nullable List<QuestionEntity> questionEntities) {
                 questionList.clear();
                 for (QuestionEntity questionEntity: questionEntities){
 
+
                     questionList.add(QuestionConverter.converEntityToQuestion(questionEntity));
-                    fragmentQuestionBinding.questionNumbers.setText(String.valueOf(questionList.size()));
-                    selectRandom(questionList);
+
+
                 }
 
+                fragmentClassicTestBinding.questionNumbers.setText(String.valueOf(questionList.size()));
+                selectRandom(questionList);
 
             }
         });
@@ -98,21 +101,24 @@ public class QuestionActivityFragment extends Fragment {
 
     }
 
+
     private void selectRandom(List<Question> questionList) {
         if (questionList.size()!=0) {
             Random randomizer = new Random();
             question = questionList.get(randomizer.nextInt(questionList.size()));
-            fragmentQuestionBinding.setQuestion(question);
+            fragmentClassicTestBinding.setQuestion(question);
             questionTextView.setText(Html.fromHtml(question.getQuestion()));
             questionList.remove(question);
-            fragmentQuestionBinding.questionNumbers.setText(String.valueOf(questionList.size()));
+            fragmentClassicTestBinding.questionNumbers.setText(String.valueOf(questionList.size()));
         }else {
 
             Toast.makeText(getActivity(), R.string.no_question_available,Toast.LENGTH_SHORT).show();
             startActivity(new Intent(getActivity(),MainActivity.class));
+            getActivity().finish();
         }
 
     }
+
     public void nextButton() {
         TextViewVisibilityUtil.enAbleView(option1,option2,option3,option4);
         selectRandom(questionList);
@@ -133,6 +139,7 @@ public class QuestionActivityFragment extends Fragment {
 
         }
     }
+
 
     private void checkAnswer(Question question) {
 
@@ -188,8 +195,7 @@ public class QuestionActivityFragment extends Fragment {
             }
         }
 
-            }
-
+    }
 
     private void deLay() {
 
@@ -206,13 +212,13 @@ public class QuestionActivityFragment extends Fragment {
         }, 1000);
     }
     private void bindViews() {
-        option1 = fragmentQuestionBinding.option1;
-        option2 = fragmentQuestionBinding.option2;
-        option3 = fragmentQuestionBinding.option3;
-        option4 = fragmentQuestionBinding.option4;
-        questionTextView = fragmentQuestionBinding.questionTextView;
-        sectionText = fragmentQuestionBinding.sectionTextView;
-        netxButton = fragmentQuestionBinding.nextButton;
+        option1 = fragmentClassicTestBinding.option1;
+        option2 = fragmentClassicTestBinding.option2;
+        option3 = fragmentClassicTestBinding.option3;
+        option4 = fragmentClassicTestBinding.option4;
+        questionTextView = fragmentClassicTestBinding.questionTextView;
+        sectionText = fragmentClassicTestBinding.sectionTextView;
+        netxButton = fragmentClassicTestBinding.nextButton;
         netxButton.setVisibility(View.GONE);
         if (!SharedPreferenceUtil.subject(getActivity()).equals("english")){
             sectionText.setVisibility(View.GONE);
@@ -220,9 +226,10 @@ public class QuestionActivityFragment extends Fragment {
             sectionText.setVisibility(View.VISIBLE);
         }
 
-        fragmentQuestionBinding.subjectTextView.setText(SharedPreferenceUtil.subject(getActivity()).substring(0, 1).toUpperCase() +
+        fragmentClassicTestBinding.subjectTextView.setText(SharedPreferenceUtil.subject(getActivity()).substring(0, 1).toUpperCase() +
                 SharedPreferenceUtil.subject(getActivity()).substring(1));
     }
+
 
     public class ClickHandler {
         public void onClick(View view) {
@@ -254,7 +261,7 @@ public class QuestionActivityFragment extends Fragment {
                 deLay();
                 //  showViews();
             } else if (id == R.id.next_button) {
-               nextButton();
+                nextButton();
             }
 
         }

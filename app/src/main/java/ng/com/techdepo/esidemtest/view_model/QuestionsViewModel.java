@@ -13,12 +13,10 @@ public class QuestionsViewModel extends AndroidViewModel {
 
 
     private AppRepository appRepository;
-    AppDatabase appDatabase;
     LiveData<List<QuestionEntity>> quetions;
     public QuestionsViewModel(@NonNull Application application) {
         super(application);
 
-        appDatabase = AppDatabase.getInstance(this.getApplication());
         appRepository = new AppRepository(getApplication());
         appRepository.getQuestionsFromAPI();
         quetions = appRepository.getQuestionsFromDb();
