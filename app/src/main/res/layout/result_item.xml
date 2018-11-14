@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+<variable
+    name="result"
+    type="ng.com.techdepo.esidemtest.database.Result"/>
+
+
+    </data>
+
+<android.support.v7.widget.CardView
+
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    card_view:cardCornerRadius="20dp"
+    android:elevation="16dp">
+<RelativeLayout
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/activity_vertical_margin">
+
+    <TextView
+        android:id="@+id/date_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date: "
+        android:textSize="20sp"/>
+    <TextView
+        android:id="@+id/date_real"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/date_text"
+        android:text='@{String.valueOf(result.time),default="13/12/2008"}'
+        android:textSize="20sp"
+        android:layout_marginStart="@dimen/activity_vertical_margin"
+        android:layout_toRightOf="@+id/date_text"
+        android:layout_marginLeft="@dimen/activity_vertical_margin" />
+
+    <TextView
+        android:id="@+id/score_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Score: "
+        android:textSize="20sp"
+        android:layout_below="@+id/date_text"/>
+    <TextView
+        android:id="@+id/score_real"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/date_text"
+        android:text='@{result.correctAnswers + "/"+result.numberOfQuestions,default="4/45"}'
+        android:textSize="20sp"
+        android:layout_below="@+id/date_text"
+        android:layout_marginStart="@dimen/activity_vertical_margin"
+        android:layout_toRightOf="@+id/date_text"
+        android:layout_marginLeft="@dimen/activity_vertical_margin" />
+
+
+    <TextView
+        android:id="@+id/subject_real"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/score_real"
+        android:text='@{result.subject,default="Chemistry"}'
+        android:textSize="20sp"
+        android:layout_below="@+id/date_text"
+        android:layout_marginStart="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
+        android:layout_toRightOf="@+id/score_text" />
+
+</RelativeLayout>
+</android.support.v7.widget.CardView>
+</layout>

@@ -442,7 +442,7 @@ public class QuestionFragment extends Fragment{
 
          dialogue.setTitle(R.string.number_of_question_dialogue_title);
          dialogue.setCancelable(false);
-        dialogue.setSingleChoiceItems(items, -1, new DialogInterface
+        dialogue.setSingleChoiceItems(items, 0, new DialogInterface
                 .OnClickListener() {
             public void onClick(DialogInterface dialog, int item) {
 
