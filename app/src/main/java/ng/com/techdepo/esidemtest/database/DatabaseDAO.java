@@ -16,14 +16,11 @@ public interface DatabaseDAO {
     @Query("SELECT * FROM questions")
     LiveData<List<QuestionEntity>> getAllQuestions();
 
-    @Query("SELECT*FROM results ORDER BY time")
-    LiveData<List<Result>> getAllResult();
+
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void inSertQuestions(QuestionEntity questionEntity);
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void inSertResult(Result result);
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     void updateQuestion(QuestionEntity questionEntity);

@@ -28,13 +28,17 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
 import ng.com.techdepo.esidemtest.R;
 import ng.com.techdepo.esidemtest.activities.MainActivity;
 import ng.com.techdepo.esidemtest.database.QuestionEntity;
+import ng.com.techdepo.esidemtest.database.Result;
 import ng.com.techdepo.esidemtest.databinding.QuestionLayoutBinding;
 import ng.com.techdepo.esidemtest.databinding.ResultDialogueBinding;
 import ng.com.techdepo.esidemtest.models.Question;
@@ -73,6 +77,7 @@ public class QuestionFragment extends Fragment{
     QuestionLayoutBinding questionLayoutBinding;
     ResultDialogueBinding resultDialogueBinding;
     public  ArrayList<Question> questionList = new ArrayList<>();
+    QuestionsViewModel questionsViewModel;
 
 
     private enum TimerStatus {
@@ -90,6 +95,7 @@ public class QuestionFragment extends Fragment{
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        questionsViewModel = ViewModelProviders.of(getActivity()).get(QuestionsViewModel.class);
             dialog();
             fetchQuestions();
             }
@@ -185,7 +191,7 @@ public class QuestionFragment extends Fragment{
 
 
     private void fetchQuestions(){
-        QuestionsViewModel questionsViewModel = ViewModelProviders.of(getActivity()).get(QuestionsViewModel.class);
+
         questionsViewModel.getQuestions().observe(getActivity(), new Observer<List<QuestionEntity>>() {
             @Override
             public void onChanged(@Nullable List<QuestionEntity> questionEntities) {
@@ -333,6 +339,12 @@ public class QuestionFragment extends Fragment{
         correctAnswerText.setText(correctAnswers + "/"+SharedPreferenceUtil.numberOfQuestion(getActivity()));
         Button reTakeButton = resultDialogueBinding.reTakeButton;
         progressBarCircle.setProgress(correctAnswers);
+       // DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        Result result = new Result(SharedPreferenceUtil.subject(getActivity()).substring(0, 1).toUpperCase() +
+                SharedPreferenceUtil.subject(getActivity()).substring(1),
+                SharedPreferenceUtil.numberOfQuestion(getActivity()),correctAnswers,date);
+        questionsViewModel.insertResult(result);
         reTakeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

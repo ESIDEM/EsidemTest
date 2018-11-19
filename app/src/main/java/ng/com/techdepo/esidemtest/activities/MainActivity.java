@@ -228,4 +228,8 @@ public class MainActivity extends AppCompatActivity
 
         startActivity(intent);
     }
+
+    public void testResult(View view){
+        startActivity(new Intent(this,ResultActivity.class));
+    }
 }

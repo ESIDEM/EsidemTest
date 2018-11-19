@@ -1,6 +1,7 @@
 package ng.com.techdepo.esidemtest.database;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.TypeConverters;
 
@@ -11,14 +12,16 @@ import ng.com.techdepo.esidemtest.utils.Converter;
 @Entity(tableName = "results")
 public class Result {
 
-    @PrimaryKey
+
     int id;
     String subject;
     int numberOfQuestions;
     int correctAnswers;
+    @PrimaryKey
    @TypeConverters(Converter.class)
     Date time;
 
+   @Ignore
     public Result(String subject, int numberOfQuestions, int correctAnswers, Date time) {
         this.subject = subject;
         this.numberOfQuestions = numberOfQuestions;
@@ -26,7 +29,13 @@ public class Result {
         this.time = time;
     }
 
-
+    public Result(int id, String subject, int numberOfQuestions, int correctAnswers, Date time) {
+        this.id = id;
+        this.subject = subject;
+        this.numberOfQuestions = numberOfQuestions;
+        this.correctAnswers = correctAnswers;
+        this.time = time;
+    }
 
     public int getId() {
         return id;

@@ -16,14 +16,13 @@
     android:id="@+id/card_view"
     android:layout_gravity="center"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    card_view:cardCornerRadius="20dp"
+    android:layout_height="wrap_content"
     android:elevation="16dp">
 <RelativeLayout
 
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/activity_vertical_margin">
+    android:layout_margin="6dp">
 
     <TextView
         android:id="@+id/date_text"
@@ -37,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_toEndOf="@+id/date_text"
         android:text='@{String.valueOf(result.time),default="13/12/2008"}'
-        android:textSize="20sp"
+        android:textSize="15sp"
         android:layout_marginStart="@dimen/activity_vertical_margin"
         android:layout_toRightOf="@+id/date_text"
         android:layout_marginLeft="@dimen/activity_vertical_margin" />

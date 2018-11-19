@@ -86,6 +86,7 @@
                 android:layout_below="@+id/classic_test_layout"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="40dp"
+                android:onClick="testResult"
                 android:background="@drawable/button_style_home"
                 android:orientation="horizontal">
 

@@ -11,6 +11,7 @@ import ng.com.techdepo.esidemtest.api.ApiInterface;
 import ng.com.techdepo.esidemtest.api.ApiService;
 import ng.com.techdepo.esidemtest.database.AppDatabase;
 import ng.com.techdepo.esidemtest.database.QuestionEntity;
+import ng.com.techdepo.esidemtest.database.Result;
 import ng.com.techdepo.esidemtest.models.Question;
 import ng.com.techdepo.esidemtest.models.QuestionResponse;
 import ng.com.techdepo.esidemtest.utils.QuestionConverter;
@@ -25,6 +26,7 @@ public class AppRepository {
     AppDatabase appDatabase;
     Executor executor;
     LiveData<List<QuestionEntity>> quetions;
+    LiveData<List<Result>> results;
 
     public AppRepository(Context context) {
 
@@ -32,12 +34,17 @@ public class AppRepository {
         sharedPreferences =context.getSharedPreferences("ng.com.techdepo.esidemtest", Context.MODE_APPEND);
         appDatabase = AppDatabase.getInstance(context);
         quetions = appDatabase.databaseDAO().getAllQuestions();
+        results = appDatabase.resultDAO().getAllResult();
     }
 
     public LiveData<List<QuestionEntity>>getQuestionsFromDb(){
 
 
         return quetions;
+    }
+
+    public LiveData<List<Result>> getAllResult(){
+        return results;
     }
 
     public void  getQuestionsFromAPI(){
@@ -69,6 +76,10 @@ public class AppRepository {
             public void inSertItem(QuestionEntity questionEntity){
         new BackGroundInsert(appDatabase).execute(questionEntity);
             }
+            public void inSertResult(Result result){
+
+        new BackGroundInsertResult(appDatabase).execute(result);
+            }
 
             private static class BackGroundInsert extends AsyncTask<QuestionEntity,Void,Void>{
         private AppDatabase db;
@@ -84,4 +95,20 @@ public class AppRepository {
                     return null;
                 }
             }
+
+    private static class BackGroundInsertResult extends AsyncTask<Result,Void,Void>{
+        private AppDatabase db;
+
+
+        public BackGroundInsertResult(AppDatabase db) {
+            this.db = db;
+        }
+
+
+        @Override
+        protected Void doInBackground(Result... results) {
+            db.resultDAO().inSertResult(results[0]);
+            return null;
+        }
+    }
 }
