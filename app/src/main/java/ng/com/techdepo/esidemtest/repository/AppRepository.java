@@ -80,6 +80,9 @@ public class AppRepository {
 
         new BackGroundInsertResult(appDatabase).execute(result);
             }
+            public  void deleteResult(int resultId){
+        new BackgroundDeleteResult(appDatabase).execute(resultId);
+            }
 
             private static class BackGroundInsert extends AsyncTask<QuestionEntity,Void,Void>{
         private AppDatabase db;
@@ -108,6 +111,21 @@ public class AppRepository {
         @Override
         protected Void doInBackground(Result... results) {
             db.resultDAO().inSertResult(results[0]);
+            return null;
+        }
+    }
+
+    private static class BackgroundDeleteResult extends AsyncTask<Integer,Void,Void>{
+        private AppDatabase db;
+
+        public BackgroundDeleteResult(AppDatabase db) {
+            this.db = db;
+        }
+
+        @Override
+        protected Void doInBackground(Integer... integers) {
+            int position = integers[0];
+            db.resultDAO().deleteById(position);
             return null;
         }
     }

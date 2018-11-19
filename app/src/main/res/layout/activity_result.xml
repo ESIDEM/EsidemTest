@@ -16,14 +16,37 @@
         android:layout_height="wrap_content"
         android:text="All Test Result"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
         />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/result_recycler_view"
+        android:layout_above="@+id/subject_text_view"
         android:layout_below="@+id/all_result"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
          />
+
+    <LinearLayout
+        android:id="@+id/subject_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary">
+
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:text="@string/swipe_left_or_right_to_delete"/>
+    </LinearLayout>
 
 </RelativeLayout>
 </layout>

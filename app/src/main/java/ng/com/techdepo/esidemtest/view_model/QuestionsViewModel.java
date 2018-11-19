@@ -40,6 +40,11 @@ public void insertResult(Result result){
 public LiveData<List<Result>> getAllResult(){
         return results;
 }
+
+public void deleteResult(int resultId){
+
+        appRepository.deleteResult(resultId);
+}
 }
 
 

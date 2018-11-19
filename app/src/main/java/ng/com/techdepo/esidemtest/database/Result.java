@@ -12,13 +12,12 @@ import ng.com.techdepo.esidemtest.utils.Converter;
 @Entity(tableName = "results")
 public class Result {
 
-
+    @PrimaryKey(autoGenerate = true)
     int id;
     String subject;
     int numberOfQuestions;
     int correctAnswers;
-    @PrimaryKey
-   @TypeConverters(Converter.class)
+    @TypeConverters(Converter.class)
     Date time;
 
    @Ignore

@@ -37,6 +37,7 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ResultView
     @Override
     public void onBindViewHolder(@NonNull ResultViewHolder holder, int position) {
             holder.resultItemBinding.setResult(resultList.get(position));
+            holder.itemView.setTag(resultList.get(position).getId());
     }
 
     @Override

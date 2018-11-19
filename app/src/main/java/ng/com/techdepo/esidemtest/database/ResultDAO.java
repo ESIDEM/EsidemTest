@@ -17,4 +17,7 @@ public interface ResultDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void inSertResult(Result result);
 
+    @Query("DELETE FROM results WHERE id = :resultId")
+    void deleteById(int resultId);
+
 }
