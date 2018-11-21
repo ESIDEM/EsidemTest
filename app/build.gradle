@@ -34,7 +34,10 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofitConverterVersion"
     implementation "android.arch.persistence.room:$rootProject.roomRuntime"
-    implementation 'com.google.firebase:firebase-messaging:11.8.0'
+    implementation "com.google.firebase:firebase-messaging:$rootProject.firebase"
+    implementation "com.google.firebase:firebase-invites:$rootProject.firebase"
+    implementation "com.google.firebase:firebase-crash:$rootProject.firebase"
+    implementation "com.google.firebase:firebase-core:$rootProject.firebase"
     annotationProcessor "android.arch.persistence.room:$rootProject.roomCompiler"
     implementation "android.arch.lifecycle:$rootProject.lifecycleExtention"
     annotationProcessor "android.arch.lifecycle:$rootProject.lifecycleCompiler"

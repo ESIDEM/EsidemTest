@@ -51,5 +51,6 @@ ext{
     lifecycleCompiler = 'compiler:1.1.0'
     junitVersion = '4.12'
     testRunner ='1.0.2'
+    firebase = '11.8.0'
     espresso_core = '3.0.2'
 }
