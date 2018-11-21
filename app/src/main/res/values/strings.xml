@@ -50,5 +50,9 @@
     <string name="test_yourself">Test yourself</string>
     <string name="widget_text">English \n Mathematics \n Chemistry \n Physics \n Biology\n
     Economics\nCommerce\nAccounting\nGovernment\nC R K\nInsurance</string>
+    <string name="invite_menu_label">Invite</string>
+    <string name="invitation_message">Check out this Application that gives awesome past questions</string>
+    <string name="invitation_cta">Call to action</string>
+    <string name="invitation_title">Invitation to download Esidem test</string>
 
 </resources>

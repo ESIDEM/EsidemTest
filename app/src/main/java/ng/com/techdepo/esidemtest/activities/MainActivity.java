@@ -5,8 +5,11 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,6 +18,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.google.android.gms.appinvite.AppInviteInvitation;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,12 +43,15 @@ import ng.com.techdepo.esidemtest.utils.ToastMaker;
 import ng.com.techdepo.esidemtest.view_model.QuestionsViewModel;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,GoogleApiClient.OnConnectionFailedListener {
     SharedPreferences prefs = null;
     ActivityMainBinding activityMainBinding;
     private ArrayList<Question> questionList = new ArrayList<>();
     AppDatabase appDatabase;
     QuestionsViewModel questionsViewModel;
+    private GoogleApiClient mGoogleApiClient;
+    private static final int REQUEST_INVITE = 1;
+    private static final String TAG = "MainActivity";
 
 
     @Override
@@ -51,7 +62,10 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         prefs = getSharedPreferences("ng.com.techdepo.esidemtest", MODE_PRIVATE);
         activityMainBinding.appBar.contentMain.nameTextView.setText("Welcome"+" " + prefs.getString("user_name", "Sam Esidem"));
-
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
+                .addApi(Auth.GOOGLE_SIGN_IN_API)
+                .build();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, activityMainBinding.drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         activityMainBinding.drawerLayout.addDrawerListener(toggle);
@@ -209,6 +223,9 @@ public class MainActivity extends AppCompatActivity
             DeleteFromDb.deleteAllMovies(appDatabase);
             refreshQuestions();
             ToastMaker.makeShortToast(this, getString(R.string.civil_edu) + getString(R.string.is_now_your_preferred_subject));
+        }else if (id == R.id.nav_share){
+
+            sendInvitation();
         }
 
         activityMainBinding.drawerLayout.closeDrawer(GravityCompat.START);
@@ -239,7 +256,37 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+        if (requestCode == REQUEST_INVITE) {
+            if (resultCode == RESULT_OK) {
+                // Check how many invitations were sent and log.
+                String[] ids = AppInviteInvitation.getInvitationIds(resultCode, data);
+                Log.d(TAG, "Invitations sent: " + ids.length);
+            } else {
+                // Sending failed or it was canceled, show failure message to the user
+                Log.d(TAG, "Failed to send invitation.");
+            }
+        }
+    }
+
     public void testResult(View view){
         startActivity(new Intent(this,ResultActivity.class));
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    private void sendInvitation() {
+        Intent intent = new AppInviteInvitation.IntentBuilder(getString(R.string.invitation_title))
+                .setMessage(getString(R.string.invitation_message))
+                .setCallToActionText(getString(R.string.invitation_cta))
+                .build();
+        startActivityForResult(intent, REQUEST_INVITE);
     }
 }

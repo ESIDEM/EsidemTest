@@ -38,6 +38,7 @@ dependencies {
     implementation "com.google.firebase:firebase-invites:$rootProject.firebase"
     implementation "com.google.firebase:firebase-crash:$rootProject.firebase"
     implementation "com.google.firebase:firebase-core:$rootProject.firebase"
+    implementation 'com.google.android.gms:play-services-auth:11.8.0'
     annotationProcessor "android.arch.persistence.room:$rootProject.roomCompiler"
     implementation "android.arch.lifecycle:$rootProject.lifecycleExtention"
     annotationProcessor "android.arch.lifecycle:$rootProject.lifecycleCompiler"
