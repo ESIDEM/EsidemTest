@@ -33,13 +33,7 @@ public class AppWidget extends AppWidgetProvider {
         // Create an Intent to launch MainActivity
         Intent intent = new Intent(context, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
-        views.setOnClickPendingIntent(R.id.widget, pendingIntent);
-// Set up the collection
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-            setRemoteAdapter(context, views);
-        } else {
-            setRemoteAdapterV11(context, views);
-        }
+        views.setOnClickPendingIntent(R.id.widget_list, pendingIntent);
 
         Intent clickIntentTemplate = new Intent(context, MainActivity.class);
 
@@ -53,16 +47,6 @@ public class AppWidget extends AppWidgetProvider {
         appWidgetManager.updateAppWidget(appWidgetId, views);
 }
 
-    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-    private void setRemoteAdapter(Context context, @NonNull final RemoteViews views) {
-        views.setRemoteAdapter(R.id.widget_list,
-                new Intent(context, WidgetService.class));
-    }
 
-    @SuppressWarnings("deprecation")
-    private void setRemoteAdapterV11(Context context, @NonNull final RemoteViews views) {
-        views.setRemoteAdapter(0, R.id.widget_list,
-                new Intent(context, WidgetService.class));
-    }
 
 }

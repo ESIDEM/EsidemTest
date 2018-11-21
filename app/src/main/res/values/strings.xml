@@ -48,5 +48,7 @@
     <string name="_40_chemistry_questions_available">40 Chemistry Questions available</string>
     <string name="sorry_no_questions">Sorry, there are no questions available at the moment</string>
     <string name="test_yourself">Test yourself</string>
+    <string name="widget_text">English \n Mathematics \n Chemistry \n Physics \n Biology\n
+    Economics\nCommerce\nAccounting\nGovernment\nC R K\nInsurance</string>
 
 </resources>

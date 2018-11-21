@@ -16,18 +16,14 @@ public class WidgetService extends RemoteViewsService {
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
         return new RemoteViewsFactory() {
 
-            private String subject;
-            @Override
+               @Override
             public void onCreate() {
 
             }
 
             @Override
             public void onDataSetChanged() {
-                final long identityToken = Binder.clearCallingIdentity();
-                subject = SharedPreferenceUtil.subject(getApplicationContext()).substring(0, 1).toUpperCase() +
-                        SharedPreferenceUtil.subject(getApplicationContext()).substring(1);
-                Binder.restoreCallingIdentity(identityToken);
+
             }
 
             @Override
@@ -42,12 +38,7 @@ public class WidgetService extends RemoteViewsService {
 
             @Override
             public RemoteViews getViewAt(int position) {
-                final RemoteViews views = new RemoteViews(getPackageName(),
-                        R.layout.widget_layout);
-                views.setTextViewText(R.id.widget_list,subject);
-                final Intent fillInIntent = new Intent();
-                views.setOnClickFillInIntent(R.id.widget, fillInIntent);
-                return views;
+               return null;
             }
 
             @Override
