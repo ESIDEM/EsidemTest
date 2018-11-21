@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "192425397127",
+    "firebase_url": "https://esidem-test.firebaseio.com",
+    "project_id": "esidem-test",
+    "storage_bucket": "esidem-test.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:192425397127:android:10d354e095817dfd",
+        "android_client_info": {
+          "package_name": "ng.com.techdepo.esidemtest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "192425397127-rtfpt5phb48brkmvm9u4de06ggt284pv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ng.com.techdepo.esidemtest",
+            "certificate_hash": "21164b831d434bd29a8579d643c2a0ac76bd3b2f"
+          }
+        },
+        {
+          "client_id": "192425397127-0iffa3d2tlc70bqtq5sdg1fdn089lpfn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHfp7cIcr4oIAX71NPDOyVlyDjvZrcDTk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "192425397127-0iffa3d2tlc70bqtq5sdg1fdn089lpfn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
