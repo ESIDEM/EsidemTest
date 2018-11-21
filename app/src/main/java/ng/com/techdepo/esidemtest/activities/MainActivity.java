@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = activityMainBinding.appBar.toolbar;
         setSupportActionBar(toolbar);
         prefs = getSharedPreferences("ng.com.techdepo.esidemtest", MODE_PRIVATE);
-        activityMainBinding.appBar.contentMain.nameTextView.setText("Welcome" + prefs.getString("user_name", "Sam Esidem"));
+        activityMainBinding.appBar.contentMain.nameTextView.setText("Welcome"+" " + prefs.getString("user_name", "Sam Esidem"));
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, activityMainBinding.drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -216,17 +216,27 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void timeTrial(View view) {
-        Intent intent = new Intent(this, QuestionActivity.class);
-        intent.putExtra(QuestionActivity.TEST_TYPE, "time");
+        if (questionList.size()==0){
+            ToastMaker.makeLongToast(this,getString(R.string.sorry_no_questions));
+            questionsViewModel.getQuestions();
+        }else {
+            Intent intent = new Intent(this, QuestionActivity.class);
+            intent.putExtra(QuestionActivity.TEST_TYPE, "time");
 
-        startActivity(intent);
+            startActivity(intent);
+        }
     }
 
     public void classicTest(View view) {
-        Intent intent = new Intent(this, QuestionActivity.class);
-        intent.putExtra(QuestionActivity.TEST_TYPE, "classic");
+        if (questionList.size()==0){
+            ToastMaker.makeLongToast(this,getString(R.string.sorry_no_questions));
+            questionsViewModel.getQuestions();
+        }else {
+            Intent intent = new Intent(this, QuestionActivity.class);
+            intent.putExtra(QuestionActivity.TEST_TYPE, "classic");
 
-        startActivity(intent);
+            startActivity(intent);
+        }
     }
 
     public void testResult(View view){

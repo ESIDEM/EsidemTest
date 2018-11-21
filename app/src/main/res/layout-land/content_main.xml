@@ -24,18 +24,19 @@
                 android:layout_marginTop="20dp"
                 android:gravity="center"
                 android:text="Welcome Sam"
-                android:textSize="20sp" />
+                android:textSize="30sp" />
 
             <LinearLayout
                 android:id="@+id/time_trial_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/name_text_view"
-                android:layout_centerHorizontal="true"
+                android:layout_marginStart="@dimen/activity_vertical_margin"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/button_style_home"
                 android:onClick="timeTrial"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginLeft="@dimen/activity_vertical_margin">
 
                 <ImageView
                     android:layout_width="60dp"
@@ -57,12 +58,15 @@
                 android:id="@+id/classic_test_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/time_trial_layout"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="40dp"
+                android:layout_below="@+id/name_text_view"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="@dimen/activity_vertical_margin"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/button_style_home2"
                 android:onClick="classicTest"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/activity_vertical_margin">
 
                 <ImageView
                     android:layout_width="60dp"

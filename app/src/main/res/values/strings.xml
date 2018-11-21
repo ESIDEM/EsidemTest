@@ -45,5 +45,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="swipe_left_or_right_to_delete">Swipe left or right to delete</string>
+    <string name="_40_chemistry_questions_available">40 Chemistry Questions available</string>
+    <string name="sorry_no_questions">Sorry, there are no questions available at the moment</string>
+    <string name="test_yourself">Test yourself</string>
 
 </resources>
