@@ -5,11 +5,15 @@ buildscript {
     repositories {
         google()
         jcenter()
+        maven {
+            url 'https://maven.fabric.io/public'
+        }
     }
     dependencies {
 
         classpath 'com.android.tools.build:gradle:3.1.2'
         classpath "com.android.databinding:dataBinder:1.0-rc1"
+        classpath 'io.fabric.tools:gradle:1.24.4'
         
 
         // NOTE: Do not place your application dependencies here; they belong
@@ -17,14 +21,6 @@ buildscript {
         classpath 'com.google.gms:google-services:3.1.1'
     }
 }
-//allprojects {
-//    gradle.projectsEvaluated {
-//        tasks.withType(JavaCompile) {
-//            options.compilerArgs << "-Xmaxerrs" << "4000"
-//            options.compilerArgs << "-Xmaxwarns" << "4000"
-//        }
-//    }
-//}
 
 allprojects {
     repositories {

@@ -2,9 +2,11 @@ package ng.com.techdepo.esidemtest.activities;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -224,6 +226,9 @@ public class MainActivity extends AppCompatActivity
         }else if (id == R.id.nav_share){
 
             sendInvitation();
+        }else if (id == R.id.nav_send){
+
+            rateApp();
         }
 
         activityMainBinding.drawerLayout.closeDrawer(GravityCompat.START);
@@ -286,5 +291,22 @@ public class MainActivity extends AppCompatActivity
                 .setCallToActionText(getString(R.string.invitation_cta))
                 .build();
         startActivityForResult(intent, REQUEST_INVITE);
+    }
+
+    public void rateApp(){
+
+        Uri uri = Uri.parse("market://details?id=" + this.getPackageName());
+        Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+        // To count with Play market backstack, After pressing back button,
+        // to taken back to our application, we need to add following flags to intent.
+        goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
+                Intent.FLAG_ACTIVITY_NEW_DOCUMENT |
+                Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+        try {
+            startActivity(goToMarket);
+        } catch (ActivityNotFoundException e) {
+            startActivity(new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("http://play.google.com/store/apps/details?id=" + this.getPackageName())));
+        }
     }
 }
