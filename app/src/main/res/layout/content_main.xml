@@ -33,6 +33,7 @@
                 android:layout_below="@+id/name_text_view"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
+                android:contentDescription="@string/time_trial_test"
                 android:background="@drawable/button_style_home"
                 android:onClick="timeTrial"
                 android:orientation="horizontal">
@@ -59,6 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/time_trial_layout"
                 android:layout_centerHorizontal="true"
+                android:contentDescription="@string/classic_test"
                 android:layout_marginTop="40dp"
                 android:background="@drawable/button_style_home2"
                 android:onClick="classicTest"
@@ -87,6 +89,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="40dp"
                 android:onClick="testResult"
+                android:contentDescription="@string/test_results"
                 android:background="@drawable/button_style_home"
                 android:orientation="horizontal">
 
