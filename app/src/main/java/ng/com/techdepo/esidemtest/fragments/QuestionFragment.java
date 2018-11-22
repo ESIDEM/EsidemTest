@@ -95,6 +95,7 @@ public class QuestionFragment extends Fragment{
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRetainInstance(true);
         questionsViewModel = ViewModelProviders.of(getActivity()).get(QuestionsViewModel.class);
             dialog();
             fetchQuestions();
