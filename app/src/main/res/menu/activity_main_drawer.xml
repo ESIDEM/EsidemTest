@@ -7,80 +7,80 @@
         <item
             android:id="@+id/nav_english"
             android:icon="@drawable/english_icon"
-            android:title="English Language"
+            android:title="@string/english_language"
             />
         <item
             android:id="@+id/nav_mathematics"
             android:icon="@drawable/math_icom"
-            android:title="Mathematics" />
+            android:title="@string/mathematics" />
         <item
             android:id="@+id/nav_chemistry"
             android:icon="@drawable/chemistry_icon"
-            android:title="Chemistry" />
+            android:title="@string/chemistry" />
         <item
             android:id="@+id/nav_physics"
             android:icon="@drawable/physics"
-            android:title="Physics" />
+            android:title="@string/physics" />
         <item
             android:id="@+id/nav_biology"
             android:icon="@drawable/biology_icom"
-            android:title="Biology" />
+            android:title="@string/biology" />
         <item
             android:id="@+id/nav_economics"
             android:icon="@drawable/economics_icon"
-            android:title="Economics" />
+            android:title="@string/economics" />
         <item
             android:id="@+id/nav_accounting"
             android:icon="@drawable/accounting_icon"
-            android:title="Accounting" />
+            android:title="@string/accounting" />
         <item
             android:id="@+id/nav_government"
             android:icon="@drawable/government"
-            android:title="Government" />
+            android:title="@string/government" />
         <item
             android:id="@+id/nav_current_affair"
             android:icon="@drawable/current_affair"
-            android:title="Current Affairs" />
+            android:title="@string/current_affairs" />
         <item
             android:id="@+id/nav_commerce"
             android:icon="@drawable/commerce_icon"
-            android:title="Commerce" />
+            android:title="@string/commerce" />
         <item
             android:id="@+id/nav_geography"
             android:icon="@drawable/geography"
-            android:title="Geography" />
+            android:title="@string/geography" />
         <item
             android:id="@+id/nav_history"
             android:icon="@drawable/history"
-            android:title="History" />
+            android:title="@string/history" />
         <item
             android:id="@+id/nav_insurance"
             android:icon="@drawable/insurance"
-            android:title="Insurance" />
+            android:title="@string/insurance" />
         <item
             android:id="@+id/nav_civil_edu"
             android:icon="@drawable/edu"
-            android:title="Civil Education" />
+            android:title="@string/civil_education" />
         <item
             android:id="@+id/nav_c_r_k"
             android:icon="@drawable/c_r_k"
-            android:title="C R K" />
+            android:title="@string/c_r_k" />
         <item
             android:id="@+id/nav_Literature_in_eng"
             android:icon="@drawable/lit"
-            android:title="Literature in English" />
+            android:title="@string/literature_in_english" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="@string/communicate">
         <menu>
             <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
-                android:title="Share this App" />
+                android:title="@string/share_this_app" />
             <item
                 android:id="@+id/nav_send"
                 android:icon="@drawable/ic_menu_send"
-                android:title="Rate Us" />
+                android:title="@string/rate_us" />
         </menu>
     </item>
 

@@ -36,6 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/name_edit_text"
             android:layout_centerHorizontal="true"
+            android:contentDescription="@string/continue_button"
             android:layout_marginTop="40dp"
             android:background="@drawable/button_style"
             android:text="@string/continue_text"

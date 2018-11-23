@@ -64,5 +64,24 @@
     <string name="classic_test_icon">Classic Test Icon</string>
     <string name="time_trial_icon">Time Trial Icon</string>
     <string name="app_logo">App Logo</string>
+    <string name="english_language">English Language</string>
+    <string name="mathematics">Mathematics</string>
+    <string name="civil_education">Civil Education</string>
+    <string name="literature_in_english">Literature in English</string>
+    <string name="communicate">Communicate</string>
+    <string name="share_this_app">Share this App</string>
+    <string name="rate_us">Rate Us</string>
+    <string name="next">Next</string>
+    <string name="next_button">Next Button</string>
+    <string name="all_test_result">All Test Result</string>
+    <string name="welcome_sam">Welcome Sam</string>
+    <string name="time_trial">Time Trial</string>
+    <string name="who_developed_this_app">Who developed this App</string>
+    <string name="continue_button">Continue button</string>
+    <string name="_20">20</string>
+    <string name="home">home</string>
+    <string name="retake_test">retake test</string>
+    <string name="_3_10">3/10</string>
+    <string name="no_questions_available">No questions available</string>
 
 </resources>

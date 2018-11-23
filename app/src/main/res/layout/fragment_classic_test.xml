@@ -41,7 +41,7 @@
                 android:layout_marginStart="@dimen/activity_vertical_margin"
                 android:layout_marginTop="10dp"
                 android:gravity="center"
-                android:text="Who developed this App"
+                android:text="@string/who_developed_this_app"
                 />
 
 
@@ -145,7 +145,7 @@
                 android:layout_marginBottom="@dimen/activity_vertical_margin"
                 android:background="@drawable/button_style"
                 android:onClick="@{onclick::onClick}"
-                android:text="Next"
+                android:text="@string/next"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 android:layout_marginRight="16dp" />
@@ -156,13 +156,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/buttom_view"
-                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 android:layout_marginLeft="@dimen/activity_vertical_margin"
                 android:layout_marginStart="@dimen/activity_vertical_margin"
                 android:layout_marginBottom="10dp"
                 android:text='@{question.examtype.toUpperCase() +" "+ question.examyear,default="WASSCE 2005"}'
                 android:textColor="@color/colorAccent"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:layout_alignParentLeft="true" />
 
             <LinearLayout
                 android:id="@+id/buttom_view"
