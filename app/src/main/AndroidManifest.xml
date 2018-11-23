@@ -36,7 +36,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ng.com.techdepo.esidemtest.activities.MainActivity" />
         </activity>
-        <activity android:name=".activities.ResultActivity"/>
+        <activity android:name=".activities.ResultActivity">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="ng.com.techdepo.esidemtest.activities.MainActivity" />
+        </activity>
 
         <!-- Detail Widget -->
         <receiver

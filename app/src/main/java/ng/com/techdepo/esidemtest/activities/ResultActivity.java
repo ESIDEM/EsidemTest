@@ -34,6 +34,8 @@ public class ResultActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         activityResultBinding = DataBindingUtil.setContentView(this,R.layout.activity_result);
         setUpRecyclerView();
         fetchResults();

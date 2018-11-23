@@ -1,5 +1,6 @@
 package ng.com.techdepo.esidemtest.activities;
 
+import android.app.ActivityOptions;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.ActivityNotFoundException;
@@ -120,21 +121,6 @@ public class MainActivity extends AppCompatActivity
     }else {
             ToastMaker.makeShortToast(this,getString(R.string.no_internet));
         }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -277,7 +263,13 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void testResult(View view){
-        startActivity(new Intent(this,ResultActivity.class));
+        Intent intent = new Intent(this, ResultActivity.class);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
+            startActivity(intent, bundle);
+        } else {
+            startActivity(intent);
+        }
     }
 
     @Override
