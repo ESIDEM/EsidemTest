@@ -41,6 +41,7 @@
                 <ImageView
                     android:layout_width="60dp"
                     android:layout_height="60dp"
+                    android:contentDescription="@string/time_trial_icon"
                     android:src="@mipmap/timer_icon_foreground" />
 
                 <TextView
@@ -71,6 +72,7 @@
                 <ImageView
                     android:layout_width="60dp"
                     android:layout_height="60dp"
+                    android:contentDescription="@string/classic_test_icon"
                     android:src="@mipmap/classic_icon_foreground" />
 
                 <TextView
@@ -97,6 +99,7 @@
                 <ImageView
                     android:layout_width="60dp"
                     android:layout_height="60dp"
+                    android:contentDescription="@string/test_result_icon"
                     android:src="@mipmap/text_result_icon_foreground" />
 
                 <TextView
