@@ -16,7 +16,7 @@
             android:name=".activities.MainActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.SplashScreen"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
@@ -37,9 +37,9 @@
                 android:value="ng.com.techdepo.esidemtest.activities.MainActivity" />
         </activity>
         <activity android:name=".activities.ResultActivity">
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value="ng.com.techdepo.esidemtest.activities.MainActivity" />
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ng.com.techdepo.esidemtest.activities.MainActivity" />
         </activity>
 
         <!-- Detail Widget -->
@@ -49,21 +49,21 @@
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
+
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/widget_provider" />
         </receiver>
+
         <service
             android:name=".widget.AppWidget$UpdateService"
-            android:exported="false"
             android:enabled="true"
+            android:exported="false"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
-
         <service android:name=".firebase.AppFirebaseCloudMessaging">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
-
         </service>
         <service
             android:name=".firebase.AppFirebaseInstanceIdService"
@@ -72,15 +72,23 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
+
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_launcher_background" />
-        <!-- Set color used with incoming notification messages. This is used when no color is set for the incoming
-             notification message. See README(https://goo.gl/6BKBk7) for more. -->
+        <!--
+             Set color used with incoming notification messages. This is used when no color is set for the incoming
+             notification message. See README(https://goo.gl/6BKBk7) for more.
+        -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorAccent" />
 
+        <activity android:name=".activities.AboutActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ng.com.techdepo.esidemtest.activities.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

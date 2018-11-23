@@ -107,7 +107,7 @@ public class QuestionFragment extends Fragment{
         // Inflate the layout for this fragment
         questionLayoutBinding = DataBindingUtil.inflate(inflater, R.layout.question_layout, container, false);
         // View rootView = inflater.inflate(R.layout.question_layout, container, false);
-        getActivity().setTitle("Time Trial");
+        getActivity().setTitle(getString(R.string.time_trial));
         View view = questionLayoutBinding.getRoot();
         setTimeValue(SharedPreferenceUtil.subject(getActivity()));
         bindViews();

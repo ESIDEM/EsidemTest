@@ -20,7 +20,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-
 import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.ConnectionResult;
@@ -53,6 +52,7 @@ public class MainActivity extends AppCompatActivity
     private GoogleApiClient mGoogleApiClient;
     private static final int REQUEST_INVITE = 1;
     private static final String TAG = "MainActivity";
+
 
 
     @Override
@@ -215,6 +215,8 @@ public class MainActivity extends AppCompatActivity
         }else if (id == R.id.nav_send){
 
             rateApp();
+        }else if (id==R.id.nav_about){
+            startActivity(new Intent(this,AboutActivity.class));
         }
 
         activityMainBinding.drawerLayout.closeDrawer(GravityCompat.START);
@@ -301,4 +303,8 @@ public class MainActivity extends AppCompatActivity
                     Uri.parse("http://play.google.com/store/apps/details?id=" + this.getPackageName())));
         }
     }
+
+
+
+
 }

@@ -83,5 +83,11 @@
     <string name="retake_test">retake test</string>
     <string name="_3_10">3/10</string>
     <string name="no_questions_available">No questions available</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="about_us">About Us</string>
+    <string name="developed_by">Developed by:</string>
+    <string name="info_text">This application was developed with the aim of facilitating exams preparation by providing student over 5000 past questions from WASSCCE, NECO, UTME, POST-UTME with over 16 different subject.</string>
+    <string name="about_page">About Page</string>
+    <string name="sam_esidem" translatable="false">Sam Esidem</string>
 
 </resources>
