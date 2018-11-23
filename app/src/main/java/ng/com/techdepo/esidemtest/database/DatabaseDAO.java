@@ -16,7 +16,8 @@ public interface DatabaseDAO {
     @Query("SELECT * FROM questions")
     LiveData<List<QuestionEntity>> getAllQuestions();
 
-
+    @Query("SELECT * FROM questions")
+    List<QuestionEntity> getWidgetQuestions();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void inSertQuestions(QuestionEntity questionEntity);

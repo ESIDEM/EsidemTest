@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 
 import ng.com.techdepo.esidemtest.api.ApiInterface;
@@ -27,6 +28,7 @@ public class AppRepository {
     Executor executor;
     LiveData<List<QuestionEntity>> quetions;
     LiveData<List<Result>> results;
+    List<QuestionEntity> widgetQuestions;
 
     public AppRepository(Context context) {
 
@@ -35,6 +37,7 @@ public class AppRepository {
         appDatabase = AppDatabase.getInstance(context);
         quetions = appDatabase.databaseDAO().getAllQuestions();
         results = appDatabase.resultDAO().getAllResult();
+
     }
 
     public LiveData<List<QuestionEntity>>getQuestionsFromDb(){
@@ -42,6 +45,20 @@ public class AppRepository {
 
         return quetions;
     }
+
+    public  List<QuestionEntity> getWidgetQuestions(){
+
+        try {
+            widgetQuestions= new BackgroudQuesry(appDatabase).execute().get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return  widgetQuestions;
+    }
+
+
 
     public LiveData<List<Result>> getAllResult(){
         return results;
@@ -127,6 +144,20 @@ public class AppRepository {
             int position = integers[0];
             db.resultDAO().deleteById(position);
             return null;
+        }
+    }
+
+    private static class BackgroudQuesry extends AsyncTask<Void,Void,List<QuestionEntity>>{
+        private  AppDatabase db;
+        List<QuestionEntity> widgetQuestions;
+        public BackgroudQuesry(AppDatabase db) {
+            this.db = db;
+        }
+
+        @Override
+        protected List<QuestionEntity> doInBackground(Void... voids) {
+           widgetQuestions = db.databaseDAO().getWidgetQuestions();
+            return widgetQuestions;
         }
     }
 }
