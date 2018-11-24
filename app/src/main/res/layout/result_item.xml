@@ -22,13 +22,14 @@
 
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:gravity="center"
     android:layout_margin="6dp">
 
     <TextView
         android:id="@+id/date_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Date: "
+        android:text="@string/date"
         android:textSize="20sp"/>
     <TextView
         android:id="@+id/date_real"
@@ -36,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_toEndOf="@+id/date_text"
         android:text='@{String.valueOf(result.time),default="13/12/2008"}'
-        android:textSize="15sp"
+        android:textSize="20sp"
         android:layout_marginStart="@dimen/activity_vertical_margin"
         android:layout_toRightOf="@+id/date_text"
         android:layout_marginLeft="@dimen/activity_vertical_margin" />
@@ -45,7 +46,7 @@
         android:id="@+id/score_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Score: "
+        android:text="@string/score"
         android:textSize="20sp"
         android:layout_below="@+id/date_text"/>
     <TextView

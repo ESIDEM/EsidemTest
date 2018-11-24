@@ -26,6 +26,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
          />
+    <TextView
+        android:id="@+id/no_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/no_result_at_the_moment"
+        android:textSize="20sp"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        />
 
     <LinearLayout
         android:id="@+id/subject_text_view"

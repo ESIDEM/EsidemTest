@@ -340,11 +340,11 @@ public class QuestionFragment extends Fragment{
         correctAnswerText.setText(correctAnswers + "/"+SharedPreferenceUtil.numberOfQuestion(getActivity()));
         Button reTakeButton = resultDialogueBinding.reTakeButton;
         progressBarCircle.setProgress(correctAnswers);
-       // DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
         Result result = new Result(SharedPreferenceUtil.subject(getActivity()).substring(0, 1).toUpperCase() +
                 SharedPreferenceUtil.subject(getActivity()).substring(1),
-                SharedPreferenceUtil.numberOfQuestion(getActivity()),correctAnswers,date);
+                SharedPreferenceUtil.numberOfQuestion(getActivity()),correctAnswers,dateFormat.format(date));
         questionsViewModel.insertResult(result);
         reTakeButton.setOnClickListener(new View.OnClickListener() {
             @Override

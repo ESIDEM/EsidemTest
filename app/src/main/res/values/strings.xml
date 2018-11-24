@@ -99,5 +99,8 @@
     <string name="was_coorect"> was correct</string>
     <string name="is_wrong"> is wrong, try again</string>
     <string name="no_option">No option </string>
+    <string name="no_result_at_the_moment">No Result at the moment</string>
+    <string name="date">Date:</string>
+    <string name="score">Score:</string>
 
 </resources>

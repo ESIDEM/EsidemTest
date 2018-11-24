@@ -11,6 +11,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,8 +77,18 @@ public class ResultActivity extends AppCompatActivity {
             public void onChanged(@Nullable List<Result> results) {
                 resultList.addAll(results);
                 adapter.notifyDataSetChanged();
+                emptyListCheck();
 
             }
         });
+    }
+
+    private void emptyListCheck(){
+
+        if (resultList.size()==0){
+            activityResultBinding.noResult.setVisibility(View.VISIBLE);
+        }else {
+            activityResultBinding.noResult.setVisibility(View.GONE);
+        }
     }
 }

@@ -17,18 +17,17 @@ public class Result {
     String subject;
     int numberOfQuestions;
     int correctAnswers;
-    @TypeConverters(Converter.class)
-    Date time;
+    String time;
 
    @Ignore
-    public Result(String subject, int numberOfQuestions, int correctAnswers, Date time) {
+    public Result(String subject, int numberOfQuestions, int correctAnswers, String time) {
         this.subject = subject;
         this.numberOfQuestions = numberOfQuestions;
         this.correctAnswers = correctAnswers;
         this.time = time;
     }
 
-    public Result(int id, String subject, int numberOfQuestions, int correctAnswers, Date time) {
+    public Result(int id, String subject, int numberOfQuestions, int correctAnswers, String time) {
         this.id = id;
         this.subject = subject;
         this.numberOfQuestions = numberOfQuestions;
@@ -68,11 +67,11 @@ public class Result {
         this.correctAnswers = correctAnswers;
     }
 
-    public Date getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(Date time) {
+    public void setTime(String time) {
         this.time = time;
     }
 }
