@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = activityMainBinding.appBar.toolbar;
         setSupportActionBar(toolbar);
         prefs = getSharedPreferences("ng.com.techdepo.esidemtest", MODE_PRIVATE);
-        activityMainBinding.appBar.contentMain.nameTextView.setText("Welcome"+" " + prefs.getString("user_name", "Sam Esidem"));
+        activityMainBinding.appBar.contentMain.nameTextView.setText(getString(R.string.welcome)+" " + prefs.getString("user_name", getString(R.string.sam_esidem)));
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API)
@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity
         activityMainBinding.navView.setNavigationItemSelectedListener(this);
         View header = activityMainBinding.navView.getHeaderView(0);
         NavHeaderMainBinding navHeaderMainBinding = NavHeaderMainBinding.bind(header);
-        navHeaderMainBinding.nameText.setText(prefs.getString("user_name", "Sam Esidem"));
+        navHeaderMainBinding.nameText.setText(prefs.getString("user_name", getString(R.string.sam_esidem)));
         fetchQuestions();
 
 

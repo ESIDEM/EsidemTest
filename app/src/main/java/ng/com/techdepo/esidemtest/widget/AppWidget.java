@@ -7,6 +7,7 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.os.IBinder;
 import android.widget.RemoteViews;
 import java.util.List;
@@ -16,8 +17,10 @@ import ng.com.techdepo.esidemtest.R;
 import ng.com.techdepo.esidemtest.activities.MainActivity;
 import ng.com.techdepo.esidemtest.database.QuestionEntity;
 import ng.com.techdepo.esidemtest.repository.AppRepository;
+import ng.com.techdepo.esidemtest.utils.ToastMaker;
 
 public class AppWidget extends AppWidgetProvider {
+
 
 
     @Override
@@ -63,13 +66,29 @@ public class AppWidget extends AppWidgetProvider {
             view.setTextViewText(R.id.widget_b,questionEntity.getOptionDb().getOptionB());
             view.setTextViewText(R.id.widget_c,questionEntity.getOptionDb().getOptionC());
             view.setTextViewText(R.id.widget_d,questionEntity.getOptionDb().getOptionD());
-            //when a user clicks the widget, show 'em a google search page with will roger results...
-            Intent intent = new Intent(ctx,MainActivity.class);
 
-            //no request code and no flags for this example
-            PendingIntent pender = PendingIntent.getActivity(ctx, 0, intent, 0);
-            view.setOnClickPendingIntent(R.id.all_layout, pender);
-            return view;
+           Intent intent= new Intent(ctx, AppWidget.class);
+           intent.putExtra("answer",questionEntity.getAnswer());
+            intent.putExtra("click","a");
+            Intent intent1= new Intent(ctx, AppWidget.class);
+            intent1.putExtra("answer",questionEntity.getAnswer());
+            intent1.putExtra("click","b");
+            Intent intent2= new Intent(ctx, AppWidget.class);
+            intent2.putExtra("answer",questionEntity.getAnswer());
+            intent2.putExtra("click","c");
+            Intent intent3= new Intent(ctx, AppWidget.class);
+            intent3.putExtra("answer",questionEntity.getAnswer());
+            intent3.putExtra("click","d");
+           PendingIntent pendingIntent = PendingIntent.getBroadcast(ctx,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent pendingIntent1 = PendingIntent.getBroadcast(ctx,1,intent1,PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent pendingIntent2 = PendingIntent.getBroadcast(ctx,2,intent2,PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent pendingIntent3 = PendingIntent.getBroadcast(ctx,3,intent3,PendingIntent.FLAG_UPDATE_CURRENT);
+            view.setOnClickPendingIntent(R.id.widget_a,pendingIntent);
+           view.setOnClickPendingIntent(R.id.widget_b,pendingIntent1);
+            view.setOnClickPendingIntent(R.id.widget_c,pendingIntent2);
+            view.setOnClickPendingIntent(R.id.widget_d,pendingIntent3);
+
+           return view;
         }
 
         @Override
@@ -81,5 +100,33 @@ public class AppWidget extends AppWidgetProvider {
 
 
     }
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        super.onReceive(context, intent);
+        String click = intent.getStringExtra("click");
+        String answer =intent.getStringExtra("answer");
+        if (click==null){
+            return;
+        }else if (click.equals(answer)){
+            ToastMaker.makeShortToast(context,context.getString(R.string.yes_option)+" " + answer.toUpperCase()+ " "+context.getString(R.string.was_coorect));
+            deLay(context);
+        }else {
+            ToastMaker.makeShortToast(context,context.getString(R.string.no_option)+" "+click.toUpperCase() +" "+ context.getString(R.string.is_wrong));
+        }
+    }
+    private void deLay(final Context c) {
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+
+                c.startService(new Intent(c,UpdateService.class));
+
+            }
+        }, 1000);
+    }
+
 
 }

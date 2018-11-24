@@ -8,7 +8,7 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="data_warning">This application is by no means collecting
-        your sensitive data like password, location ect. 
+        your sensitive data like password, location etc.
         All information inputed in this application are stored localy in 
         your device. This means we are not sending any of 
         your data to an external storage.  </string>
@@ -89,5 +89,15 @@
     <string name="info_text">This application was developed with the aim of facilitating exams preparation by providing student over 5000 past questions from WASSCCE, NECO, UTME, POST-UTME with over 16 different subject.</string>
     <string name="about_page">About Page</string>
     <string name="sam_esidem" translatable="false">Sam Esidem</string>
+    <string name="welcome">Welcome</string>
+    <string name="developer_s_image">Developer\'s Image</string>
+    <string name="open_developer_s_facebook_page">Open Developer\'s Facebook page</string>
+    <string name="open_developer_s_twitter_page">Open Developer\'s Twitter page</string>
+    <string name="open_developer_s_linkedin_page">Open Developer\'s LinkedIn page</string>
+    <string name="open_developer_s_github_page">Open Developer\'s Github page</string>
+    <string name="yes_option"> Yes option </string>
+    <string name="was_coorect"> was correct</string>
+    <string name="is_wrong"> is wrong, try again</string>
+    <string name="no_option">No option </string>
 
 </resources>

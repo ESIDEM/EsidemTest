@@ -13,7 +13,7 @@ android {
 
         signingConfigs {
             myConfig {
-                storeFile file("app.keyStore")
+                storeFile file("keyStore.jks")
                 storePassword "esidem"
                 keyAlias "esidem"
                 keyPassword "esidem"

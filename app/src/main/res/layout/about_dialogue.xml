@@ -17,6 +17,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/logo"
+        android:contentDescription="@string/app_logo"
         android:layout_centerHorizontal="true"/>
     <View
         android:id="@+id/view_1"
@@ -54,6 +55,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/sam_e"
+        android:contentDescription="@string/developer_s_image"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/develop"
@@ -80,6 +82,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:src="@drawable/fb"
+        android:contentDescription="@string/open_developer_s_facebook_page"
         android:onClick="@{handler::onClick}"
         android:layout_marginEnd="@dimen/activity_vertical_margin"
 
@@ -88,6 +91,7 @@
         android:id="@+id/twitter"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:contentDescription="@string/open_developer_s_twitter_page"
         android:src="@drawable/twiter"
         android:onClick="@{handler::onClick}"
         android:layout_marginEnd="@dimen/activity_vertical_margin"
@@ -97,6 +101,7 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:src="@drawable/linkin"
+        android:contentDescription="@string/open_developer_s_linkedin_page"
         android:onClick="@{handler::onClick}"
         android:layout_marginEnd="@dimen/activity_vertical_margin"
         android:layout_marginRight="@dimen/activity_vertical_margin"
@@ -106,6 +111,7 @@
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:src="@drawable/git_new"
+        android:contentDescription="@string/open_developer_s_github_page"
         android:onClick="@{handler::onClick}"
          />
 
