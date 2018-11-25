@@ -7,7 +7,7 @@ public class SharedPreferenceUtil {
 
     public static String subject(Context context){
         SharedPreferences prefs = context.getSharedPreferences("ng.com.techdepo.esidemtest", Context.MODE_APPEND);
-        String subject = prefs.getString("subject", "chemistry");
+        String subject = prefs.getString("subject", "english");
 
         return  subject;
     }

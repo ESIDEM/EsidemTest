@@ -47,7 +47,6 @@ public class DataActivity extends AppCompatActivity {
                     return;
                 }
                 prefs.edit().putString("user_name", editText.getText().toString()).apply();
-                prefs.edit().putString("subject", "english").apply();
                 startActivity(new Intent(v.getContext(), MainActivity.class));
                 dialog.dismiss();
 
