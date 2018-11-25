@@ -10,12 +10,15 @@
     <TextView
         android:id="@+id/data_warning"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         android:text="@string/data_warning"
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:layout_marginTop="40dp"
-        android:textSize="25sp"/>
+        app:autoSizeTextType="uniform"
+        app:autoSizeMinTextSize="12sp"
+        app:autoSizeMaxTextSize="30sp"
+        app:autoSizeStepGranularity="2sp"/>
 
     <TextView
         android:id="@+id/data_warning2"
@@ -25,7 +28,10 @@
         android:layout_marginTop="20sp"
         android:layout_centerHorizontal="true"
         android:text="@string/have_fun"
-        android:textSize="25sp"/>
+        app:autoSizeTextType="uniform"
+        app:autoSizeMinTextSize="12sp"
+        app:autoSizeMaxTextSize="30sp"
+        app:autoSizeStepGranularity="2sp"/>
 
 
     <Button

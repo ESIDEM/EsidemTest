@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -41,8 +42,12 @@ public class DataActivity extends AppCompatActivity {
         dialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                prefs.edit().putString("user_name", editText.getText().toString()).apply();
 
+                if (!dataValidated(editText.getText().toString())) {
+                    return;
+                }
+                prefs.edit().putString("user_name", editText.getText().toString()).apply();
+                prefs.edit().putString("subject", "english").apply();
                 startActivity(new Intent(v.getContext(), MainActivity.class));
                 dialog.dismiss();
 
@@ -52,5 +57,15 @@ public class DataActivity extends AppCompatActivity {
 
         dialog.show();
 
+    }
+
+    boolean dataValidated(String name) {
+
+        if (name.isEmpty() ) {
+            nameDialogueBinding.nameEditText.setError("Please enter your name");
+            return false;
+        }
+
+        return true;
     }
 }

@@ -65,7 +65,7 @@ public class AppRepository {
     }
 
     public void  getQuestionsFromAPI(){
-        String subject = sharedPreferences.getString("subject", "chemistry");
+        String subject = sharedPreferences.getString("subject", "english");
         apiInterface.getQuestions(subject).enqueue(new Callback<QuestionResponse>() {
             @Override
             public void onResponse(Call<QuestionResponse> call, Response<QuestionResponse> response) {
