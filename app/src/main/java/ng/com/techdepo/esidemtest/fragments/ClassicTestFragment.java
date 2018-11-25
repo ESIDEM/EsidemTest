@@ -3,12 +3,16 @@ package ng.com.techdepo.esidemtest.fragments;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,6 +65,7 @@ public class ClassicTestFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
+        dialog();
          fetchQuestions();
     }
 
@@ -93,7 +98,7 @@ public class ClassicTestFragment extends Fragment {
                 }
 
                 fragmentClassicTestBinding.questionNumbers.setText(String.valueOf(questionList.size()));
-                selectRandom(questionList);
+
 
             }
         });
@@ -227,7 +232,7 @@ public class ClassicTestFragment extends Fragment {
         }
 
         fragmentClassicTestBinding.subjectTextView.setText(SharedPreferenceUtil.subject(getActivity()).substring(0, 1).toUpperCase() +
-                SharedPreferenceUtil.subject(getActivity()).substring(1)+" Question(s)");
+                SharedPreferenceUtil.subject(getActivity()).substring(1)+getString(R.string.quesion_s));
     }
 
 
@@ -266,6 +271,27 @@ public class ClassicTestFragment extends Fragment {
 
         }
 
+
+    }
+
+    void dialog(){
+
+
+        AlertDialog.Builder dialogue = new AlertDialog.Builder(getActivity());
+        //alt_bld.setIcon(R.drawable.icon);
+
+        dialogue.setTitle(R.string.welcom_to_classic);
+        dialogue.setCancelable(false);
+        dialogue.setMessage(R.string.by_choosing)
+        .setPositiveButton(R.string.continue_, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                selectRandom(questionList);
+            }
+        });
+        AlertDialog alert = dialogue.create();
+        alert.show();
 
     }
 
