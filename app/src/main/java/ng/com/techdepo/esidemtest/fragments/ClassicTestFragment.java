@@ -1,18 +1,18 @@
 package ng.com.techdepo.esidemtest.fragments;
 
 
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.databinding.DataBindingUtil;
+
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AlertDialog;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +34,6 @@ import ng.com.techdepo.esidemtest.utils.QuestionBackground;
 import ng.com.techdepo.esidemtest.utils.QuestionConverter;
 import ng.com.techdepo.esidemtest.utils.SharedPreferenceUtil;
 import ng.com.techdepo.esidemtest.utils.TextViewVisibilityUtil;
-import ng.com.techdepo.esidemtest.utils.ToastMaker;
 import ng.com.techdepo.esidemtest.view_model.QuestionsViewModel;
 
 /**

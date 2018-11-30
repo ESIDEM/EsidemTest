@@ -1,7 +1,7 @@
 package ng.com.techdepo.esidemtest.utils;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
+import androidx.core.content.ContextCompat;
 import android.widget.TextView;
 
 import ng.com.techdepo.esidemtest.R;
