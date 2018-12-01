@@ -121,13 +121,6 @@ public class QuestionFragment extends Fragment{
 
 
     @Override
-    public void onPause() {
-        super.onPause();
-        countDownTimer.cancel();
-    }
-
-
-    @Override
     public void onStop() {
         super.onStop();
         countDownTimer.cancel();
@@ -398,10 +391,10 @@ public class QuestionFragment extends Fragment{
         questionTimer = questionLayoutBinding.questionTimer;
         netxButton = questionLayoutBinding.nextButton;
         netxButton.setVisibility(View.GONE);
-        if (!SharedPreferenceUtil.subject(getActivity()).equals("english")){
-            sectionText.setVisibility(View.GONE);
-        }else {
+        if (SharedPreferenceUtil.subject(getActivity()).equals("english")||SharedPreferenceUtil.subject(getActivity()).equals("englishlit")){
             sectionText.setVisibility(View.VISIBLE);
+        }else {
+            sectionText.setVisibility(View.GONE);
         }
 
         questionLayoutBinding.subjectTextView.setText(SharedPreferenceUtil.subject(getActivity()).substring(0, 1).toUpperCase() +
