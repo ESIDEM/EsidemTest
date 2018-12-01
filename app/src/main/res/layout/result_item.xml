@@ -30,49 +30,56 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/date"
-        android:textSize="20sp"/>
+        android:textSize="20sp"
+        card_view:fontFamily="@font/roboto" />
+
     <TextView
         android:id="@+id/date_real"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
         android:layout_toEndOf="@+id/date_text"
+        android:layout_toRightOf="@+id/date_text"
         android:text='@{String.valueOf(result.time),default="13/12/2008"}'
         android:textSize="20sp"
-        android:layout_marginStart="@dimen/activity_vertical_margin"
-        android:layout_toRightOf="@+id/date_text"
-        android:layout_marginLeft="@dimen/activity_vertical_margin" />
+        card_view:fontFamily="@font/roboto" />
 
     <TextView
         android:id="@+id/score_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/date_text"
         android:text="@string/score"
         android:textSize="20sp"
-        android:layout_below="@+id/date_text"/>
+        card_view:fontFamily="@font/roboto" />
+
     <TextView
         android:id="@+id/score_real"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/date_text"
-        android:text='@{result.correctAnswers + "/"+result.numberOfQuestions,default="4/45"}'
-        android:textSize="20sp"
         android:layout_below="@+id/date_text"
         android:layout_marginStart="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
+        android:layout_toEndOf="@+id/date_text"
         android:layout_toRightOf="@+id/date_text"
-        android:layout_marginLeft="@dimen/activity_vertical_margin" />
+        android:text='@{result.correctAnswers + "/"+result.numberOfQuestions,default="4/45"}'
+        android:textSize="20sp"
+        card_view:fontFamily="@font/roboto" />
 
 
     <TextView
         android:id="@+id/subject_real"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/score_real"
-        android:text='@{result.subject,default="Chemistry"}'
-        android:textSize="20sp"
         android:layout_below="@+id/date_text"
         android:layout_marginStart="@dimen/activity_vertical_margin"
         android:layout_marginLeft="@dimen/activity_vertical_margin"
-        android:layout_toRightOf="@+id/score_text" />
+        android:layout_toEndOf="@+id/score_real"
+        android:layout_toRightOf="@+id/score_text"
+        android:text='@{result.subject,default="Chemistry"}'
+        android:textSize="20sp"
+        card_view:fontFamily="@font/roboto_light" />
 
 </RelativeLayout>
 </androidx.cardview.widget.CardView>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -45,58 +46,65 @@
             android:id="@+id/widget_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxLines="4"
-            android:layout_centerHorizontal="true"
             android:layout_below="@+id/widget"
+            android:layout_centerHorizontal="true"
             android:gravity="center"
+            android:maxLines="4"
             android:text="@string/widget_text"
-            />
+            app:fontFamily="@font/roboto" />
+
         <TextView
             android:id="@+id/widget_a"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/widget_list"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
             android:background="@color/colorAccentDark"
             android:gravity="center"
-            android:textColor="@color/white"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/widget_list"
             android:maxLines="1"
-            android:layout_marginTop="20dp"
-            android:text="@string/no_questions_available"/>
+            android:text="@string/no_questions_available"
+            android:textColor="@color/white"
+            app:fontFamily="@font/roboto_light" />
 
         <TextView
             android:id="@+id/widget_b"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/widget_a"
+            android:layout_centerHorizontal="true"
             android:background="@color/colorAccent"
             android:gravity="center"
-            android:textColor="@color/white"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/widget_a"
             android:maxLines="1"
-            android:text="@string/no_questions_available"/>
+            android:text="@string/no_questions_available"
+            android:textColor="@color/white"
+            app:fontFamily="@font/roboto_light" />
+
         <TextView
             android:id="@+id/widget_c"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/widget_b"
+            android:layout_centerHorizontal="true"
             android:background="@color/colorAccentDark"
             android:gravity="center"
-            android:textColor="@color/white"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/widget_b"
             android:maxLines="1"
-            android:text="@string/no_questions_available"/>
+            android:text="@string/no_questions_available"
+            android:textColor="@color/white"
+            app:fontFamily="@font/roboto_light" />
+
         <TextView
             android:id="@+id/widget_d"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/widget_c"
+            android:layout_centerHorizontal="true"
             android:background="@color/colorAccent"
             android:gravity="center"
-            android:textColor="@color/white"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/widget_c"
             android:maxLines="1"
-            android:text="@string/no_questions_available"/>
+            android:text="@string/no_questions_available"
+            android:textColor="@color/white"
+            app:fontFamily="@font/roboto_light" />
 
     </RelativeLayout>
 

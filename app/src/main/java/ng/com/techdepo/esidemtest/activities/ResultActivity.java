@@ -36,6 +36,7 @@ public class ResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle(getString(R.string.all_test_result));
         activityResultBinding = DataBindingUtil.setContentView(this,R.layout.activity_result);
         setUpRecyclerView();
         fetchResults();

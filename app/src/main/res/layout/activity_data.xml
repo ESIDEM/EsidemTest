@@ -11,27 +11,29 @@
         android:id="@+id/data_warning"
         android:layout_width="wrap_content"
         android:layout_height="200dp"
-        android:text="@string/data_warning"
         android:layout_centerHorizontal="true"
-        android:gravity="center"
         android:layout_marginTop="40dp"
-        app:autoSizeTextType="uniform"
-        app:autoSizeMinTextSize="12sp"
+        android:gravity="center"
+        android:text="@string/data_warning"
         app:autoSizeMaxTextSize="30sp"
-        app:autoSizeStepGranularity="2sp"/>
+        app:autoSizeMinTextSize="12sp"
+        app:autoSizeStepGranularity="2sp"
+        app:autoSizeTextType="uniform"
+        app:fontFamily="@font/roboto" />
 
     <TextView
         android:id="@+id/data_warning2"
-        android:layout_below="@+id/data_warning"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20sp"
+        android:layout_below="@+id/data_warning"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="20sp"
         android:text="@string/have_fun"
-        app:autoSizeTextType="uniform"
-        app:autoSizeMinTextSize="12sp"
         app:autoSizeMaxTextSize="30sp"
-        app:autoSizeStepGranularity="2sp"/>
+        app:autoSizeMinTextSize="12sp"
+        app:autoSizeStepGranularity="2sp"
+        app:autoSizeTextType="uniform"
+        app:fontFamily="@font/roboto_light" />
 
 
     <Button
