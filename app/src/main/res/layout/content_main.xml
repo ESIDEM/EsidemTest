@@ -20,11 +20,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="@dimen/activity_vertical_margin"
                 android:layout_marginTop="20dp"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
                 android:gravity="center"
                 android:text="@string/welcome_sam"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                app:fontFamily="@font/roboto_light" />
 
             <LinearLayout
                 android:id="@+id/time_trial_layout"
@@ -52,7 +53,8 @@
                     android:layout_marginRight="20dp"
                     android:text="@string/time_trial"
                     android:textColor="@color/white"
-                    android:textSize="30sp" />
+                    android:textSize="30sp"
+                    app:fontFamily="@font/roboto" />
             </LinearLayout>
 
             <LinearLayout
@@ -81,7 +83,8 @@
                     android:layout_marginRight="10dp"
                     android:text="@string/classic_test"
                     android:textColor="@color/white"
-                    android:textSize="30sp" />
+                    android:textSize="30sp"
+                    app:fontFamily="@font/roboto" />
             </LinearLayout>
 
             <LinearLayout
@@ -109,7 +112,8 @@
                     android:layout_marginRight="10dp"
                     android:text="@string/test_results"
                     android:textColor="@color/white"
-                    android:textSize="30sp" />
+                    android:textSize="30sp"
+                    app:fontFamily="@font/roboto" />
             </LinearLayout>
 
             <LinearLayout
@@ -126,10 +130,11 @@
                     android:id="@+id/number_of_question"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
                     android:gravity="center"
+                    android:text="@string/_40_chemistry_questions_available"
                     android:textColor="@color/white"
-                    android:text="@string/_40_chemistry_questions_available"/>
+                    android:textSize="20sp"
+                    app:fontFamily="@font/roboto_light" />
 
             </LinearLayout>
 
