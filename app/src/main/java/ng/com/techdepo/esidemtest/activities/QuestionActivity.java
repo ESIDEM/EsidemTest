@@ -1,8 +1,11 @@
 package ng.com.techdepo.esidemtest.activities;
 
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
@@ -61,8 +64,6 @@ public class QuestionActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
 
-
-
     }
 
     @Override
@@ -75,6 +76,7 @@ public class QuestionActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
 
-        finish();
-    }
+        }
+
+
 }

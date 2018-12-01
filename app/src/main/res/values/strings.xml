@@ -105,5 +105,9 @@
     <string name="quesion_s">Question(s)</string>
     <string name="by_choosing">By choosing this option, there will be no timing and result</string>
     <string name="welcom_to_classic">Welcome to Classic Test</string>
+    <string name="are_you_sure">Are you sure you want to exit your test ?</string>
+    <string name="wait">Wait!</string>
+    <string name="yes_">Yes</string>
+    <string name="no_">No</string>
 
 </resources>

@@ -224,10 +224,10 @@ public class ClassicTestFragment extends Fragment {
         sectionText = fragmentClassicTestBinding.sectionTextView;
         netxButton = fragmentClassicTestBinding.nextButton;
         netxButton.setVisibility(View.GONE);
-        if (!SharedPreferenceUtil.subject(getActivity()).equals("english")){
-            sectionText.setVisibility(View.GONE);
-        }else {
+        if (SharedPreferenceUtil.subject(getActivity()).equals("english")||SharedPreferenceUtil.subject(getActivity()).equals("englishlit")){
             sectionText.setVisibility(View.VISIBLE);
+        }else {
+            sectionText.setVisibility(View.GONE);
         }
 
         fragmentClassicTestBinding.subjectTextView.setText(SharedPreferenceUtil.subject(getActivity()).substring(0, 1).toUpperCase() +

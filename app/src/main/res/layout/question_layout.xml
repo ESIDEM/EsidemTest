@@ -44,13 +44,18 @@
                 app:autoSizeTextType="uniform"
                 app:fontFamily="@font/roboto" />
 
+            <ScrollView
+                android:id="@+id/section_scroll"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_below="@+id/question_text_view"
+                android:layout_centerHorizontal="true"
+                android:fillViewport="true">
 
             <TextView
                 android:id="@+id/section_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
-                android:layout_below="@+id/question_text_view"
-                android:layout_centerHorizontal="true"
                 android:layout_marginStart="@dimen/activity_vertical_margin"
                 android:layout_marginEnd="@dimen/activity_vertical_margin"
                 android:layout_marginRight="@dimen/activity_vertical_margin"
@@ -62,12 +67,13 @@
                 app:autoSizeStepGranularity="2sp"
                 app:autoSizeTextType="uniform"
                 app:fontFamily="@font/roboto_light" />
+            </ScrollView>
 
             <TextView
                 android:id="@+id/option_1"
                 android:layout_width="280dp"
                 android:layout_height="50dp"
-                android:layout_below="@+id/section_text_view"
+                android:layout_below="@+id/section_scroll"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/question_text_background"
