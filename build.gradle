@@ -50,4 +50,5 @@ ext{
     testRunner ='1.0.2'
     firebase = '11.8.0'
     espresso_core = '3.0.2'
+    dagger_version = '2.16'
 }

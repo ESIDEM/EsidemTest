@@ -8,33 +8,34 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 
+import javax.inject.Inject;
+
 import ng.com.techdepo.esidemtest.api.ApiInterface;
 import ng.com.techdepo.esidemtest.api.ApiService;
 import ng.com.techdepo.esidemtest.database.AppDatabase;
+import ng.com.techdepo.esidemtest.database.DatabaseDAO;
 import ng.com.techdepo.esidemtest.database.QuestionEntity;
 import ng.com.techdepo.esidemtest.database.Result;
 import ng.com.techdepo.esidemtest.models.Question;
 import ng.com.techdepo.esidemtest.models.QuestionResponse;
 import ng.com.techdepo.esidemtest.utils.QuestionConverter;
+import ng.com.techdepo.esidemtest.utils.QuestionsApplication;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AppRepository {
 
-    ApiInterface apiInterface;
-    SharedPreferences sharedPreferences;
+    @Inject ApiInterface apiInterface;
+    @Inject SharedPreferences sharedPreferences;
+    @Inject
     AppDatabase appDatabase;
-    Executor executor;
     LiveData<List<QuestionEntity>> quetions;
     LiveData<List<Result>> results;
     List<QuestionEntity> widgetQuestions;
 
     public AppRepository(Context context) {
-
-        apiInterface = ApiService.getService();
-        sharedPreferences =context.getSharedPreferences("ng.com.techdepo.esidemtest", Context.MODE_APPEND);
-        appDatabase = AppDatabase.getInstance(context);
+        ((QuestionsApplication) context.getApplicationContext()).getAppComponent().inject(this);
         quetions = appDatabase.databaseDAO().getAllQuestions();
         results = appDatabase.resultDAO().getAllResult();
 

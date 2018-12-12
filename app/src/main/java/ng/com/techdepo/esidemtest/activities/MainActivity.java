@@ -28,6 +28,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import ng.com.techdepo.esidemtest.R;
 import ng.com.techdepo.esidemtest.database.AppDatabase;
 import ng.com.techdepo.esidemtest.database.QuestionEntity;
@@ -38,16 +40,17 @@ import ng.com.techdepo.esidemtest.models.Question;
 import ng.com.techdepo.esidemtest.utils.DeleteFromDb;
 import ng.com.techdepo.esidemtest.utils.NetworkUtil;
 import ng.com.techdepo.esidemtest.utils.QuestionConverter;
+import ng.com.techdepo.esidemtest.utils.QuestionsApplication;
 import ng.com.techdepo.esidemtest.utils.SharedPreferenceUtil;
 import ng.com.techdepo.esidemtest.utils.ToastMaker;
 import ng.com.techdepo.esidemtest.view_model.QuestionsViewModel;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,GoogleApiClient.OnConnectionFailedListener {
-    SharedPreferences prefs = null;
+    @Inject SharedPreferences prefs = null;
     ActivityMainBinding activityMainBinding;
     private ArrayList<Question> questionList = new ArrayList<>();
-    AppDatabase appDatabase;
+    @Inject AppDatabase appDatabase;
     QuestionsViewModel questionsViewModel;
     private GoogleApiClient mGoogleApiClient;
     private static final int REQUEST_INVITE = 1;
@@ -61,7 +64,7 @@ public class MainActivity extends AppCompatActivity
         activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         Toolbar toolbar = activityMainBinding.appBar.toolbar;
         setSupportActionBar(toolbar);
-        prefs = getSharedPreferences("ng.com.techdepo.esidemtest", MODE_PRIVATE);
+        ((QuestionsApplication) getApplication()).getAppComponent().inject(this);
         activityMainBinding.appBar.contentMain.nameTextView.setText(getString(R.string.welcome)+" " + prefs.getString("user_name", getString(R.string.sam_esidem)));
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
@@ -71,7 +74,7 @@ public class MainActivity extends AppCompatActivity
                 this, activityMainBinding.drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         activityMainBinding.drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-        appDatabase = AppDatabase.getInstance(this);
+      //  appDatabase = AppDatabase.getInstance(this);
         questionsViewModel = ViewModelProviders.of(this).get(QuestionsViewModel.class);
         activityMainBinding.navView.setNavigationItemSelectedListener(this);
         View header = activityMainBinding.navView.getHeaderView(0);
