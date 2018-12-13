@@ -37,6 +37,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import javax.inject.Inject;
+
 import ng.com.techdepo.esidemtest.R;
 import ng.com.techdepo.esidemtest.activities.MainActivity;
 import ng.com.techdepo.esidemtest.database.QuestionEntity;
@@ -47,8 +49,10 @@ import ng.com.techdepo.esidemtest.models.Question;
 import ng.com.techdepo.esidemtest.utils.CounterColorUtil;
 import ng.com.techdepo.esidemtest.utils.QuestionBackground;
 import ng.com.techdepo.esidemtest.utils.QuestionConverter;
+import ng.com.techdepo.esidemtest.utils.QuestionsApplication;
 import ng.com.techdepo.esidemtest.utils.SharedPreferenceUtil;
 import ng.com.techdepo.esidemtest.utils.TextViewVisibilityUtil;
+import ng.com.techdepo.esidemtest.utils.ToastMaker;
 import ng.com.techdepo.esidemtest.view_model.QuestionsViewModel;
 
 
@@ -79,7 +83,9 @@ public class QuestionFragment extends Fragment{
     QuestionLayoutBinding questionLayoutBinding;
     ResultDialogueBinding resultDialogueBinding;
     public  ArrayList<Question> questionList = new ArrayList<>();
-    QuestionsViewModel questionsViewModel;
+    @Inject QuestionsViewModel questionsViewModel;
+    @Inject SharedPreferences sharedPreferences;
+    @Inject SharedPreferenceUtil sharedPreferenceUtil;
 
 
     private enum TimerStatus {
@@ -98,7 +104,7 @@ public class QuestionFragment extends Fragment{
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-        questionsViewModel = ViewModelProviders.of(getActivity()).get(QuestionsViewModel.class);
+        ((QuestionsApplication) getActivity().getApplication()).getAppComponent().inject(this);
             dialog();
             fetchQuestions();
             }
@@ -111,7 +117,7 @@ public class QuestionFragment extends Fragment{
         // View rootView = inflater.inflate(R.layout.question_layout, container, false);
         getActivity().setTitle(getString(R.string.time_trial));
         View view = questionLayoutBinding.getRoot();
-        setTimeValue(SharedPreferenceUtil.subject(getActivity()));
+        setTimeValue(sharedPreferenceUtil.subject());
         bindViews();
 
         ClickHandler clickHandler = new ClickHandler();
@@ -132,7 +138,7 @@ public class QuestionFragment extends Fragment{
     @Override
     public void onResume() {
         super.onResume();
-        setTimeValue(SharedPreferenceUtil.subject(getActivity()));
+        setTimeValue(sharedPreferenceUtil.subject());
 
     }
 
@@ -330,16 +336,16 @@ public class QuestionFragment extends Fragment{
         resultDialogueBinding = DataBindingUtil.inflate(LayoutInflater.from(getActivity()), R.layout.result_dialogue, null, false);
         dialog.setContentView(resultDialogueBinding.getRoot());
         progressBarCircle = resultDialogueBinding.progressBarCircle;
-        progressBarCircle.setMax(SharedPreferenceUtil.numberOfQuestion(getActivity()));
+        progressBarCircle.setMax(sharedPreferenceUtil.numberOfQuestion());
         TextView correctAnswerText = resultDialogueBinding.scoreTextView;
-        correctAnswerText.setText(correctAnswers + "/"+SharedPreferenceUtil.numberOfQuestion(getActivity()));
+        correctAnswerText.setText(correctAnswers + "/"+sharedPreferenceUtil.numberOfQuestion());
         Button reTakeButton = resultDialogueBinding.reTakeButton;
         progressBarCircle.setProgress(correctAnswers);
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
-        Result result = new Result(SharedPreferenceUtil.subject(getActivity()).substring(0, 1).toUpperCase() +
-                SharedPreferenceUtil.subject(getActivity()).substring(1),
-                SharedPreferenceUtil.numberOfQuestion(getActivity()),correctAnswers,dateFormat.format(date));
+        Result result = new Result(sharedPreferenceUtil.subject().substring(0, 1).toUpperCase() +
+                sharedPreferenceUtil.subject().substring(1),
+                sharedPreferenceUtil.numberOfQuestion(),correctAnswers,dateFormat.format(date));
         questionsViewModel.insertResult(result);
         reTakeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -376,7 +382,7 @@ public class QuestionFragment extends Fragment{
     }
 
     private void checkNumberOfQuestions() {
-        if (numberOfQuestions == SharedPreferenceUtil.numberOfQuestion(getActivity())) {
+        if (numberOfQuestions == sharedPreferenceUtil.numberOfQuestion()) {
             isTestRunning = false;
             showDialog();
 
@@ -393,14 +399,15 @@ public class QuestionFragment extends Fragment{
         questionTimer = questionLayoutBinding.questionTimer;
         netxButton = questionLayoutBinding.nextButton;
         netxButton.setVisibility(View.GONE);
-        if (SharedPreferenceUtil.subject(getActivity()).equals("english")||SharedPreferenceUtil.subject(getActivity()).equals("englishlit")){
+        sectionText.setVisibility(View.GONE);
+        if (sharedPreferenceUtil.subject().equals("english")||sharedPreferenceUtil.subject().equals("englishlit")){
             sectionText.setVisibility(View.VISIBLE);
         }else {
             sectionText.setVisibility(View.GONE);
-        }
 
-        questionLayoutBinding.subjectTextView.setText(SharedPreferenceUtil.subject(getActivity()).substring(0, 1).toUpperCase() +
-                SharedPreferenceUtil.subject(getActivity()).substring(1));
+        }
+        questionLayoutBinding.subjectTextView.setText(sharedPreferenceUtil.subject().substring(0, 1).toUpperCase() +
+                sharedPreferenceUtil.subject().substring(1));
     }
 
     public class ClickHandler {
@@ -454,8 +461,8 @@ public class QuestionFragment extends Fragment{
                 .OnClickListener() {
             public void onClick(DialogInterface dialog, int item) {
 
-                SharedPreferences prefs = getActivity().getSharedPreferences("ng.com.techdepo.esidemtest", Context.MODE_APPEND);
-                 prefs.edit().putInt("number_of_question", Integer.parseInt(items[item])).apply();
+
+                 sharedPreferences.edit().putInt("number_of_question", Integer.parseInt(items[item])).apply();
             }
         }).setPositiveButton(R.string.continue_, new DialogInterface.OnClickListener() {
             @Override

@@ -5,20 +5,23 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.annotation.NonNull;
 import java.util.List;
+
+import javax.inject.Inject;
+
 import ng.com.techdepo.esidemtest.database.QuestionEntity;
 import ng.com.techdepo.esidemtest.database.Result;
 import ng.com.techdepo.esidemtest.repository.AppRepository;
+import ng.com.techdepo.esidemtest.utils.QuestionsApplication;
 
 public class QuestionsViewModel extends AndroidViewModel {
 
-
-    private AppRepository appRepository;
+@Inject
+    AppRepository appRepository;
     LiveData<List<QuestionEntity>> quetions;
     LiveData<List<Result>> results;
     public QuestionsViewModel(@NonNull Application application) {
         super(application);
-
-        appRepository = new AppRepository(getApplication());
+        ((QuestionsApplication) application.getApplicationContext()).getAppComponent().inject(this);
         appRepository.getQuestionsFromAPI();
         quetions = appRepository.getQuestionsFromDb();
         results = appRepository.getAllResult();

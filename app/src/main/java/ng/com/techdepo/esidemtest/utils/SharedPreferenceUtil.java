@@ -3,25 +3,34 @@ package ng.com.techdepo.esidemtest.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-public class SharedPreferenceUtil {
+import javax.inject.Inject;
 
-    public static String subject(Context context){
-        SharedPreferences prefs = context.getSharedPreferences("ng.com.techdepo.esidemtest", Context.MODE_APPEND);
-        String subject = prefs.getString("subject", "english");
+public class SharedPreferenceUtil {
+    Context context;
+    @Inject  SharedPreferences sharedPreferences;
+
+    public SharedPreferenceUtil(Context context) {
+        this.context = context;
+        ((QuestionsApplication) context).getAppComponent().inject(this);
+    }
+
+    public  String subject(){
+
+        String subject = sharedPreferences.getString("subject", "english");
 
         return  subject;
     }
 
-    public static int numberOfQuestion(Context context){
-        SharedPreferences prefs = context.getSharedPreferences("ng.com.techdepo.esidemtest", Context.MODE_APPEND);
-        int numberOfQuestion = prefs.getInt("number_of_question", 5);
+    public  int numberOfQuestion(){
+
+        int numberOfQuestion = sharedPreferences.getInt("number_of_question", 5);
 
         return numberOfQuestion;
     }
 
-    public static void setSubject(Context context,String subject){
-        SharedPreferences prefs = context.getSharedPreferences("ng.com.techdepo.esidemtest", Context.MODE_APPEND);
-        prefs.edit().putString("subject", subject).apply();
+    public void setSubject(String subject){
+
+        sharedPreferences.edit().putString("subject", subject).apply();
 
            }
 

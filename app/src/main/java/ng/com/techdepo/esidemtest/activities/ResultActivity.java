@@ -16,10 +16,13 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import ng.com.techdepo.esidemtest.R;
 import ng.com.techdepo.esidemtest.adapters.ResultAdapter;
 import ng.com.techdepo.esidemtest.database.Result;
 import ng.com.techdepo.esidemtest.databinding.ActivityResultBinding;
+import ng.com.techdepo.esidemtest.utils.QuestionsApplication;
 import ng.com.techdepo.esidemtest.view_model.QuestionsViewModel;
 
 
@@ -30,7 +33,7 @@ public class ResultActivity extends AppCompatActivity {
     ActivityResultBinding activityResultBinding;
     public  ArrayList<Result> resultList = new ArrayList<>();
     LinearLayoutManager layoutManager;
-    QuestionsViewModel questionsViewModel;
+    @Inject QuestionsViewModel questionsViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +41,7 @@ public class ResultActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle(getString(R.string.all_test_result));
         activityResultBinding = DataBindingUtil.setContentView(this,R.layout.activity_result);
+        ((QuestionsApplication) getApplication()).getAppComponent().inject(this);
         setUpRecyclerView();
         fetchResults();
 
@@ -71,7 +75,7 @@ public class ResultActivity extends AppCompatActivity {
     }
 
     private void fetchResults(){
-        questionsViewModel = ViewModelProviders.of(this).get(QuestionsViewModel.class);
+
         questionsViewModel.getAllResult().observe(this, new Observer<List<Result>>() {
             @Override
             public void onChanged(@Nullable List<Result> results) {

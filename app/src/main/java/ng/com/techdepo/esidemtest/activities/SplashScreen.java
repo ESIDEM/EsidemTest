@@ -8,22 +8,25 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 
+import javax.inject.Inject;
+
 import ng.com.techdepo.esidemtest.R;
+import ng.com.techdepo.esidemtest.utils.QuestionsApplication;
 
 public class SplashScreen extends AppCompatActivity {
 
     // Splash Screen Timer
     private static int SPLASH_TIME_OUT = 3000;
-    SharedPreferences prefs = null;
+    @Inject SharedPreferences prefs ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+        ((QuestionsApplication) getApplication()).getAppComponent().inject(this);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash_screen);
-        prefs = getSharedPreferences("ng.com.techdepo.esidemtest", MODE_PRIVATE);
 
         new Handler().postDelayed (new Runnable() {
             @Override
@@ -52,7 +55,7 @@ public class SplashScreen extends AppCompatActivity {
             startActivity(i);
         }
 
-        prefs.edit().putBoolean("firstrun", false).commit();
+        prefs.edit().putBoolean("firstrun", false).apply();
 
     }
 }

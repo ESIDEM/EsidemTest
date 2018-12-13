@@ -51,7 +51,8 @@ public class MainActivity extends AppCompatActivity
     ActivityMainBinding activityMainBinding;
     private ArrayList<Question> questionList = new ArrayList<>();
     @Inject AppDatabase appDatabase;
-    QuestionsViewModel questionsViewModel;
+    @Inject QuestionsViewModel questionsViewModel;
+    @Inject SharedPreferenceUtil sharedPreferenceUtil;
     private GoogleApiClient mGoogleApiClient;
     private static final int REQUEST_INVITE = 1;
     private static final String TAG = "MainActivity";
@@ -74,8 +75,8 @@ public class MainActivity extends AppCompatActivity
                 this, activityMainBinding.drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         activityMainBinding.drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-      //  appDatabase = AppDatabase.getInstance(this);
-        questionsViewModel = ViewModelProviders.of(this).get(QuestionsViewModel.class);
+
+       // questionsViewModel = ViewModelProviders.of(this).get(QuestionsViewModel.class);
         activityMainBinding.navView.setNavigationItemSelectedListener(this);
         View header = activityMainBinding.navView.getHeaderView(0);
         NavHeaderMainBinding navHeaderMainBinding = NavHeaderMainBinding.bind(header);
@@ -112,7 +113,7 @@ public class MainActivity extends AppCompatActivity
                 }
 
                 activityMainBinding.appBar.contentMain.numberOfQuestion.setText(String.valueOf(questionList.size()) + " " +
-                        SharedPreferenceUtil.subject(getApplicationContext()).substring(0, 1).toUpperCase() + SharedPreferenceUtil.subject(getApplicationContext()).substring(1) + " " + getString(R.string.questions_available));
+                        sharedPreferenceUtil.subject().substring(0, 1).toUpperCase() + sharedPreferenceUtil.subject().substring(1) + " " + getString(R.string.questions_available));
 
             }
         });
@@ -133,82 +134,82 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_english) {
-            SharedPreferenceUtil.setSubject(this, "english");
+            sharedPreferenceUtil.setSubject( "english");
             DeleteFromDb.deleteAllMovies(appDatabase);
             refreshQuestions();
             ToastMaker.makeShortToast(this, getString(R.string.english_lang) + getString(R.string.is_now_your_preferred_subject));
         } else if (id == R.id.nav_mathematics) {
-            SharedPreferenceUtil.setSubject(this, "mathematics");
+            sharedPreferenceUtil.setSubject( "mathematics");
             DeleteFromDb.deleteAllMovies(appDatabase);
             refreshQuestions();
             ToastMaker.makeShortToast(this, getString(R.string.math) + getString(R.string.is_now_your_preferred_subject));
         } else if (id == R.id.nav_chemistry) {
-            SharedPreferenceUtil.setSubject(this, "chemistry");
+            sharedPreferenceUtil.setSubject("chemistry");
             DeleteFromDb.deleteAllMovies(appDatabase);
             refreshQuestions();
             ToastMaker.makeShortToast(this, getString(R.string.chemistry) + getString(R.string.is_now_your_preferred_subject));
         } else if (id == R.id.nav_physics) {
-            SharedPreferenceUtil.setSubject(this, "physics");
+            sharedPreferenceUtil.setSubject("physics");
             DeleteFromDb.deleteAllMovies(appDatabase);
             refreshQuestions();
             ToastMaker.makeShortToast(this, getString(R.string.physics) + getString(R.string.is_now_your_preferred_subject));
         } else if (id == R.id.nav_biology) {
-            SharedPreferenceUtil.setSubject(this, "biology");
+            sharedPreferenceUtil.setSubject("biology");
             DeleteFromDb.deleteAllMovies(appDatabase);
             refreshQuestions();
             ToastMaker.makeShortToast(this, getString(R.string.biology) + getString(R.string.is_now_your_preferred_subject));
         } else if (id == R.id.nav_economics) {
-            SharedPreferenceUtil.setSubject(this, "economics");
+            sharedPreferenceUtil.setSubject("economics");
             DeleteFromDb.deleteAllMovies(appDatabase);
             refreshQuestions();
             ToastMaker.makeShortToast(this, getString(R.string.economics) + getString(R.string.is_now_your_preferred_subject));
         } else if (id == R.id.nav_accounting) {
-            SharedPreferenceUtil.setSubject(this, "accounting");
+            sharedPreferenceUtil.setSubject("accounting");
             DeleteFromDb.deleteAllMovies(appDatabase);
             refreshQuestions();
             ToastMaker.makeShortToast(this, getString(R.string.accounting) + getString(R.string.is_now_your_preferred_subject));
         } else if (id == R.id.nav_government) {
-            SharedPreferenceUtil.setSubject(this, "government");
+            sharedPreferenceUtil.setSubject("government");
             DeleteFromDb.deleteAllMovies(appDatabase);
             refreshQuestions();
             ToastMaker.makeShortToast(this, getString(R.string.government) + getString(R.string.is_now_your_preferred_subject));
         } else if (id == R.id.nav_current_affair) {
-            SharedPreferenceUtil.setSubject(this, "currentaffairs");
+            sharedPreferenceUtil.setSubject("currentaffairs");
             DeleteFromDb.deleteAllMovies(appDatabase);
             refreshQuestions();
             ToastMaker.makeShortToast(this, getString(R.string.current_affairs) + getString(R.string.is_now_your_preferred_subject));
         } else if (id == R.id.nav_commerce) {
-            SharedPreferenceUtil.setSubject(this, "commerce");
+            sharedPreferenceUtil.setSubject("commerce");
             DeleteFromDb.deleteAllMovies(appDatabase);
             refreshQuestions();
             ToastMaker.makeShortToast(this, getString(R.string.commerce) + getString(R.string.is_now_your_preferred_subject));
         } else if (id == R.id.nav_c_r_k) {
-            SharedPreferenceUtil.setSubject(this, "crk");
+            sharedPreferenceUtil.setSubject("crk");
             DeleteFromDb.deleteAllMovies(appDatabase);
             refreshQuestions();
             ToastMaker.makeShortToast(this, getString(R.string.c_r_k) + getString(R.string.is_now_your_preferred_subject));
         } else if (id == R.id.nav_history) {
-            SharedPreferenceUtil.setSubject(this, "history");
+            sharedPreferenceUtil.setSubject("history");
             DeleteFromDb.deleteAllMovies(appDatabase);
             refreshQuestions();
             ToastMaker.makeShortToast(this, getString(R.string.history) + getString(R.string.is_now_your_preferred_subject));
         } else if (id == R.id.nav_geography) {
-            SharedPreferenceUtil.setSubject(this, "geography");
+            sharedPreferenceUtil.setSubject("geography");
             DeleteFromDb.deleteAllMovies(appDatabase);
             refreshQuestions();
             ToastMaker.makeShortToast(this, getString(R.string.geography) + getString(R.string.is_now_your_preferred_subject));
         } else if (id == R.id.nav_Literature_in_eng) {
-            SharedPreferenceUtil.setSubject(this, "englishlit");
+            sharedPreferenceUtil.setSubject("englishlit");
             DeleteFromDb.deleteAllMovies(appDatabase);
             refreshQuestions();
             ToastMaker.makeShortToast(this, getString(R.string.lit_in_english) + getString(R.string.is_now_your_preferred_subject));
         } else if (id == R.id.nav_insurance) {
-            SharedPreferenceUtil.setSubject(this, "insurance");
+            sharedPreferenceUtil.setSubject("insurance");
             DeleteFromDb.deleteAllMovies(appDatabase);
             refreshQuestions();
             ToastMaker.makeShortToast(this, getString(R.string.insurance) + getString(R.string.is_now_your_preferred_subject));
         } else if (id == R.id.nav_civil_edu) {
-            SharedPreferenceUtil.setSubject(this, "civiledu");
+            sharedPreferenceUtil.setSubject("civiledu");
             DeleteFromDb.deleteAllMovies(appDatabase);
             refreshQuestions();
             ToastMaker.makeShortToast(this, getString(R.string.civil_edu) + getString(R.string.is_now_your_preferred_subject));

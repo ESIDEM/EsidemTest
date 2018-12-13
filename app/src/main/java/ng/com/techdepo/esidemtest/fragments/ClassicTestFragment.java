@@ -25,6 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import javax.inject.Inject;
+
 import ng.com.techdepo.esidemtest.activities.MainActivity;
 import ng.com.techdepo.esidemtest.database.QuestionEntity;
 import ng.com.techdepo.esidemtest.databinding.FragmentClassicTestBinding;
@@ -32,6 +34,7 @@ import ng.com.techdepo.esidemtest.R;
 import ng.com.techdepo.esidemtest.models.Question;
 import ng.com.techdepo.esidemtest.utils.QuestionBackground;
 import ng.com.techdepo.esidemtest.utils.QuestionConverter;
+import ng.com.techdepo.esidemtest.utils.QuestionsApplication;
 import ng.com.techdepo.esidemtest.utils.SharedPreferenceUtil;
 import ng.com.techdepo.esidemtest.utils.TextViewVisibilityUtil;
 import ng.com.techdepo.esidemtest.view_model.QuestionsViewModel;
@@ -55,6 +58,8 @@ public class ClassicTestFragment extends Fragment {
     Question question;
     FragmentClassicTestBinding fragmentClassicTestBinding;
     public ArrayList<Question> questionList = new ArrayList<>();
+    @Inject QuestionsViewModel questionsViewModel;
+    @Inject SharedPreferenceUtil sharedPreferenceUtil;
 
     public ClassicTestFragment() {
         // Required empty public constructor
@@ -64,6 +69,7 @@ public class ClassicTestFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
+        ((QuestionsApplication) getActivity().getApplication()).getAppComponent().inject(this);
         dialog();
          fetchQuestions();
     }
@@ -83,7 +89,7 @@ public class ClassicTestFragment extends Fragment {
     }
 
     private void fetchQuestions(){
-        QuestionsViewModel questionsViewModel = ViewModelProviders.of(getActivity()).get(QuestionsViewModel.class);
+
         questionsViewModel.getQuestions().observe(getActivity(), new Observer<List<QuestionEntity>>() {
             @Override
             public void onChanged(@Nullable List<QuestionEntity> questionEntities) {
@@ -224,14 +230,14 @@ public class ClassicTestFragment extends Fragment {
         sectionText = fragmentClassicTestBinding.sectionTextView;
         netxButton = fragmentClassicTestBinding.nextButton;
         netxButton.setVisibility(View.GONE);
-        if (SharedPreferenceUtil.subject(getActivity()).equals("english")||SharedPreferenceUtil.subject(getActivity()).equals("englishlit")){
+        if (sharedPreferenceUtil.subject().equals("english")||sharedPreferenceUtil.subject().equals("englishlit")){
             sectionText.setVisibility(View.VISIBLE);
         }else {
             sectionText.setVisibility(View.GONE);
         }
 
-        fragmentClassicTestBinding.subjectTextView.setText(SharedPreferenceUtil.subject(getActivity()).substring(0, 1).toUpperCase() +
-                SharedPreferenceUtil.subject(getActivity()).substring(1)+getString(R.string.quesion_s));
+        fragmentClassicTestBinding.subjectTextView.setText(sharedPreferenceUtil.subject().substring(0, 1).toUpperCase() +
+                sharedPreferenceUtil.subject().substring(1)+getString(R.string.quesion_s));
     }
 
 

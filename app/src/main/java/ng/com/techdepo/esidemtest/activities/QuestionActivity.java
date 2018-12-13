@@ -17,15 +17,19 @@ import androidx.appcompat.widget.Toolbar;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import ng.com.techdepo.esidemtest.R;
 import ng.com.techdepo.esidemtest.database.QuestionEntity;
 import ng.com.techdepo.esidemtest.fragments.ClassicTestFragment;
 import ng.com.techdepo.esidemtest.fragments.QuestionFragment;
+import ng.com.techdepo.esidemtest.utils.QuestionsApplication;
 import ng.com.techdepo.esidemtest.view_model.QuestionsViewModel;
 
 public class QuestionActivity extends AppCompatActivity {
 
     public static  String TEST_TYPE;
+    @Inject QuestionsViewModel questionsViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +38,12 @@ public class QuestionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_question);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        ((QuestionsApplication) getApplication()).getAppComponent().inject(this);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
         String test_type = intent.getStringExtra(TEST_TYPE);
-        QuestionsViewModel questionsViewModel = ViewModelProviders.of(this).get(QuestionsViewModel.class);
+
         questionsViewModel.getQuestions().observe(this, new Observer<List<QuestionEntity>>() {
             @Override
             public void onChanged(@Nullable List<QuestionEntity> questionEntityList) {

@@ -12,20 +12,24 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 
+import javax.inject.Inject;
+
 import ng.com.techdepo.esidemtest.databinding.NameDialogueBinding;
 import ng.com.techdepo.esidemtest.R;
+import ng.com.techdepo.esidemtest.utils.QuestionsApplication;
 
 
 public class DataActivity extends AppCompatActivity {
 
-    SharedPreferences prefs = null;
+    @Inject SharedPreferences prefs ;
     NameDialogueBinding nameDialogueBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data);
-        prefs = getSharedPreferences("ng.com.techdepo.esidemtest", MODE_PRIVATE);
+        ((QuestionsApplication) getApplication()).getAppComponent().inject(this);
+
     }
 
 
