@@ -6,14 +6,11 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executor;
 
 import javax.inject.Inject;
 
 import ng.com.techdepo.esidemtest.api.ApiInterface;
-import ng.com.techdepo.esidemtest.api.ApiService;
 import ng.com.techdepo.esidemtest.database.AppDatabase;
-import ng.com.techdepo.esidemtest.database.DatabaseDAO;
 import ng.com.techdepo.esidemtest.database.QuestionEntity;
 import ng.com.techdepo.esidemtest.database.Result;
 import ng.com.techdepo.esidemtest.models.Question;

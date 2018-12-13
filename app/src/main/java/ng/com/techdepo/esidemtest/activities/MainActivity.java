@@ -76,8 +76,7 @@ public class MainActivity extends AppCompatActivity
         activityMainBinding.drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-       // questionsViewModel = ViewModelProviders.of(this).get(QuestionsViewModel.class);
-        activityMainBinding.navView.setNavigationItemSelectedListener(this);
+         activityMainBinding.navView.setNavigationItemSelectedListener(this);
         View header = activityMainBinding.navView.getHeaderView(0);
         NavHeaderMainBinding navHeaderMainBinding = NavHeaderMainBinding.bind(header);
         navHeaderMainBinding.nameText.setText(prefs.getString("user_name", getString(R.string.sam_esidem)));
