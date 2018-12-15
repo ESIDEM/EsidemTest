@@ -3,6 +3,7 @@ package ng.com.techdepo.esidemtest.di.module
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import dagger.Module
 import javax.inject.Singleton
 import dagger.Provides
@@ -28,6 +29,7 @@ class NetWorkModule {
     fun provideRetrofit():Retrofit{
         val retrofit = Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .baseUrl(Constants.BASE_URL)
                 .build()
 

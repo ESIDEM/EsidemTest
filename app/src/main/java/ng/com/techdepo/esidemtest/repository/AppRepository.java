@@ -9,6 +9,11 @@ import java.util.concurrent.ExecutionException;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observer;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import ng.com.techdepo.esidemtest.api.ApiInterface;
 import ng.com.techdepo.esidemtest.database.AppDatabase;
 import ng.com.techdepo.esidemtest.database.QuestionEntity;
@@ -64,6 +69,7 @@ public class AppRepository {
 
     public void  getQuestionsFromAPI(){
         String subject = sharedPreferences.getString("subject", "english");
+
         apiInterface.getQuestions(subject).enqueue(new Callback<QuestionResponse>() {
             @Override
             public void onResponse(Call<QuestionResponse> call, Response<QuestionResponse> response) {

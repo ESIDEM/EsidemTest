@@ -6,8 +6,7 @@ import android.app.Application
 
 import ng.com.techdepo.esidemtest.di.components.AppComponent
 import ng.com.techdepo.esidemtest.di.components.DaggerAppComponent
-import ng.com.techdepo.esidemtest.di.module.AppModule
-import ng.com.techdepo.esidemtest.di.module.NetWorkModule
+import ng.com.techdepo.esidemtest.di.module.*
 
 
 class QuestionsApplication : Application(){
@@ -16,12 +15,14 @@ class QuestionsApplication : Application(){
 
     override fun onCreate() {
         super.onCreate()
-
-       appComponent = DaggerAppComponent.builder()
-               .appModule(AppModule(this)).netWorkModule(NetWorkModule()).build()
-    }
+        appComponent = DaggerAppComponent.builder()
+                .appModule(AppModule(this)).netWorkModule(NetWorkModule())
+                .dataBaseModule(DataBaseModule()).viewModelModule(ViewModelModule()).
+                        sharedPrefferenceUtilModule(SharedPrefferenceUtilModule()).build()
+        }
 
     fun appComponent():AppComponent{
-        return appComponent
+
+       return appComponent
     }
 }
