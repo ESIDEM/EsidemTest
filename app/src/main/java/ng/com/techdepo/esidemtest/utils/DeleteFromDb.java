@@ -1,27 +1,42 @@
 package ng.com.techdepo.esidemtest.utils;
 
-import android.os.AsyncTask;
 
+import io.reactivex.Completable;
+import io.reactivex.CompletableObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
+import io.reactivex.schedulers.Schedulers;
 import ng.com.techdepo.esidemtest.database.AppDatabase;
 
-public class DeleteFromDb extends AsyncTask<Void,Void,Void> {
+public class DeleteFromDb  {
 
-    AppDatabase appDatabase;
 
-    public DeleteFromDb(AppDatabase appDatabase) {
-        this.appDatabase = appDatabase;
-    }
+    public static void deleteAllMovies(final AppDatabase appDatabase){
 
-    @Override
-    protected Void doInBackground(Void... voids) {
+        Completable.fromAction(new Action() {
+            @Override
+            public void run() throws Exception {
+                appDatabase.databaseDAO().deleteAllQuestions();
+            }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new CompletableObserver() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
-        appDatabase.databaseDAO().deleteAllQuestions();
-        return null;
-    }
+                    }
 
-    public static void deleteAllMovies(AppDatabase appDatabase){
+                    @Override
+                    public void onComplete() {
 
-        DeleteFromDb deleteFromDb = new DeleteFromDb(appDatabase);
-        deleteFromDb.execute();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+                });
+
     }
 }
