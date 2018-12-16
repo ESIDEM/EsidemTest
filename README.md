@@ -9,6 +9,8 @@ and POST-UTME.
   * Java
   * XML
   * [Maven](https://maven.apache.org/) - Dependency Management
+  * [RXJava](https://github.com/ReactiveX/RxJava) - BackgroundTask
+  * [Dagger2](https://github.com/google/dagger) - Dependency Injection
   * [ROOM](https://developer.android.com/topic/libraries/architecture/room) - Local data Persistence 
   * [Firebase](https://console.firebase.google.com/) - FCM
   * [Data Binding](https://developer.android.com/topic/libraries/data-binding/) - Data Binding
