@@ -7,6 +7,9 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import io.reactivex.Flowable
+
+
 
 @Dao
 interface DatabaseDAO {
@@ -15,7 +18,7 @@ interface DatabaseDAO {
     val allQuestions: LiveData<List<QuestionEntity>>
 
     @get:Query("SELECT * FROM questions")
-    val widgetQuestions: List<QuestionEntity>
+    val widgetQuestions: Flowable<List<QuestionEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun inSertQuestions(questionEntity: QuestionEntity)

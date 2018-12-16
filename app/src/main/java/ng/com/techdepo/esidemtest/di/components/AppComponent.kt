@@ -8,6 +8,7 @@ import ng.com.techdepo.esidemtest.fragments.QuestionFragment
 import ng.com.techdepo.esidemtest.repository.AppRepository
 import ng.com.techdepo.esidemtest.utils.SharedPreferenceUtil
 import ng.com.techdepo.esidemtest.view_model.QuestionsViewModel
+import ng.com.techdepo.esidemtest.widget.AppWidget
 import javax.inject.Singleton
 
 @Singleton
@@ -25,4 +26,5 @@ interface AppComponent {
     fun inject(dataActivity: DataActivity)
     fun inject(splashScreen: SplashScreen)
     fun inject(sharedPreferenceUtil: SharedPreferenceUtil)
+    fun inject(updateService: AppWidget.UpdateService)
 }

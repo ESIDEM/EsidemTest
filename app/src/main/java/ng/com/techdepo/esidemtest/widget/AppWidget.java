@@ -13,10 +13,13 @@ import android.widget.RemoteViews;
 import java.util.List;
 import java.util.Random;
 
+import javax.inject.Inject;
+
 import ng.com.techdepo.esidemtest.R;
 import ng.com.techdepo.esidemtest.activities.MainActivity;
 import ng.com.techdepo.esidemtest.database.QuestionEntity;
 import ng.com.techdepo.esidemtest.repository.AppRepository;
+import ng.com.techdepo.esidemtest.utils.QuestionsApplication;
 import ng.com.techdepo.esidemtest.utils.ToastMaker;
 
 public class AppWidget extends AppWidgetProvider {
@@ -33,7 +36,15 @@ public class AppWidget extends AppWidgetProvider {
 
     public static class UpdateService extends Service
     {
-        private AppRepository appRepository;
+        @Override
+        public void onCreate() {
+            super.onCreate();
+
+            ((QuestionsApplication) this.getApplicationContext()).getAppComponent().inject(this);
+        }
+
+        @Inject
+        AppRepository appRepository;
         List<QuestionEntity> questionEntities;
         QuestionEntity questionEntity;
 
@@ -52,7 +63,7 @@ public class AppWidget extends AppWidgetProvider {
 
         public RemoteViews buildUpdate(Context ctx)
         {
-            appRepository = new AppRepository(ctx);
+         //   appRepository = new AppRepository(ctx);
             Random random = new Random();
 
             questionEntities = appRepository.getWidgetQuestions();

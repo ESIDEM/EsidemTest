@@ -1,6 +1,8 @@
 package ng.com.techdepo.esidemtest.repository;
 
 import androidx.lifecycle.LiveData;
+
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -16,6 +18,7 @@ import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import ng.com.techdepo.esidemtest.api.ApiInterface;
 import ng.com.techdepo.esidemtest.database.AppDatabase;
@@ -39,10 +42,22 @@ public class AppRepository {
     LiveData<List<Result>> results;
     List<QuestionEntity> widgetQuestions;
 
+
+    @SuppressLint("CheckResult")
     public AppRepository(Context context) {
         ((QuestionsApplication) context.getApplicationContext()).getAppComponent().inject(this);
         quetions = appDatabase.databaseDAO().getAllQuestions();
         results = appDatabase.resultDAO().getAllResult();
+        appDatabase.databaseDAO().getWidgetQuestions()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<List<QuestionEntity>>() {
+                    @Override
+                    public void accept(List<QuestionEntity> questionEntities) throws Exception {
+                        widgetQuestions = questionEntities;
+                    }
+                });
+
+
 
     }
 
@@ -52,34 +67,12 @@ public class AppRepository {
         return quetions;
     }
 
+
     public  List<QuestionEntity> getWidgetQuestions(){
 
-        Completable.fromAction(new Action() {
-            @Override
-            public void run() throws Exception {
-                widgetQuestions = appDatabase.databaseDAO().getWidgetQuestions();
-            }
-        }).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new CompletableObserver() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-                });
-
-        return  widgetQuestions;
+        return widgetQuestions;
     }
+
 
 
 
